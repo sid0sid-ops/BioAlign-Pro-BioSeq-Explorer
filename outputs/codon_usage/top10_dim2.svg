@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="860" height="420" viewBox="0 0 860 420">
+<rect width="100%" height="100%" fill="#ffffff"/>
+<text x="24" y="24" font-family="Arial" font-size="16" font-weight="700" fill="#111827">Top Dim2 codon correlations</text>
+<line x1="54" y1="36" x2="54" y2="366" stroke="#cbd5e1"/>
+<line x1="54" y1="366" x2="840" y2="366" stroke="#cbd5e1"/>
+<rect x="64.95" y="36.00" width="56.30" height="330.00" fill="#334155"><title>CTG: 0.2447</title></rect>
+<rect x="143.15" y="36.00" width="56.30" height="330.00" fill="#334155"><title>AGC: 0.2447</title></rect>
+<rect x="221.35" y="58.47" width="56.30" height="307.53" fill="#334155"><title>GGC: 0.2280</title></rect>
+<rect x="299.55" y="61.72" width="56.30" height="304.28" fill="#334155"><title>ACC: 0.2256</title></rect>
+<rect x="377.75" y="68.01" width="56.30" height="297.99" fill="#334155"><title>CCG: 0.2209</title></rect>
+<rect x="455.95" y="68.01" width="56.30" height="297.99" fill="#334155"><title>GTG: 0.2209</title></rect>
+<rect x="534.15" y="68.01" width="56.30" height="297.99" fill="#334155"><title>GCG: 0.2209</title></rect>
+<rect x="612.35" y="85.74" width="56.30" height="280.26" fill="#334155"><title>CGT: 0.2078</title></rect>
+<rect x="690.55" y="119.65" width="56.30" height="246.35" fill="#334155"><title>ATT: 0.1827</title></rect>
+<rect x="768.75" y="127.52" width="56.30" height="238.48" fill="#334155"><title>TTT: 0.1768</title></rect>
+<text x="93.10" y="382" transform="rotate(60 93.10 382)" font-size="10" fill="#475569">CTG</text>
+<text x="171.30" y="382" transform="rotate(60 171.30 382)" font-size="10" fill="#475569">AGC</text>
+<text x="249.50" y="382" transform="rotate(60 249.50 382)" font-size="10" fill="#475569">GGC</text>
+<text x="327.70" y="382" transform="rotate(60 327.70 382)" font-size="10" fill="#475569">ACC</text>
+<text x="405.90" y="382" transform="rotate(60 405.90 382)" font-size="10" fill="#475569">CCG</text>
+<text x="484.10" y="382" transform="rotate(60 484.10 382)" font-size="10" fill="#475569">GTG</text>
+<text x="562.30" y="382" transform="rotate(60 562.30 382)" font-size="10" fill="#475569">GCG</text>
+<text x="640.50" y="382" transform="rotate(60 640.50 382)" font-size="10" fill="#475569">CGT</text>
+<text x="718.70" y="382" transform="rotate(60 718.70 382)" font-size="10" fill="#475569">ATT</text>
+<text x="796.90" y="382" transform="rotate(60 796.90 382)" font-size="10" fill="#475569">TTT</text>
+</svg>

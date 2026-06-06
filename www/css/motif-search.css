@@ -1,0 +1,2652 @@
+/* =====================================================================
+   MOTIF SEARCH TOOL — SCOPED STYLESHEET
+   Scope: .motif-search-tool
+   Do NOT touch: codon_usage, global app, or custom.css
+   ===================================================================== */
+
+/* ── 0. FONT IMPORT ── */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap');
+
+/* ── 1. ROOT & BOX-SIZING ── */
+.motif-search-tool {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background: #F6F8FB;
+  color: #0F172A;
+  box-sizing: border-box;
+  min-height: 100%;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+.motif-search-tool *,
+.motif-search-tool *::before,
+.motif-search-tool *::after {
+  box-sizing: border-box !important;
+}
+
+/* ── 2. PAGE LAYOUT ── */
+.motif-page {
+  max-width: 1800px;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 100%;
+}
+
+/* Main two-column grid (settings closed: full width) */
+.motif-main-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0;
+  align-items: start;
+}
+
+.motif-content-area {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding: 8px 24px 40px;
+  background: #F6F8FB;
+  width: 100%;
+}
+
+/* ── 3. HEADER CARD ── */
+.motif-header {
+  background: #FFFFFF;
+  border: 1px solid #DDE5F0;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 20px;
+  margin-bottom: 18px;
+  width: 100%;
+  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.04);
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.motif-header-left {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+  min-width: 200px;
+}
+
+.motif-title {
+  font-size: clamp(18px, 2.2vw, 24px);
+  font-weight: 800;
+  color: #0F172A;
+  margin: 0;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+
+.motif-subtitle {
+  font-size: clamp(12px, 1.4vw, 14px);
+  color: #64748B;
+  margin: 0;
+}
+
+.motif-header-badges {
+  display: flex;
+  gap: 6px;
+  margin-top: 6px;
+  flex-wrap: wrap;
+}
+
+.motif-header-badge {
+  font-size: 10.5px;
+  font-weight: 600;
+  background: #F1F5F9;
+  color: #475569;
+  border: 1px solid #E2E8F0;
+  border-radius: 6px;
+  padding: 1.5px 6px;
+  font-family: 'JetBrains Mono', monospace;
+  white-space: nowrap;
+}
+
+.motif-header-badge.motif-success {
+  background: #ECFDF5;
+  color: #047857;
+  border-color: #A7F3D0;
+}
+
+.motif-header-badge.motif-warning {
+  background: #FFFBEB;
+  color: #B45309;
+  border-color: #FDE68A;
+}
+
+.motif-header-badge.motif-danger {
+  background: #FEF2F2;
+  color: #B91C1C;
+  border-color: #FCA5A5;
+}
+
+.motif-header-badge.motif-info {
+  background: #EFF6FF;
+  color: #1D4ED8;
+  border-color: #BFDBFE;
+}
+
+.motif-header-badge.motif-purple {
+  background: #F5F3FF;
+  color: #6D28D9;
+  border-color: #DDD6FE;
+}
+
+/* ── 4. HEADER RIGHT CONTROLS ── */
+.motif-header-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+/* Run Search button */
+.motif-btn-run {
+  height: 42px;
+  padding: 0 18px;
+  background: #2563EB;
+  color: #FFFFFF;
+  border: none;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  white-space: nowrap;
+  box-shadow: 0 4px 10px rgba(37, 99, 235, 0.12);
+}
+
+.motif-btn-run:hover {
+  background: #1D4ED8;
+  box-shadow: 0 6px 14px rgba(37, 99, 235, 0.2);
+}
+
+.motif-btn-run:active {
+  transform: translateY(0);
+}
+
+/* State: stale → active blue */
+.motif-btn-run.motif-btn-stale {
+  background: #2563EB;
+  animation: motif-pulse-blue 2.5s ease-in-out infinite;
+}
+
+/* State: up-to-date → success gray (matching Codon) */
+.motif-btn-run.motif-btn-uptodate {
+  background: #E2E8F0 !important;
+  color: #475569 !important;
+  border: 1px solid #CBD5E1 !important;
+  box-shadow: none !important;
+  cursor: default !important;
+}
+
+.motif-btn-run.motif-btn-uptodate:hover {
+  background: #E2E8F0 !important;
+  color: #475569 !important;
+}
+
+/* State: loading */
+.motif-btn-run.motif-btn-loading {
+  background: #94A3B8;
+  cursor: not-allowed;
+  animation: none;
+}
+
+@keyframes motif-pulse-blue {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(37, 99, 235, 0); }
+  50% { box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.2); }
+}
+
+/* Gear settings button */
+.motif-btn-settings {
+  height: 42px;
+  width: 42px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #FFFFFF;
+  border: 1px solid #CBD5E1;
+  border-radius: 12px;
+  color: #475569;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  padding: 0 !important;
+  flex-shrink: 0;
+}
+
+.motif-btn-settings svg {
+  width: 16px !important;
+  height: 16px !important;
+  fill: #475569 !important;
+  display: block !important;
+}
+
+.motif-btn-settings:hover {
+  background: #F1F5F9;
+  color: #0F172A;
+}
+
+/* ── 5. PILL TABS (DELEGATED TO STANDARD BSLIB / CUSTOM.CSS) ── */
+/* Custom button tab bar rules removed. bslib nav pills automatically style via custom.css. */
+
+/* ── 6. COMPACT METRIC CARDS ── */
+.motif-metric-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 150px), 1fr));
+  gap: clamp(10px, 1.5vw, 16px);
+  margin-bottom: 18px;
+  width: 100%;
+}
+
+.motif-metric-grid.cols-4 {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 180px), 1fr));
+}
+
+.motif-metric-card {
+  min-height: 86px;
+  height: auto;
+  background: #FFFFFF;
+  border: 1px solid #DDE5F0;
+  border-radius: 14px;
+  padding: 10px 12px;
+  box-shadow: 0 3px 8px rgba(15, 23, 42, 0.01);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: left;
+  border-left: 3px solid #CBD5E1;
+  gap: 6px;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.motif-metric-card:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 14px rgba(15, 23, 42, 0.03);
+}
+
+.motif-metric-card.neutral {
+  border-left-color: #64748B;
+}
+
+.motif-metric-card.good {
+  border-left-color: #10B981;
+}
+
+.motif-metric-card.info {
+  border-left-color: #3B82F6;
+}
+
+.motif-metric-card.danger {
+  border-left-color: #EF4444;
+}
+
+.motif-metric-card.purple {
+  border-left-color: #8B5CF6;
+}
+
+.motif-metric-card.warn {
+  border-left-color: #F59E0B;
+}
+
+.motif-metric-label {
+  font-size: clamp(11px, 1.2vw, 13px);
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #64748B;
+  letter-spacing: 0.04em;
+  margin: 0;
+}
+
+.motif-metric-value {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: #0F172A;
+  margin: 2px 0;
+  line-height: 1.1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.motif-metric-badge {
+  font-size: 9.5px;
+  font-weight: 600;
+  color: #64748B;
+  background: #F1F5F9;
+  padding: 1.5px 5px;
+  border-radius: 4px;
+  width: fit-content;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+/* ── 7. CHART / TABLE CARDS ── */
+.motif-chart-card {
+  background: #FFFFFF;
+  border: 1px solid #DDE5F0;
+  border-radius: 18px;
+  padding: clamp(14px, 2vw, 24px);
+  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.04);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 18px;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  overflow: visible;
+}
+
+.motif-chart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  border-bottom: 1px solid #F8FAFC;
+  padding-bottom: 8px;
+  margin-bottom: 8px;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.motif-chart-title {
+  font-size: clamp(14px, 1.6vw, 18px);
+  font-weight: 800;
+  color: #0F172A;
+  margin: 0;
+}
+
+.motif-chart-subtitle {
+  font-size: 0.74rem;
+  color: #64748B;
+  margin: 1px 0 0 0;
+}
+
+.motif-chart-body {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  min-height: 320px;
+  height: clamp(380px, 38vh, 520px);
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  overflow: visible;
+  position: relative;
+  box-sizing: border-box;
+}
+
+.motif-chart-body--structure {
+  min-height: clamp(360px, 38vw, 520px) !important;
+  height: auto !important;
+}
+
+.motif-chart-body--donut {
+  min-height: clamp(360px, 34vw, 500px) !important;
+  height: auto !important;
+}
+
+.motif-chart-body--heatmap {
+  min-height: clamp(380px, 42vw, 560px) !important;
+  height: auto !important;
+}
+
+.motif-chart-body-wide {
+  min-height: 320px;
+  height: clamp(400px, 42vh, 580px);
+}
+
+.motif-chart-body-compact {
+  min-height: 300px;
+  height: clamp(320px, 32vh, 480px);
+}
+
+/* Force widgets/plots to occupy 100% and align center */
+.motif-chart-body .shiny-plot-output,
+.motif-chart-body .plotly,
+.motif-chart-body .js-plotly-plot,
+.motif-chart-body .shiny-bound-output,
+.motif-chart-body .html-widget,
+.motif-chart-body .echarts4r,
+.motif-chart-body .echarts-container {
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+  height: 100% !important;
+}
+
+.motif-chart-body canvas,
+.motif-chart-body img {
+  max-width: 100% !important;
+  height: auto !important;
+}
+
+.motif-wide-card {
+  width: 100%;
+  max-width: 100%;
+}
+
+.motif-logo-card {
+  max-width: 100%;
+}
+
+.motif-sequence-card {
+  max-width: 100%;
+}
+
+.motif-track-card {
+  max-width: 100%;
+}
+
+.motif-table-card {
+  background: #FFFFFF;
+  border: 1px solid #DDE5F0;
+  border-radius: 18px;
+  padding: clamp(14px, 2vw, 24px);
+  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.04);
+  overflow: hidden;
+  margin-bottom: 18px;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+}
+
+.motif-table-header {
+  border-bottom: 1px solid #F1F5F9;
+  padding-bottom: 10px;
+  margin-bottom: 14px;
+}
+
+.motif-table-title {
+  font-size: clamp(14px, 1.6vw, 18px);
+  font-weight: 800;
+  color: #0F172A;
+  margin: 0;
+}
+
+.motif-table-subtitle {
+  font-size: 0.76rem;
+  color: #64748B;
+  margin: 1px 0 0 0;
+}
+
+.motif-table-body {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto !important;
+  -webkit-overflow-scrolling: touch;
+}
+
+.motif-visual-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 16px;
+  width: 100%;
+}
+
+.motif-table-card .dataTables_wrapper {
+  width: 100%;
+  overflow: visible;
+}
+
+.motif-table-card table.dataTable {
+  width: 100% !important;
+}
+
+.motif-table-card .dataTables_scrollBody {
+  height: auto !important;
+  max-height: 420px;
+  overflow-y: auto !important;
+}
+
+.motif-table-card .dataTables_wrapper .dataTables_paginate {
+  margin-top: 10px;
+}
+
+/* Custom Strand and Motif Badges for DT */
+.motif-strand-badge {
+  padding: 3px 8px;
+  border-radius: 6px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  display: inline-block;
+  text-align: center;
+}
+.motif-strand-badge.positive {
+  background: #ECFDF5;
+  color: #047857;
+  border: 1px solid #A7F3D0;
+}
+.motif-strand-badge.negative {
+  background: #FEF2F2;
+  color: #B91C1C;
+  border: 1px solid #FCA5A5;
+}
+.motif-name-badge {
+  background: #EFF6FF;
+  color: #1D4ED8;
+  border: 1px solid #BFDBFE;
+  padding: 2.5px 7px;
+  border-radius: 6px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  font-weight: 600;
+  display: inline-block;
+}
+.motif-method-text {
+  font-size: 0.78rem;
+  color: #475569;
+  cursor: help;
+}
+
+/* ── 8. LOGO CARD ── */
+.motif-logo-card {
+  background: #FFFFFF;
+  border: 1px solid #DDE5F0;
+  border-radius: 18px;
+  padding: 16px 18px;
+  min-height: 380px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.04);
+}
+
+.motif-logo-inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  overflow: hidden;
+}
+
+/* ── 9. GENOME TRACK CARD ── */
+.motif-track-card {
+  background: #FFFFFF;
+  border: 1px solid #DDE5F0;
+  border-radius: 18px;
+  padding: 14px 18px;
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.04);
+}
+
+/* ── 10. SEQUENCE VIEWER ── */
+.motif-sequence-viewer {
+  background: #FAFBFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 12px;
+  padding: 12px 14px;
+  max-height: 260px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+  line-height: 1.65;
+  color: #334155;
+  word-break: break-all;
+  box-sizing: border-box;
+}
+
+.motif-seq-row {
+  display: flex;
+  align-items: flex-start;
+  width: 100%;
+  box-sizing: border-box;
+  line-height: 1.6;
+}
+
+.motif-seq-num {
+  flex: 0 0 55px;
+  width: 55px;
+  min-width: 55px;
+  color: #9ca3af;
+  margin-right: 16px;
+  text-align: right;
+  font-weight: 500;
+  user-select: none;
+  box-sizing: border-box;
+}
+
+.motif-seq-bases {
+  flex: 1 1 0%;
+  min-width: 0;
+  word-break: break-all;
+  letter-spacing: 1px;
+  box-sizing: border-box;
+}
+
+/* ── 11. SETTINGS PANEL ── */
+/* Base rules, responsiveness handles show/hide */
+
+.motif-settings-header {
+  padding: 16px 20px;
+  border-bottom: 1px solid #F1F5F9;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+}
+
+.motif-settings-title {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: #0F172A;
+  margin: 0;
+}
+
+.motif-settings-subtitle {
+  font-size: 0.74rem;
+  color: #64748B;
+  margin: 2px 0 0 0;
+}
+
+.motif-btn-close {
+  background: transparent;
+  border: none;
+  font-size: 1.1rem;
+  color: #64748B;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.motif-btn-close:hover {
+  color: #0F172A;
+}
+
+.motif-settings-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.motif-settings-body::-webkit-scrollbar {
+  width: 4px;
+}
+
+.motif-settings-body::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.motif-settings-body::-webkit-scrollbar-thumb {
+  background: #CBD5E1;
+  border-radius: 4px;
+}
+
+/* Settings section divider titles */
+.motif-settings-section-title {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #64748B;
+  margin: 18px 0 10px 0;
+  border-bottom: 1px solid #F1F5F9;
+  padding-bottom: 4px;
+}
+
+.motif-settings-section-title:first-of-type {
+  margin-top: 4px;
+}
+
+/* Individual control card matching Codon exactly */
+.motif-control-row {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 14px;
+  background: #F8FAFC;
+  border: 1px solid #F1F5F9;
+  border-radius: 10px;
+  padding: 10px 12px;
+}
+
+.motif-control-row-label {
+  font-size: clamp(11px, 1.2vw, 13px);
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #64748B;
+  margin-bottom: 6px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Input elements inside settings card */
+.motif-control-row .form-control,
+.motif-control-row select,
+.motif-control-row textarea,
+.motif-control-row input[type="number"],
+.motif-control-row input[type="text"] {
+  height: 38px !important;
+  border-radius: 8px !important;
+  border: 1px solid #CBD5E1 !important;
+  font-size: 12.5px !important;
+  padding: 0 10px !important;
+  background: #FFFFFF !important;
+  color: #0F172A !important;
+  transition: border-color 0.12s;
+  width: 100% !important;
+}
+
+.motif-control-row textarea {
+  height: auto !important;
+  padding: 8px 10px !important;
+}
+
+.motif-control-row .form-control:focus,
+.motif-control-row select:focus,
+.motif-control-row textarea:focus,
+.motif-control-row input:focus {
+  border-color: #2563EB !important;
+  outline: none !important;
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.1) !important;
+}
+
+/* Re-styled clean selectize matching Codon native select look */
+.motif-control-row .selectize-control {
+  width: 100% !important;
+  padding: 0 !important;
+  border: none !important;
+  background: transparent !important;
+}
+
+.motif-control-row .selectize-control .selectize-input {
+  height: 38px !important;
+  border-radius: 8px !important;
+  border: 1px solid #CBD5E1 !important;
+  font-size: 12.5px !important;
+  padding: 0 10px !important;
+  background: #FFFFFF !important;
+  color: #0F172A !important;
+  width: 100% !important;
+  box-shadow: none !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  position: relative !important;
+  cursor: pointer !important;
+}
+
+.motif-control-row .selectize-control.focus .selectize-input {
+  border-color: #2563EB !important;
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.1) !important;
+}
+
+.motif-control-row .selectize-control .selectize-input .item {
+  color: #0F172A !important;
+  font-size: 12.5px !important;
+  line-height: 1.2 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* Completely clean up and hide the inner selectize text input */
+.motif-control-row .selectize-control .selectize-input input {
+  height: auto !important;
+  border: none !important;
+  background: transparent !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  box-shadow: none !important;
+  width: 0px !important;
+  display: none !important;
+  visibility: hidden !important;
+  position: absolute !important;
+}
+
+/* Beautiful custom down arrow mimicking native dropdown */
+.motif-control-row .selectize-control.single .selectize-input::after {
+  content: " " !important;
+  display: block !important;
+  position: absolute !important;
+  top: 50% !important;
+  right: 12px !important;
+  margin-top: -2px !important;
+  width: 0 !important;
+  height: 0 !important;
+  border-style: solid !important;
+  border-width: 5px 4px 0 4px !important;
+  border-color: #64748B transparent transparent transparent !important;
+  pointer-events: none !important;
+}
+
+/* Checkbox in settings control row */
+.motif-control-row .checkbox,
+.motif-control-row .shiny-input-checkboxgroup {
+  margin: 0;
+}
+
+.motif-control-row .checkbox label {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: #334155;
+  text-transform: none;
+  letter-spacing: 0;
+  cursor: pointer;
+}
+
+/* Sliders inside control rows */
+.motif-control-row .irs {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.78rem;
+}
+
+.motif-control-row .irs--shiny .irs-bar {
+  background: #2563EB;
+  border-top-color: #2563EB;
+  border-bottom-color: #2563EB;
+}
+
+.motif-control-row .irs--shiny .irs-handle {
+  background: #2563EB;
+  border-color: #2563EB;
+}
+
+.motif-control-row .irs--shiny .irs-from,
+.motif-control-row .irs--shiny .irs-to,
+.motif-control-row .irs--shiny .irs-single {
+  background: #2563EB;
+}
+
+/* Run action buttons inside settings */
+.motif-settings-run-btn {
+  width: 100%;
+  height: 42px;
+  background: #2563EB;
+  color: #FFFFFF;
+  border: none;
+  border-radius: 12px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.15s;
+  margin-top: 6px;
+  box-shadow: 0 4px 10px rgba(37, 99, 235, 0.12);
+}
+
+.motif-settings-run-btn:hover {
+  background: #1D4ED8;
+  box-shadow: 0 6px 14px rgba(37, 99, 235, 0.2);
+}
+
+/* ── 12. SHIMMERING SKELETON LOADERS ── */
+@keyframes motif-shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.motif-skeleton {
+  pointer-events: none !important;
+  user-select: none !important;
+}
+
+.motif-skeleton-line {
+  background: linear-gradient(90deg, #E2E8F0 25%, #EDF2F7 50%, #E2E8F0 75%);
+  background-size: 200% 100%;
+  animation: motif-shimmer 1.5s infinite linear;
+  border-radius: 4px;
+}
+
+.motif-skeleton-body {
+  background: linear-gradient(90deg, #F8FAFC 25%, #FFFFFF 50%, #F8FAFC 75%);
+  background-size: 200% 100%;
+  animation: motif-shimmer 1.5s infinite linear;
+  border-radius: 8px;
+  width: 100%;
+}
+
+.motif-skeleton-table-body {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px;
+  width: 100%;
+}
+
+.motif-skeleton-table-row {
+  height: 20px;
+  background: linear-gradient(90deg, #E2E8F0 25%, #EDF2F7 50%, #E2E8F0 75%);
+  background-size: 200% 100%;
+  animation: motif-shimmer 1.5s infinite linear;
+  border-radius: 4px;
+  width: 100%;
+}
+
+.motif-skeleton-table-row.header-row {
+  height: 28px;
+  background: #E2E8F0;
+  animation: none;
+  border-radius: 6px;
+}
+
+.motif-skeleton-table-row.filter-row {
+  height: 36px;
+  background: #F1F5F9;
+  animation: none;
+  width: 60%;
+  margin-bottom: 12px;
+  border-radius: 6px;
+}
+
+/* Skeletons detail configurations */
+.motif-metric-card.motif-skeleton {
+  border-left-color: #E2E8F0 !important;
+  background: #FFFFFF !important;
+}
+
+.motif-skeleton .label-skeleton {
+  width: 50%;
+  height: 12px;
+}
+
+.motif-skeleton .value-skeleton {
+  width: 70%;
+  height: 24px;
+  margin-top: 6px;
+}
+
+.motif-skeleton .badge-skeleton {
+  width: 45%;
+  height: 14px;
+  margin-top: 8px;
+}
+
+.motif-skeleton .title-skeleton {
+  width: 35%;
+  height: 16px;
+}
+
+.motif-skeleton .subtitle-skeleton {
+  width: 55%;
+  height: 12px;
+  margin-top: 5px;
+}
+
+/* ── 13. EMPTY STATES ── */
+.motif-empty-state-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 10px;
+  width: 100%;
+}
+
+.motif-empty-state-card {
+  background: #FFFFFF;
+  border: 1px solid #DDE5F0;
+  border-radius: 20px;
+  padding: 40px 30px;
+  text-align: center;
+  max-width: 480px;
+  width: 100%;
+  box-shadow: 0 10px 25px rgba(15, 23, 42, 0.03);
+}
+
+.motif-empty-state-icon {
+  font-size: 2.5rem;
+  color: #3B82F6;
+  margin-bottom: 16px;
+  display: block;
+  line-height: 1;
+}
+
+.motif-empty-state-title {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #0F172A;
+  margin: 0 0 8px 0;
+}
+
+.motif-empty-state-subtext {
+  font-size: 0.82rem;
+  color: #64748B;
+  margin: 0 0 16px 0;
+  line-height: 1.5;
+}
+
+.motif-empty-state-hint {
+  font-size: 11px;
+  font-weight: 600;
+  color: #94A3B8;
+  background: #F8FAFC;
+  padding: 6px 12px;
+  border-radius: 8px;
+  display: inline-block;
+}
+
+.motif-warning-card {
+  background: #FFFBEB;
+  border: 1px solid #FDE68A;
+  border-radius: 14px;
+  padding: 14px 18px;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 0.82rem;
+  color: #92400E;
+}
+
+.motif-info-card {
+  background: #EFF6FF;
+  border: 1px solid #BFDBFE;
+  border-radius: 14px;
+  padding: 14px 18px;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 0.82rem;
+  color: #1E40AF;
+}
+
+.motif-coming-soon-card {
+  background: #F8FAFC;
+  border: 1.5px dashed #CBD5E1;
+  border-radius: 14px;
+  padding: 22px;
+  text-align: center;
+  color: #94A3B8;
+  font-size: 0.82rem;
+  font-weight: 500;
+}
+
+/* ── 14. CONSOLE LOG PANEL ── */
+.motif-console-card {
+  background: #FFFFFF;
+  border: 1px solid #DDE5F0;
+  border-radius: 16px;
+  overflow: hidden;
+  margin-top: 14px;
+}
+
+.motif-console-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px;
+  background: #F8FAFC;
+  border-bottom: 1px solid #EEF2F7;
+  cursor: pointer;
+  user-select: none;
+}
+
+.motif-console-title {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #475569;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.motif-console-toggle-btn {
+  background: none;
+  border: none;
+  color: #94A3B8;
+  font-size: 0.73rem;
+  cursor: pointer;
+  font-weight: 600;
+  padding: 2px 6px;
+}
+
+.motif-console-body {
+  height: 180px;
+  overflow-y: auto;
+  background: #F8FAFC;
+  color: #334155;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.76rem;
+  padding: 10px 14px;
+  white-space: pre-wrap;
+  border-top: 1px solid #EEF2F7;
+}
+
+/* ── 15. VIZ SUB-TABS (Segmented - Synchronized with Codon tabs) ── */
+.motif-viz-subtabs {
+  display: flex !important;
+  gap: 5px !important;
+  padding: 4px !important;
+  background: #E2E8F0 !important;
+  border-radius: 10px !important;
+  width: fit-content !important;
+  max-width: 100% !important;
+  overflow-x: auto !important;
+  white-space: nowrap !important;
+  border: none !important;
+  margin-bottom: 16px !important;
+  overflow-y: hidden !important;
+}
+
+.motif-viz-subtabs::-webkit-scrollbar {
+  display: none !important;
+}
+
+.motif-viz-tab-btn {
+  height: 32px !important;
+  padding: 0 12px !important;
+  border: none !important;
+  background: transparent !important;
+  color: #475569 !important;
+  font-weight: 600 !important;
+  font-size: 0.76rem !important;
+  border-radius: 7px !important;
+  cursor: pointer !important;
+  transition: all 0.12s ease !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 4px !important;
+  flex-shrink: 0;
+}
+
+.motif-viz-tab-btn:hover {
+  color: #0F172A !important;
+  background: rgba(255, 255, 255, 0.4) !important;
+}
+
+.motif-viz-tab-btn.motif-viz-tab-active {
+  background: #2563EB !important;
+  color: #FFFFFF !important;
+  box-shadow: 0 2px 6px rgba(37, 99, 235, 0.12) !important;
+}
+
+/* ── 16. DISCOVERY ALIGNMENT PANEL ── */
+.motif-discovery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 350px), 1fr));
+  gap: 16px;
+  min-height: 440px;
+}
+
+.motif-discovery-list {
+  overflow-y: auto;
+  max-height: 500px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-right: 4px;
+}
+
+.motif-discovery-list::-webkit-scrollbar {
+  width: 4px;
+}
+
+.motif-discovery-list::-webkit-scrollbar-thumb {
+  background: #CBD5E1;
+  border-radius: 4px;
+}
+
+.motif-discovery-motif-btn {
+  width: 100%;
+  border: 1.5px solid #E2E8F0;
+  border-radius: 10px;
+  padding: 10px 12px;
+  background: #FFFFFF;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.18s;
+  font-size: 0.8rem;
+  color: #334155;
+}
+
+.motif-discovery-motif-btn:hover {
+  border-color: #93C5FD;
+  background: #EFF6FF;
+}
+
+.motif-discovery-motif-btn.motif-discovery-selected {
+  border-color: #93C5FD;
+  background: #EFF6FF;
+}
+
+.motif-alignment-track {
+  background: #FAFBFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 10px;
+  padding: 12px;
+  overflow-x: auto;
+  overflow-y: auto;
+  max-height: 500px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.82rem;
+  -webkit-overflow-scrolling: touch;
+}
+
+.motif-alignment-track > div {
+  min-width: 750px;
+}
+
+/* ── 17. STATUS BADGES (inline) ── */
+.motif-status-badge-ok {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 5px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  background: #ECFDF5;
+  color: #065F46;
+  border: 1px solid #A7F3D0;
+}
+
+.motif-status-badge-warn {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 5px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  background: #FEF2F2;
+  color: #991B1B;
+  border: 1px solid #FECACA;
+}
+
+/* ── 18. DESKTOP LAYOUT (min-width: 992px) ── */
+@media (min-width: 992px) {
+  .motif-main-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    transition: grid-template-columns 0.3s ease;
+  }
+  
+  .motif-search-tool.motif-settings-open .motif-main-layout {
+    grid-template-columns: minmax(0, 1fr) 370px;
+    gap: clamp(14px, 2vw, 28px);
+    align-items: start;
+  }
+  
+  .motif-settings-panel {
+    display: none !important;
+  }
+  
+  .motif-search-tool.motif-settings-open .motif-settings-panel {
+    display: flex !important;
+    flex-direction: column;
+    width: 100%;
+    max-width: 370px;
+    position: sticky;
+    top: 16px;
+    margin-top: 8px; /* Align top with content area padding */
+    height: auto;
+    max-height: calc(100vh - 120px);
+    background: #FFFFFF;
+    border: 1px solid #DDE5F0;
+    border-radius: 18px;
+    box-shadow: 0 12px 32px rgba(15, 23, 42, 0.10);
+    z-index: 100;
+  }
+}
+
+/* ── 19. MOBILE / TABLET RESPONSIVE (max-width: 991px) ── */
+@media (max-width: 991px) {
+  .motif-search-tool.motif-settings-open .motif-main-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .motif-settings-panel {
+    position: fixed;
+    top: 80px;
+    right: -420px; /* Offscreen */
+    left: auto;
+    width: calc(100% - 24px);
+    max-width: 360px;
+    bottom: 12px;
+    z-index: 10000;
+    background: #FFFFFF;
+    border: 1px solid #DDE5F0;
+    border-radius: 18px;
+    box-shadow: 0 12px 32px rgba(15, 23, 42, 0.10);
+    display: flex;
+    flex-direction: column;
+    transition: right 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .motif-search-tool.motif-settings-open .motif-settings-panel {
+    right: 12px;
+  }
+
+  .motif-metric-grid,
+  .motif-metric-grid.cols-4 {
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 150px), 1fr)) !important;
+  }
+
+  .motif-results-layout-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .motif-discovery-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .motif-search-tool {
+    padding: 10px 12px 24px;
+  }
+
+  .motif-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .motif-header-right {
+    width: 100%;
+    justify-content: flex-end;
+  }
+
+  .motif-chart-body {
+    height: 310px;
+    min-height: 290px;
+  }
+}
+
+@media (max-width: 576px) {
+  .motif-results-layout-grid,
+  .motif-overview-grid,
+  .motif-logo-grid,
+  .motif-metric-grid,
+  .motif-metric-grid.cols-4,
+  .motif-logo-metadata-grid {
+    grid-template-columns: 1fr !important;
+  }
+  
+  .motif-genome-track-container {
+    flex-direction: column !important;
+    height: auto !important;
+    gap: 8px !important;
+  }
+  
+  .motif-genome-track-container > div:first-child {
+    width: 100% !important;
+    flex-direction: row !important;
+    justify-content: space-between !important;
+    gap: 8px !important;
+    padding-bottom: 0 !important;
+  }
+  
+  .motif-genome-track-container > div:first-child > div {
+    flex: 1 !important;
+    justify-content: center !important;
+  }
+}
+
+/* ── 19. INLINE SHINY OUTPUT SIZING HELPERS ── */
+.motif-search-tool .shiny-html-output {
+  width: 100%;
+}
+
+.motif-search-tool .shiny-bound-output {
+  width: 100%;
+}
+
+/* Plotly / Echarts output fill */
+.motif-chart-body .plotly .plot-container {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* DT output full width */
+.motif-table-card .shiny-html-output,
+.motif-table-card .dataTable-container {
+  width: 100% !important;
+}
+
+/* ── 20. SECTION DIVIDER ── */
+.motif-section-gap {
+  height: 16px;
+}
+
+/* ── 21. DISCOVERY INTRO CARD ── */
+.motif-discovery-intro {
+  background: #FFFFFF;
+  border: 1px solid #DDE5F0;
+  border-radius: 18px;
+  padding: 18px;
+  box-shadow: 0 3px 12px rgba(15, 23, 42, 0.01);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 14px;
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+.motif-discovery-intro-text {
+  flex: 1;
+  min-width: 260px;
+}
+
+.motif-discovery-intro-title {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: #0F172A;
+  margin: 0 0 4px 0;
+}
+
+.motif-discovery-intro-sub {
+  font-size: 0.8rem;
+  color: #64748B;
+  margin: 0 0 8px 0;
+  line-height: 1.35;
+}
+
+/* ── 22. REPORTS CARD ── */
+.motif-reports-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+}
+
+.motif-reports-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+  gap: 16px;
+}
+
+@media (max-width: 640px) {
+  .motif-reports-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.motif-reports-card {
+  background: #FFFFFF;
+  border: 1px solid #DDE5F0;
+  border-radius: 18px;
+  padding: 18px;
+  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.04);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.motif-reports-card.motif-reports-download-card {
+  justify-content: center;
+  gap: 12px;
+}
+
+.motif-reports-card-title {
+  font-weight: 800;
+  color: #0F172A;
+  margin-bottom: 4px;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  letter-spacing: 0.04em;
+}
+
+.motif-reports-card.motif-wide {
+  width: 100%;
+}
+
+.motif-reports-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.motif-reports-pre {
+  background: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  border-radius: 10px;
+  padding: 12px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.78rem;
+  max-height: 250px;
+  overflow-y: auto;
+  color: #334155;
+  margin: 0;
+}
+
+/* ── 23. SCAN VIEWPORT / GENOME TRACK ── */
+.motif-genome-track-wrapper {
+  background: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  border-radius: 12px;
+  padding: 16px;
+  position: relative;
+  margin-bottom: 4px;
+}
+
+/* ── 24. COMPARISON TAB ── */
+.motif-comparison-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+}
+
+.motif-comparison-controls {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  background: #F8FAFC;
+  border: 1px solid #F1F5F9;
+  padding: 12px 16px;
+  border-radius: 14px;
+}
+
+.motif-comparison-control-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.motif-comparison-label {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #64748B;
+}
+
+.motif-danger-card {
+  padding: 24px;
+  color: #B91C1C;
+  background: #FEF2F2;
+  border: 1px solid #FCA5A5;
+  border-radius: 12px;
+}
+
+/* ── 30. BUTTON STYLES (SYNCHRONIZED WITH CODON BUTTONS) ── */
+.motif-btn-primary {
+  height: 38px;
+  padding: 0 16px;
+  background: #2563EB;
+  border: none;
+  border-radius: 10px;
+  color: #FFFFFF;
+  font-weight: 600;
+  font-size: 0.82rem;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  box-shadow: 0 4px 10px rgba(37, 99, 235, 0.12);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  text-decoration: none !important;
+}
+
+.motif-btn-primary:hover {
+  background: #1D4ED8;
+  box-shadow: 0 6px 14px rgba(37, 99, 235, 0.2);
+  color: #FFFFFF !important;
+}
+
+.motif-btn-outline {
+  height: 38px;
+  padding: 0 16px;
+  background: transparent;
+  border: 1px solid #CBD5E1;
+  border-radius: 10px;
+  color: #475569;
+  font-weight: 600;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  text-decoration: none !important;
+}
+
+.motif-btn-outline:hover {
+  background: #F1F5F9;
+  color: #0F172A;
+  border-color: #94A3B8;
+}
+
+/* ── 31. WORKSPACE TABS CONTAINER ── */
+.motif-workspace-tabs {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.motif-workspace-tabs .nav-pills {
+  margin-bottom: 24px !important;
+}
+
+/* ── 25. SHINY SELECT INPUT FIXES ── */
+.motif-ctrl .selectize-dropdown {
+  border-radius: 10px;
+  border: 1px solid #CBD5E1;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.1);
+  z-index: 1500;
+}
+
+.motif-ctrl .selectize-dropdown-content .option {
+  font-size: 0.82rem;
+  padding: 8px 12px;
+}
+
+.motif-ctrl .selectize-dropdown-content .option.active,
+.motif-ctrl .selectize-dropdown-content .option:hover {
+  background: #EFF6FF;
+  color: #1D4ED8;
+}
+
+/* ── 26. STATS FOOTER ── */
+.motif-stats-footer {
+  background: #F8FAFC;
+  border: 1px solid #EEF2F7;
+  border-radius: 12px;
+  padding: 14px 16px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 180px), 1fr));
+  gap: 12px;
+  font-size: 0.8rem;
+}
+
+.motif-stats-footer-item .motif-stats-label {
+  color: #64748B;
+  font-weight: 500;
+  display: block;
+  margin-bottom: 2px;
+}
+
+.motif-stats-footer-item .motif-stats-val {
+  font-weight: 700;
+  color: #0F172A;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* ── 27. RESPONSIVE RESULTS GRID BASE ── */
+.motif-results-layout-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 580px), 1fr));
+  gap: clamp(14px, 2vw, 28px);
+  width: 100%;
+}
+
+/* ── 28. PREMIUM DATA TABLES OVERRIDES (MATCHING CODON) ── */
+.motif-table-card table.dataTable {
+  width: 100% !important;
+  margin: 0 !important;
+  border-collapse: collapse !important;
+}
+
+.motif-table-card table.dataTable thead th {
+  padding: 12px 14px !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em !important;
+  color: #64748B !important;
+  background: #F8FAFC !important;
+  border-bottom: 1px solid #E2E8F0 !important;
+  border-top: none !important;
+}
+
+.motif-table-card table.dataTable tbody td {
+  padding: 12px 14px !important;
+  font-size: 12.5px !important;
+  color: #0F172A !important;
+  vertical-align: middle !important;
+  border-bottom: 1px solid #F1F5F9 !important;
+}
+
+.motif-table-card table.dataTable tbody tr {
+  height: 48px !important;
+  background-color: #FFFFFF !important;
+}
+
+.motif-table-card table.dataTable tbody tr:hover {
+  background-color: #F8FAFC !important;
+}
+
+/* DT Top Search Input overrides to prevent layout breaks */
+.motif-table-card table.dataTable thead tr:nth-child(2) th {
+  padding: 4px 8px !important;
+  background: #F8FAFC !important;
+}
+
+.motif-table-card table.dataTable thead input {
+  height: 28px !important;
+  border-radius: 6px !important;
+  border: 1px solid #CBD5E1 !important;
+  font-size: 0.75rem !important;
+  padding: 0 8px !important;
+  width: 100% !important;
+  background: #FFFFFF !important;
+  box-sizing: border-box !important;
+  font-weight: normal !important;
+  color: #0F172A !important;
+}
+
+.motif-table-card table.dataTable thead input:focus {
+  outline: none !important;
+  border-color: #2563EB !important;
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.1) !important;
+}
+
+/* Premium Pagination styles matching Codon */
+.motif-table-card .bottom-row-premium {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  padding-top: 14px !important;
+  margin-top: 12px !important;
+  border-top: 1px solid #E2E8F0 !important;
+  font-size: 0.8rem !important;
+  color: #64748B !important;
+}
+
+.motif-table-card .bottom-row-premium .dataTables_paginate {
+  margin: 0 !important;
+}
+
+.motif-table-card .bottom-row-premium .dataTables_paginate a.paginate_button {
+  padding: 4px 10px !important;
+  margin: 0 2px !important;
+  border-radius: 6px !important;
+  border: 1px solid #E2E8F0 !important;
+  background: #FFFFFF !important;
+  color: #475569 !important;
+  font-weight: 600 !important;
+  cursor: pointer !important;
+}
+
+.motif-table-card .bottom-row-premium .dataTables_paginate a.paginate_button.current {
+  background: #2563EB !important;
+  color: #FFFFFF !important;
+  border-color: #2563EB !important;
+}
+
+.motif-table-card .bottom-row-premium .dataTables_paginate a.paginate_button:hover:not(.current) {
+  background: #F1F5F9 !important;
+  color: #0F172A !important;
+}
+
+/* ── 29. EMPTY STATE HIGHLIGHTS (MATCHING CODON) ── */
+.motif-empty-state-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 0;
+  width: 100%;
+}
+
+.motif-empty-state-card {
+  background: #FFFFFF;
+  border: 1px solid #DDE5F0;
+  border-radius: 18px;
+  width: min(440px, 90%);
+  padding: 30px;
+  text-align: center;
+  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.02);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.motif-empty-state-icon {
+  font-size: 2.5rem;
+  color: #2563EB;
+  margin-bottom: 16px;
+}
+
+.motif-empty-state-title {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #0F172A;
+  margin: 0 0 6px 0;
+}
+
+.motif-empty-state-subtext {
+  font-size: 0.8rem;
+  color: #64748B;
+  line-height: 1.4;
+  margin: 0 0 14px 0;
+}
+
+.motif-empty-state-hint {
+  font-size: 0.74rem;
+  color: #94A3B8;
+  background: #F8FAFC;
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: 1px solid #F1F5F9;
+}
+
+/* ── 31. DE NOVO INTRO CARD & TAB OVERRIDES ── */
+.motif-search-tool .tab-pane,
+.motif-search-tool .tab-content {
+  overflow: visible !important;
+  background-color: transparent !important;
+  height: auto !important;
+  min-height: 0 !important;
+}
+
+.motif-opt-intro-card {
+  background: #FFFFFF;
+  border: 1px solid #DDE5F0;
+  border-radius: 18px;
+  padding: 18px;
+  box-shadow: 0 3px 12px rgba(15, 23, 42, 0.01);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 14px;
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+.motif-opt-intro-left {
+  flex: 1;
+  min-width: 260px;
+}
+
+.motif-opt-intro-title {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: #0F172A;
+  margin: 0 0 4px 0;
+}
+
+.motif-opt-intro-text {
+  font-size: 0.8rem;
+  color: #64748B;
+  margin: 0 0 8px 0;
+  line-height: 1.35;
+}
+
+.motif-opt-badges {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.motif-opt-badge {
+  font-size: 10.5px;
+  font-weight: 600;
+  background: #F1F5F9;
+  color: #475569;
+  padding: 1.5px 6px;
+  border-radius: 4px;
+  border: 1px solid #E2E8F0;
+}
+
+.motif-opt-intro-right {
+  display: flex;
+  align-items: center;
+}
+
+/* ── 32. COMPARISON TAB DROPDOWN SETTINGS ── */
+.motif-comp-settings-dropdown {
+  display: none;
+  position: absolute;
+  top: 48px;
+  right: 0;
+  background: #FFFFFF;
+  border: 1px solid #DDE5F0;
+  border-radius: 12px;
+  padding: 14px;
+  box-shadow: 0 10px 25px rgba(15, 23, 42, 0.15);
+  z-index: 1000;
+  width: 280px;
+  flex-direction: column;
+  gap: 10px;
+  text-align: left;
+}
+
+.motif-comp-settings-dropdown.open {
+  display: flex !important;
+}
+
+.motif-comp-settings-dropdown select,
+.motif-disc-settings-dropdown select {
+  height: 34px !important;
+  line-height: 20px !important;
+  padding: 6px 28px 6px 8px !important;
+  border-radius: 6px !important;
+  border: 1px solid #CBD5E1 !important;
+  font-size: 11.5px !important;
+  background-color: #FFFFFF !important;
+  color: #0F172A !important;
+  width: 100% !important;
+  box-shadow: none !important;
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8' viewBox='0 0 8 8'%3E%3Cpath fill='%2364748b' d='M0 2l4 4 4-4z'/%3E%3C/svg%3E") !important;
+  background-repeat: no-repeat !important;
+  background-position: right 10px center !important;
+  background-size: 8px !important;
+  cursor: pointer !important;
+  box-sizing: border-box !important;
+  display: block !important;
+}
+
+.motif-comp-settings-dropdown input[type="number"] {
+  height: 34px !important;
+  border-radius: 6px !important;
+  border: 1px solid #CBD5E1 !important;
+  font-size: 11.5px !important;
+  padding: 0 8px !important;
+  background: #FFFFFF !important;
+  color: #0F172A !important;
+  width: 100% !important;
+  box-shadow: none !important;
+}
+
+.motif-comp-settings-dropdown select:focus,
+.motif-comp-settings-dropdown input[type="number"]:focus {
+  border-color: #2563EB !important;
+  outline: none !important;
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.1) !important;
+}
+
+/* ── 33. DISCOVERY TAB DROPDOWN SETTINGS ── */
+.motif-disc-settings-dropdown {
+  display: none;
+  position: absolute;
+  top: 48px;
+  right: 0;
+  background: #FFFFFF;
+  border: 1px solid #DDE5F0;
+  border-radius: 12px;
+  padding: 14px;
+  box-shadow: 0 10px 25px rgba(15, 23, 42, 0.15);
+  z-index: 1000;
+  width: 320px;
+  flex-direction: column;
+  gap: 10px;
+  text-align: left;
+}
+
+.motif-disc-settings-dropdown.open {
+  display: flex !important;
+}
+
+.motif-disc-settings-dropdown textarea,
+.motif-disc-settings-dropdown input[type="number"],
+.motif-disc-settings-dropdown input[type="text"] {
+  border-radius: 6px !important;
+  border: 1px solid #CBD5E1 !important;
+  font-size: 11.5px !important;
+  padding: 8px !important;
+  background: #FFFFFF !important;
+  color: #0F172A !important;
+  width: 100% !important;
+  box-shadow: none !important;
+}
+
+/* Scoped selectize style support for settings dropdowns */
+.motif-disc-settings-dropdown .selectize-control,
+.motif-comp-settings-dropdown .selectize-control {
+  width: 100% !important;
+  padding: 0 !important;
+  border: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}
+
+.motif-disc-settings-dropdown .selectize-control .selectize-input,
+.motif-comp-settings-dropdown .selectize-control .selectize-input {
+  height: 34px !important;
+  min-height: 34px !important;
+  border-radius: 6px !important;
+  border: 1px solid #CBD5E1 !important;
+  font-size: 11.5px !important;
+  padding: 0 28px 0 8px !important;
+  background: #FFFFFF !important;
+  color: #0F172A !important;
+  width: 100% !important;
+  box-shadow: none !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  position: relative !important;
+  cursor: pointer !important;
+  box-sizing: border-box !important;
+}
+
+.motif-disc-settings-dropdown .selectize-control.focus .selectize-input,
+.motif-comp-settings-dropdown .selectize-control.focus .selectize-input {
+  border-color: #2563EB !important;
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.1) !important;
+}
+
+.motif-disc-settings-dropdown .selectize-control .selectize-input .item,
+.motif-comp-settings-dropdown .selectize-control .selectize-input .item {
+  color: #0F172A !important;
+  font-size: 11.5px !important;
+  line-height: 32px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+}
+
+.motif-disc-settings-dropdown .selectize-control .selectize-input input,
+.motif-comp-settings-dropdown .selectize-control .selectize-input input {
+  height: 0px !important;
+  width: 0px !important;
+  border: none !important;
+  background: transparent !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  box-shadow: none !important;
+  display: none !important;
+  visibility: hidden !important;
+  position: absolute !important;
+}
+
+.motif-disc-settings-dropdown .selectize-control.single .selectize-input::after,
+.motif-comp-settings-dropdown .selectize-control.single .selectize-input::after {
+  content: " " !important;
+  display: block !important;
+  position: absolute !important;
+  top: 50% !important;
+  right: 10px !important;
+  margin-top: -2px !important;
+  width: 0 !important;
+  height: 0 !important;
+  border-style: solid !important;
+  border-width: 4px 3px 0 3px !important;
+  border-color: #64748B transparent transparent transparent !important;
+  pointer-events: none !important;
+}
+
+.motif-disc-settings-dropdown textarea {
+  height: auto !important;
+}
+
+.motif-disc-settings-dropdown select:focus,
+.motif-disc-settings-dropdown textarea:focus,
+.motif-disc-settings-dropdown input[type="number"]:focus,
+.motif-disc-settings-dropdown input[type="text"]:focus {
+  border-color: #2563EB !important;
+  outline: none !important;
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.1) !important;
+}
+
+/* Style for Compact control labels */
+.motif-control-row-compact label {
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #64748B;
+  margin-bottom: 4px;
+  display: block;
+}
+
+/* File input styling overrides inside dropdowns */
+.motif-disc-settings-dropdown .shiny-input-container {
+  margin-bottom: 0 !important;
+}
+
+.motif-disc-settings-dropdown .input-group {
+  margin-bottom: 0 !important;
+}
+
+.motif-disc-settings-dropdown .input-group-btn .btn-file {
+  background: #2563EB !important;
+  color: #FFFFFF !important;
+  border: none !important;
+  font-size: 11px !important;
+  height: 34px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  border-radius: 0 6px 6px 0 !important;
+  cursor: pointer !important;
+}
+
+.motif-disc-settings-dropdown .input-group-btn .btn-file:hover {
+  background: #1D4ED8 !important;
+}
+
+.motif-disc-settings-dropdown .input-group input[type="text"] {
+  border-radius: 6px 0 0 6px !important;
+  height: 34px !important;
+  font-size: 11.5px !important;
+}
+
+/* ── 34. PARENT TAB CONTAINER TRANSPARENCY FIX (MATCH CODON WORKSPACE) ── */
+.motif-search-tool .tabbable,
+.motif-search-tool .tabbable > .card,
+.motif-search-tool .tabbable.card,
+.motif-search-tool .tab-content,
+.motif-search-tool .tab-pane {
+  background: transparent !important;
+  background-color: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+}
+
+.motif-search-tool .tabbable > .card-body,
+.motif-search-tool .tabbable > .card-header {
+  background: transparent !important;
+  background-color: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+}
+
+/* ── 35. PAGINATION DOUBLE BOXES FIX & BUTTON CORRECTION ── */
+.motif-table-card .bottom-row-premium .dataTables_paginate span {
+  border: none !important;
+  background: transparent !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  box-shadow: none !important;
+  display: inline-flex !important;
+}
+
+.motif-table-card .bottom-row-premium .dataTables_paginate a.paginate_button {
+  padding: 4px 10px !important;
+  margin: 0 2px !important;
+  border-radius: 6px !important;
+  border: 1px solid #E2E8F0 !important;
+  background: #FFFFFF !important;
+  color: #475569 !important;
+  font-weight: 600 !important;
+  cursor: pointer !important;
+  display: inline-block !important;
+  text-decoration: none !important;
+}
+
+.motif-table-card .bottom-row-premium .dataTables_paginate a.paginate_button.current {
+  background: #2563EB !important;
+  color: #FFFFFF !important;
+  border-color: #2563EB !important;
+}
+
+.motif-table-card .bottom-row-premium .dataTables_paginate a.paginate_button:hover:not(.current) {
+  background: #F1F5F9 !important;
+  color: #0F172A !important;
+}
+
+/* Up to Date Discovery Button Override */
+.motif-btn-primary.motif-btn-uptodate {
+  background: #E2E8F0 !important;
+  color: #475569 !important;
+  border: 1px solid #CBD5E1 !important;
+  box-shadow: none !important;
+  cursor: default !important;
+}
+
+/* ── 36. ADVANCED MOTIF SEARCH ANALYTICS UPGRADE STYLES ── */
+.motif-overview-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr));
+  gap: clamp(14px, 2vw, 28px);
+  width: 100%;
+}
+
+.motif-logo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+  gap: clamp(14px, 2vw, 28px);
+  width: 100%;
+  margin-top: 10px;
+}
+
+.motif-logo-metadata-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 180px), 1fr));
+  gap: 16px;
+  font-size: 0.8rem;
+  border-top: 1px solid #cbd5e1;
+  padding-top: 12px;
+  margin-top: 16px;
+  width: 100%;
+}
+
+.motif-logo-grid-card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.motif-logo-grid-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08) !important;
+}
+
+.motif-stats-footer {
+  border-top: 1px solid #E2E8F0;
+  padding-top: 14px;
+  width: 100%;
+}
+
+/* Specific styling for selected motif logo view */
+.motif-selected-border {
+  border: 2px solid #2563EB !important;
+  background-color: #EFF6FF !important;
+}
+
+.motif-section-gap {
+  height: 18px;
+}
+
+/* Dataset Summary table styling */
+.motif-dataset-summary-table td {
+  border-bottom: 1px solid #F1F5F9;
+}
+.motif-dataset-summary-table tr:last-child td {
+  border-bottom: none;
+}
+
+/* Ensure plot images do not overflow their containers and fit proportionally */
+.motif-search-tool .shiny-plot-output img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: contain !important;
+}
+
+/* ── 34. STRUCTURE TAB DROPDOWN SETTINGS ── */
+.motif-struct-settings-dropdown {
+  display: none;
+  position: absolute;
+  top: 48px;
+  right: 0;
+  background: #FFFFFF;
+  border: 1px solid #DDE5F0;
+  border-radius: 12px;
+  padding: 14px;
+  box-shadow: 0 10px 25px rgba(15, 23, 42, 0.15);
+  z-index: 1000;
+  width: 320px;
+  flex-direction: column;
+  gap: 10px;
+  text-align: left;
+}
+
+.motif-struct-settings-dropdown.open {
+  display: flex !important;
+}
+
+.motif-struct-settings-dropdown select,
+.motif-struct-settings-dropdown input[type="number"],
+.motif-struct-settings-dropdown input[type="text"] {
+  border-radius: 6px !important;
+  border: 1px solid #CBD5E1 !important;
+  font-size: 11.5px !important;
+  padding: 8px !important;
+  background: #FFFFFF !important;
+  color: #0F172A !important;
+  width: 100% !important;
+  box-shadow: none !important;
+}
+
+.motif-struct-settings-dropdown select {
+  height: 34px !important;
+  line-height: 20px !important;
+  padding: 6px 28px 6px 8px !important;
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8' viewBox='0 0 8 8'%3E%3Cpath fill='%2364748b' d='M0 2l4 4 4-4z'/%3E%3C/svg%3E") !important;
+  background-repeat: no-repeat !important;
+  background-position: right 10px center !important;
+  background-size: 8px !important;
+  cursor: pointer !important;
+}
+
+.motif-struct-settings-dropdown select:focus,
+.motif-struct-settings-dropdown input:focus {
+  border-color: #2563EB !important;
+  outline: none !important;
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.1) !important;
+}
+
+/* Custom styling for the slider in structure settings */
+.motif-struct-settings-dropdown .irs-grid,
+.motif-struct-settings-dropdown .irs-min,
+.motif-struct-settings-dropdown .irs-max {
+  display: none !important;
+}
+.motif-struct-settings-dropdown .irs {
+  height: 40px !important;
+}
+.motif-struct-settings-dropdown .irs-line {
+  height: 6px !important;
+  border-radius: 3px !important;
+}
+.motif-struct-settings-dropdown .irs-bar {
+  height: 6px !important;
+  background: #2563EB !important;
+}
+.motif-struct-settings-dropdown .irs-slider {
+  width: 14px !important;
+  height: 14px !important;
+  border: 2px solid #2563EB !important;
+  background: #FFFFFF !important;
+  border-radius: 50% !important;
+  top: 22px !important;
+}
+.motif-struct-settings-dropdown .irs-from,
+.motif-struct-settings-dropdown .irs-to,
+.motif-struct-settings-dropdown .irs-single {
+  background: #2563EB !important;
+  font-size: 9px !important;
+  padding: 1px 4px !important;
+}
+
+/* ── 12. INTERACTIVE WORKFLOW PIPELINE ── */
+.motif-pipeline-container {
+  display: flex;
+  width: 100%;
+  max-width: 1000px;
+  justify-content: space-between;
+  align-items: stretch;
+  gap: 12px;
+  margin: 20px 0;
+}
+
+.motif-pipeline-step-card {
+  flex: 1;
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 12px;
+  padding: 18px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.03);
+}
+
+.motif-pipeline-step-card.active {
+  border-color: #3b82f6;
+  box-shadow: 0 4px 18px rgba(59, 130, 246, 0.12), 0 0 0 2px rgba(59, 130, 246, 0.1);
+}
+
+.motif-pipeline-step-card.completed {
+  border-color: #86efac;
+  background: #fbfdfb;
+}
+
+.motif-pipeline-step-card.locked {
+  background: #f8fafc;
+  border-color: #e2e8f0;
+  opacity: 0.7;
+}
+
+.motif-pipeline-step-number {
+  position: absolute;
+  top: 14px;
+  right: 18px;
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #f1f5f9;
+  line-height: 1;
+  user-select: none;
+}
+
+.motif-pipeline-step-card.active .motif-pipeline-step-number {
+  color: #dbeafe;
+}
+
+.motif-pipeline-step-card.completed .motif-pipeline-step-number {
+  color: #dcfce7;
+}
+
+.motif-pipeline-step-badge {
+  align-self: flex-start;
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 2px 8px;
+  border-radius: 9999px;
+  background: #f1f5f9;
+  color: #64748b;
+}
+
+.motif-pipeline-step-card.active .motif-pipeline-step-badge {
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+
+.motif-pipeline-step-card.completed .motif-pipeline-step-badge {
+  background: #dcfce7;
+  color: #15803d;
+}
+
+.motif-pipeline-connector {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 24px;
+  color: #cbd5e1;
+  flex-shrink: 0;
+}
+
+.motif-pipeline-connector-line {
+  width: 2px;
+  height: 40px;
+  border-left: 2px dashed #cbd5e1;
+  margin-bottom: 4px;
+}
+
+.motif-pipeline-connector-arrow {
+  font-size: 1rem;
+}
+
+@media (max-width: 991px) {
+  .motif-pipeline-container {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 16px;
+  }
+  .motif-pipeline-connector {
+    height: 24px;
+    width: 100%;
+  }
+  .motif-pipeline-connector-line {
+    width: 40px;
+    height: 2px;
+    border-left: none;
+    border-top: 2px dashed #cbd5e1;
+    margin-bottom: 0;
+    margin-right: 4px;
+  }
+  .motif-pipeline-connector-arrow {
+    transform: rotate(90deg);
+  }
+}
+
+/* ── 13. GENOME TRACK HIT EFFECTS ── */
+.motif-track-hit {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.motif-track-hit:hover {
+  transform: scaleY(1.2) translateY(-1px);
+  filter: brightness(1.15) contrast(1.05);
+  box-shadow: 0 4px 8px rgba(15, 23, 42, 0.25) !important;
+  z-index: 10 !important;
+}
+
+/* ── 35. SLEEK TOP-CENTER LOADING AND PROGRESS NOTIFICATION SYSTEM ── */
+#shiny-notification-panel {
+  position: fixed !important;
+  top: 16px !important;
+  left: 50% !important;
+  right: auto !important;
+  transform: translateX(-50%) !important;
+  width: 420px !important;
+  max-width: 92vw !important;
+  z-index: 10500 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 12px !important;
+}
+
+.shiny-notification {
+  background: rgba(255, 255, 255, 0.9) !important;
+  backdrop-filter: blur(12px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(12px) saturate(180%) !important;
+  border: 1px solid rgba(226, 232, 240, 0.8) !important;
+  border-radius: 14px !important;
+  box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.08), 0 8px 10px -6px rgba(15, 23, 42, 0.08) !important;
+  padding: 14px 18px !important;
+  color: #1e293b !important;
+  font-family: 'Inter', system-ui, sans-serif !important;
+  position: relative !important;
+  overflow: hidden !important;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  animation: slideInDown 0.35s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+@keyframes slideInDown {
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.shiny-notification-close {
+  color: #94a3b8 !important;
+  font-size: 1.1rem !important;
+  font-weight: 300 !important;
+  position: absolute !important;
+  right: 12px !important;
+  top: 8px !important;
+  opacity: 0.7 !important;
+  transition: opacity 0.15s ease !important;
+}
+
+.shiny-notification-close:hover {
+  opacity: 1 !important;
+  color: #64748b !important;
+}
+
+.shiny-notification-message {
+  margin-right: 20px !important;
+}
+
+/* Style progress bars inside notifications */
+.shiny-notification .shiny-progress {
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+.shiny-notification .shiny-progress .progress {
+  height: 6px !important;
+  background-color: #f1f5f9 !important;
+  border-radius: 9999px !important;
+  margin-top: 10px !important;
+  margin-bottom: 4px !important;
+  overflow: hidden !important;
+  border: none !important;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.03) !important;
+}
+
+.shiny-notification .shiny-progress .progress-bar {
+  background: linear-gradient(90deg, #2563eb, #10b981) !important;
+  border-radius: 9999px !important;
+  transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+/* Animated stripe pattern for active loading states */
+.shiny-notification .shiny-progress .progress-bar::after {
+  content: "" !important;
+  position: absolute !important;
+  top: 0; left: 0; bottom: 0; right: 0;
+  background-image: linear-gradient(
+    45deg,
+    rgba(255, 255, 255, 0.15) 25%,
+    transparent 25%,
+    transparent 50%,
+    rgba(255, 255, 255, 0.15) 50%,
+    rgba(255, 255, 255, 0.15) 75%,
+    transparent 75%,
+    transparent
+  ) !important;
+  background-size: 1rem 1rem !important;
+  animation: progress-bar-stripes 1s linear infinite !important;
+}
+
+@keyframes progress-bar-stripes {
+  from { background-position: 1rem 0; }
+  to { background-position: 0 0; }
+}
+
+.shiny-notification .shiny-progress .progress-text {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 2px !important;
+}
+
+.shiny-notification .shiny-progress .progress-message {
+  font-weight: 700 !important;
+  font-size: 0.84rem !important;
+  color: #0f172a !important;
+  line-height: 1.4 !important;
+}
+
+.shiny-notification .shiny-progress .progress-detail {
+  font-size: 0.74rem !important;
+  color: #64748b !important;
+  line-height: 1.3 !important;
+}
+
+/* Recalculating state for panels and output visualisations to look like a smooth load is occurring */
+.shiny-bound-output.recalculating {
+  opacity: 0.55 !important;
+  filter: blur(1px) saturate(85%) !important;
+  transition: all 0.28s ease !important;
+}
+
+/* ── 36. SCROLLBAR & POSITION OVERRIDES (MATCH CODON WORKSPACE) ── */
+.tab-pane:has(.motif-search-tool) {
+  height: 100% !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+}
+
+.workspace-pad.pad-motif_search {
+  height: auto !important;
+  min-height: 100% !important;
+  overflow-y: visible !important;
+  overflow-x: visible !important;
+  padding-bottom: 40px !important;
+}
+
+/* Ensure the outer tool container doesn't block sticky positioning */
+.motif-search-tool {
+  overflow-x: visible !important;
+}
+
+/* ── 37. ACTIVE SETTINGS GEAR BUTTON COLOR (MATCH CODON WORKSPACE) ── */
+.motif-search-tool.motif-settings-open .motif-btn-settings,
+.motif-btn-settings.motif-settings-active {
+  background: #EFF6FF !important;
+  border-color: #93C5FD !important;
+  color: #2563EB !important;
+}
+
+.motif-search-tool.motif-settings-open .motif-btn-settings svg,
+.motif-btn-settings.motif-settings-active svg {
+  fill: #2563EB !important;
+}
+

@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BioSeq-Explorer System Dataflow Diagram</title>
+  <!-- Modern Fonts -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap">
+  <!-- Mermaid.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      securityLevel: 'loose',
+      theme: 'default'
+    });
+  </script>
+  <style>
+    :root {
+      --bg: #f8fafc;
+      --panel-bg: #ffffff;
+      --border: #e2e8f0;
+      --text: #0f172a;
+      --text-muted: #475569;
+      --accent: #7c3aed;
+      --accent-light: #6d28d9;
+      --success: #059669;
+      --info: #2563eb;
+      --warning: #d97706;
+      --font-sans: 'Inter', sans-serif;
+      --font-mono: 'Fira Code', monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: var(--font-sans);
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Header styling */
+    header {
+      background-color: var(--panel-bg);
+      border-bottom: 1px solid var(--border);
+      padding: 16px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 10;
+    }
+
+    .brand-title {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .brand-title span {
+      background: linear-gradient(135deg, var(--accent-light), var(--info));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .subtitle {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .search-box {
+      background: #f1f5f9;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 6px 12px;
+      color: var(--text);
+      font-size: 0.85rem;
+      outline: none;
+      width: 240px;
+      transition: border-color 0.2s;
+    }
+
+    .search-box:focus {
+      border-color: var(--accent);
+    }
+
+    /* Workspace split pane */
+    .workspace {
+      display: flex;
+      flex: 1;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* Diagram viewport */
+    .diagram-pane {
+      flex: 1;
+      position: relative;
+      background-color: #f1f5f9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .panzoom-container {
+      width: 100%;
+      height: 100%;
+      transform-origin: center center;
+      cursor: grab;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      user-select: none;
+    }
+
+    .panzoom-container:active {
+      cursor: grabbing;
+    }
+
+    .panzoom-container svg {
+      width: 100% !important;
+      height: auto !important;
+      max-width: 1250px !important;
+      min-width: 850px !important;
+    }
+
+    /* Detail pane */
+    .detail-pane {
+      width: 420px;
+      background-color: var(--panel-bg);
+      border-left: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+      z-index: 5;
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .detail-header {
+      padding: 20px;
+      border-bottom: 1px solid var(--border);
+      background: rgba(15, 23, 42, 0.03);
+    }
+
+    .node-type-badge {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 3px 8px;
+      border-radius: 4px;
+      margin-bottom: 8px;
+    }
+
+    .badge-input { background: rgba(59, 130, 246, 0.15); color: var(--info); border: 1px solid rgba(59, 130, 246, 0.3); }
+    .badge-state { background: rgba(139, 92, 246, 0.15); color: var(--accent-light); border: 1px solid rgba(139, 92, 246, 0.3); }
+    .badge-metric { background: rgba(16, 185, 129, 0.15); color: var(--success); border: 1px solid rgba(16, 185, 129, 0.3); }
+    .badge-tool { background: rgba(245, 158, 11, 0.15); color: var(--warning); border: 1px solid rgba(245, 158, 11, 0.3); }
+
+    .node-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+    }
+
+    .node-file {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-top: 4px;
+      word-break: break-all;
+    }
+
+    .detail-body {
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      flex: 1;
+    }
+
+    .detail-section-title {
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      letter-spacing: 0.05em;
+      margin-bottom: 6px;
+    }
+
+    .detail-text {
+      font-size: 0.88rem;
+      line-height: 1.6;
+      color: #334155;
+    }
+
+    .detail-list {
+      list-style-type: none;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .detail-list li {
+      font-size: 0.85rem;
+      padding-left: 14px;
+      position: relative;
+    }
+
+    .detail-list li::before {
+      content: "•";
+      color: var(--accent-light);
+      position: absolute;
+      left: 0;
+    }
+
+    .code-block {
+      background-color: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 12px;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: #0f172a;
+      overflow-x: auto;
+      white-space: pre;
+    }
+
+    /* Floating navigation control tools */
+    .view-controls {
+      position: absolute;
+      bottom: 24px;
+      left: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      z-index: 10;
+    }
+
+    .btn-control {
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+      background-color: var(--panel-bg);
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-size: 1.2rem;
+      font-weight: bold;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+    }
+
+    .btn-control:hover {
+      background-color: var(--border);
+      border-color: var(--text-muted);
+    }
+
+    /* Instructions card overlay */
+    .instruction-overlay {
+      position: absolute;
+      top: 24px;
+      left: 24px;
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(8px);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 12px 16px;
+      border-radius: 8px;
+      max-width: 320px;
+      font-size: 0.8rem;
+      pointer-events: none;
+      z-index: 8;
+    }
+
+    /* Highlight class for matching search */
+    .highlight-node rect {
+      stroke: var(--warning) !important;
+      stroke-width: 4px !important;
+      filter: drop-shadow(0 0 8px var(--warning));
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div>
+      <div class="brand-title">
+        <span>BioSeq-Explorer</span> Interactive Dataflow Map
+      </div>
+      <div class="subtitle">Visual representation of data ingestion, state reactivity, and analytical calculations</div>
+    </div>
+    <div class="header-actions">
+      <input type="text" class="search-box" placeholder="Search components..." id="txt_search">
+    </div>
+  </header>
+
+  <div class="workspace">
+    
+    <!-- Instructional Overlay -->
+    <div class="instruction-overlay">
+      <strong>Interactive View:</strong><br>
+      • Use mouse wheel to Zoom.<br>
+      • Click and drag to Pan/Move diagram.<br>
+      • <strong>Click on any diagram node</strong> to load detailed context, codes, and variables in the side panel.
+    </div>
+
+    <!-- Floating Zoom Tools -->
+    <div class="view-controls">
+      <button class="btn-control" id="btn_zoom_in" title="Zoom In">+</button>
+      <button class="btn-control" id="btn_zoom_out" title="Zoom Out">-</button>
+      <button class="btn-control" id="btn_zoom_reset" title="Reset View">⟲</button>
+    </div>
+
+    <!-- Diagram Viewport -->
+    <div class="diagram-pane" id="diagram_pane">
+      <div class="panzoom-container" id="panzoom_container">
+        <!-- Rendered Mermaid graphic will go here -->
+        <pre class="mermaid" id="mermaid_source">
+graph TD
+    %% Node Definitions %%
+    subgraph Ingestion ["1. Sequence Ingestion Ports"]
+        N1[Manual DNA Ingestion]
+        N2[File Upload Ingestion]
+        N3[NCBI API Ingestion]
+        N12[Ensembl API Ingestion]
+    end
+
+    subgraph State ["2. Core State Broker"]
+        N4[Central State Coordinator]
+    end
+
+    subgraph Tools ["3. Analytical & Workstation Tools"]
+        subgraph Viewers ["Visual Inspection"]
+            N5[Dashboard Metrics Engine]
+            N6[Sequence Viewer Tool]
+        end
+        subgraph Transducers ["Standard Operations"]
+            N7[RNA Transcript]
+            N13[Reverse Complement]
+            N14[Translate to Protein]
+            N8[6-Frame ORF Finder]
+        end
+        subgraph Advanced ["Advanced Analysis"]
+            N9[Pairwise Mutation Alignment]
+            N10[Codon Bias Optimizer]
+            N11[Motif Discovery Engines]
+        end
+    end
+
+    %% Connection Links %%
+    N1 -->|Text Input + Load Click| N4
+    N2 -->|Upload FASTA/GBK/DNA| N4
+    N3 -->|Fetch Entrez API| N4
+    N12 -->|Fetch biomaRt API| N4
+    
+    N4 -->|shared_state_seq_string| N5
+    N4 -->|shared_state_seq_string| N6
+    N4 -->|shared_state_seq_string| N7
+    N4 -->|shared_state_seq_string| N13
+    N4 -->|shared_state_seq_string| N14
+    N4 -->|shared_state_seq_string| N8
+    N4 -->|shared_state_seq_string| N9
+    N4 -->|shared_state_seq_string| N10
+    N4 -->|shared_state_seq_string| N11
+
+    %% Styling Nodes %%
+    classDef inputNode fill:#1d4ed8,stroke:#3b82f6,stroke-width:2px,color:#fff,font-size:13px,font-weight:600
+    classDef stateNode fill:#6d28d9,stroke:#8b5cf6,stroke-width:2px,color:#fff,font-size:13px,font-weight:600
+    classDef metricNode fill:#047857,stroke:#10b981,stroke-width:2px,color:#fff,font-size:13px,font-weight:600
+    classDef toolNode fill:#b45309,stroke:#f59e0b,stroke-width:2px,color:#fff,font-size:13px,font-weight:600
+
+    class N1,N2,N3,N12 inputNode
+    class N4 stateNode
+    class N5 metricNode
+    class N6,N7,N8,N9,N10,N11,N13,N14 toolNode
+
+    %% Click Callbacks %%
+    click N1 call nodeClicked()
+    click N2 call nodeClicked()
+    click N3 call nodeClicked()
+    click N4 call nodeClicked()
+    click N5 call nodeClicked()
+    click N6 call nodeClicked()
+    click N7 call nodeClicked()
+    click N8 call nodeClicked()
+    click N9 call nodeClicked()
+    click N10 call nodeClicked()
+    click N11 call nodeClicked()
+    click N12 call nodeClicked()
+    click N13 call nodeClicked()
+    click N14 call nodeClicked()
+        </pre>
+      </div>
+    </div>
+
+    <!-- Side Detail Panel -->
+    <div class="detail-pane" id="detail_pane">
+      <div class="detail-header">
+        <span class="node-type-badge badge-state" id="lbl_node_type">SYSTEM LOGIC</span>
+        <h2 class="node-title" id="lbl_node_title">Select a Node</h2>
+        <div class="node-file" id="lbl_node_file">Click any flowchart element to begin</div>
+      </div>
+      <div class="detail-body" id="detail_body">
+        <p class="detail-text">This interactive map trace how biological sequence inputs travel, where variables are updated, and what computations are performed on the server.</p>
+        <div class="code-block" style="text-align: center; color: var(--text-muted);">
+No component selected.
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    // ── DATA CATALOG FOR INTERACTIVE NODES ────────────────────────────
+    const nodeCatalog = {
+      N1: {
+        type: 'INPUT',
+        title: 'Manual DNA Ingestion',
+        file: 'modules/mod_sidebar.R',
+        description: 'Enables users to copy/paste raw sequence strings. Includes client-side input validation and real-time character counting as the user types.',
+        flow: [
+          'TextArea text field captures raw sequence string.',
+          'Live validator monitors for non-alphabetic character triggers.',
+          'Clicking "Load Sequence" fires a sequence cleansing utility.',
+          'Cleansed sequence is updated in the central reactive values block.'
+        ],
+        vars: 'input$seq_input\ninput$seq_name_input\ninput$load_seq',
+        code: `# Inside modules/mod_sidebar.R\nval_clean <- toupper(gsub("[\\r\\n\\s]", "", trimws(input$seq_input)))\nif (nchar(val_clean) > 0) {\n  # Check validation and load\n  load_sequence_into_state(val_clean, name, NULL)\n}`
+      },
+      N2: {
+        type: 'INPUT',
+        title: 'File Upload Ingestion',
+        file: 'modules/mod_sidebar.R',
+        description: 'Accepts drag-and-drop or select file uploads. Autodetects format schemas (FASTA, GenBank, SnapGene) and routes them to their specific binary or text parsers.',
+        flow: [
+          'File drag/browse triggers shiny::fileInput event.',
+          'Extension scanner checks for .fasta, .gbk, or binary .dna formats.',
+          'Calls parse_fasta(), parse_genbank(), or parse_snapgene().',
+          'Yields structured data list: sequence, headers, features, primers.'
+        ],
+        vars: 'input$fasta_upload',
+        code: `# Sourced from utils/utils_sequence.R\nif (is_snapgene) {\n  parsed <- parse_snapgene(file_path)\n} else if (is_genbank) {\n  parsed <- parse_genbank(file_path)\n} else {\n  parsed <- parse_fasta(file_path)\n}`
+      },
+      N3: {
+        type: 'INPUT',
+        title: 'NCBI API Ingestion',
+        file: 'utils/utils_sequence.R',
+        description: 'Fetches sequence models programmatically from the NCBI GenBank/RefSeq databases using an online Entrez API query.',
+        flow: [
+          'User inputs Accession number (e.g., NM_000546) and clicks Fetch.',
+          'Constructs GET request URL targeting eutils.ncbi.nlm.nih.gov.',
+          'Downloads FASTA model via rentrez/httr.',
+          'Extracts sequence string, flushes whitespace, and triggers state reload.'
+        ],
+        vars: 'input$btn_fetch_ncbi\ninput$ncbi_acc',
+        code: `# Inside utils/utils_sequence.R\nurl <- paste0("https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?",\n              "db=nuccore&id=", acc_id, "&rettype=fasta&retmode=text")\nlines <- readLines(url)\nseq_lines <- lines[!grepl("^>", lines)]\nfull_sequence <- gsub("\\\s+", "", paste(seq_lines, collapse = ""))`
+      },
+      N12: {
+        type: 'INPUT',
+        title: 'Ensembl API Ingestion',
+        file: 'utils/utils_sequence.R',
+        description: 'Fetches cDNA transcript sequence records programmatically from the Ensembl database using the biomaRt API.',
+        flow: [
+          'User inputs Ensembl Gene or Transcript ID (e.g. ENSG00000141510) and clicks Fetch.',
+          'Determines host species and connects to Ensembl Mart.',
+          'Retrieves cDNA transcript sequence matching the target identifier.',
+          'Resolves gene symbols and fetches genomic feature coordinates from AnnotationHub.'
+        ],
+        vars: 'input$btn_fetch_ensembl\ninput$ensembl_id',
+        code: `# Sourced from utils/utils_sequence.R\nmart <- biomaRt::useMart("ensembl", dataset = dataset)\nseq_data <- biomaRt::getSequence(id = id, type = id_type, seqType = "cdna", mart = mart)\nseq_str <- seq_data$cdna[[1]]`
+      },
+      N4: {
+        type: 'STATE',
+        title: 'Central State Coordinator',
+        file: 'server.R',
+        description: 'Acts as the single source of truth for the entire application. Reacts instantly to any ingestion updates and broadcasts the new variables down to modules.',
+        flow: [
+          'Receives data payloads from sidebar manual, file, or API events.',
+          'Caches sequence string and loaded annotation lists.',
+          'Automatically invalidates all output calculations depending on state.',
+          'Ensures tab components receive dynamic environment bindings.'
+        ],
+        vars: 'shared_state$seq_string\nshared_state$seq_name\nshared_state$gbk_data\nshared_state$seq_source',
+        code: `# Central State in server.R\nshared_state <- reactiveValues(\n  seq_string = default_data$sequence,\n  seq_name   = default_data$header,\n  gbk_data   = default_data,\n  open_tool  = NULL\n)`
+      },
+      N5: {
+        type: 'METRIC',
+        title: 'Dashboard Metrics Engine',
+        file: 'modules/mod_tab_manager.R',
+        description: 'Computes basic nucleotide statistics for the dashboard landing page. Operates on raw strings without calling heavy BioSequence class wrappers.',
+        flow: [
+          'Calculates base composition percentages (A, T, C, G).',
+          'Computes estimated molecular weight using dsDNA formulas.',
+          'Calculates Chargaff\'s skew rules (GC and AT skew ratio).',
+          'Pipes counts to an interactive ECharts4r donut visualizer.'
+        ],
+        vars: 'nuc_stats() -> reactive\noutput$txt_length\noutput$txt_gc\noutput$nuc_donut',
+        code: `# Inside modules/mod_tab_manager.R\nnuc_stats <- reactive({\n  bioseq_sequence_stats(active_sequence())\n})\n# GC Skew formula\ngc_skew <- (s$G - s$C) / (s$G + s$C + 1e-9)`
+      },
+      N6: {
+        type: 'TOOL',
+        title: 'Sequence Viewer Tool',
+        file: 'tools/sequence_viewer/server.R',
+        description: 'Renders an interactive, zoomable, double-stranded view showing forward/reverse strands, ticks, line markers, annotations, and restriction cuts.',
+        flow: [
+          'Listens for changes in the active sequence and zoom wrap limit.',
+          'Extracts complementary bases (A-T, G-C matching).',
+          'Overlays color spans representing feature boundaries.',
+          'Locates restriction sites and draws marker carrots (▼).'
+        ],
+        vars: 'output$seq_track_ui\ninput$line_width\ninput$enzyme_search',
+        code: `# Inside tools/sequence_viewer/helpers.R\nrender_double_stranded_sequence <- function(seq_string, gbk_data, line_width, theme, search_query) {\n  # Loops through segments and compiles line-by-line HTML blocks\n  # Adds ▼ symbols, 5'->3' rulers, complement rows, and feature colors\n}`
+      },
+      N7: {
+        type: 'TOOL',
+        title: 'RNA Transcript',
+        file: 'tools/rna_transcript/server.R',
+        description: 'Implements core transcription operations: converts DNA strings to RNA by mapping T nucleotides to U.',
+        flow: [
+          'Listens to shared_state$seq_string changes.',
+          'Validates character set matches valid DNA letters.',
+          'Executes transcribe_dna() mapping: chartr("T", "U", seq).',
+          'Renders formatted RNA transcript based on visual styles (plain, coloured, boxed).'
+        ],
+        vars: 'output$rna_render\ninput$visual_style\ninput$wrap_width',
+        code: `# Inside tools/rna_transcript/helpers.R\ntranscribe_dna <- function(seq) {\n  chartr("T", "U", seq)\n}`
+      },
+      N13: {
+        type: 'TOOL',
+        title: 'Reverse Complement',
+        file: 'tools/reverse_complement/server.R',
+        description: 'Generates the reverse complementary strand of a DNA sequence to study opposing strands, primer bindings, and cloning sites.',
+        flow: [
+          'Listens to shared_state$seq_string changes.',
+          'Reverses the sequence string direction (3\' -> 5\').',
+          'Swaps nucleotides: A<->T, G<->C.',
+          'Renders formatted reverse complement strand based on style rules.'
+        ],
+        vars: 'output$rc_render\ninput$visual_style\ninput$wrap_width',
+        code: `# Inside tools/reverse_complement/helpers.R\nreverse_complement_dna <- function(seq) {\n  # Swap A/T and C/G, then reverse string\n  seq_comp <- chartr("ATCGatcg", "TAGCtagc", seq)\n  paste(rev(strsplit(seq_comp, "")[[1]]), collapse = "")\n}`
+      },
+      N14: {
+        type: 'TOOL',
+        title: 'Translate to Protein',
+        file: 'tools/translate_protein/server.R',
+        description: 'Translates a DNA sequence into an amino acid sequence using standard genetic code tables.',
+        flow: [
+          'Listens to shared_state$seq_string changes.',
+          'Groups nucleotides into codon triplets.',
+          'Translates triplets into amino acids.',
+          'Applies biochemical class coloring: Hydrophobic, Polar, Acidic, Basic, Stop.'
+        ],
+        vars: 'output$protein_render\ninput$visual_style\ninput$wrap_width',
+        code: `# Inside tools/translate_protein/helpers.R\ntranslate_codon <- function(codon) {\n  # Standard translation map lookup\n  GENETIC_CODE[[codon]] %||% "X"\n}`
+      },
+      N8: {
+        type: 'TOOL',
+        title: '6-Frame ORF Finder',
+        file: 'tools/orf_finder/server.R',
+        description: 'Scans both DNA strands across all 6 reading frames to identify potential gene coding regions (Open Reading Frames).',
+        flow: [
+          'Translates forward and reverse complement strands.',
+          'Scans frames +1, +2, +3 and -1, -2, -3.',
+          'Looks for ATG starts and downstream stop codons (TAA, TAG, TGA).',
+          'Filters matches by size and maps coordinates back to template.',
+          'Renders an interactive SVG visualizer showing genomic tracks.'
+        ],
+        vars: 'output$orf_table\noutput$orf_track_map\ninput$min_len_bp',
+        code: `# Sourced from tools/orf_finder/helpers.R\nfind_orfs_in_sequence <- function(seq, min_len_bp) {\n  # Sliding window scan with 3bp steps searching for starts/stops\n  # Re-maps reverse coordinates to template: GenomicStart = L - StrandEnd + 1\n}`
+      },
+      N9: {
+        type: 'TOOL',
+        title: 'Pairwise Mutation Alignment',
+        file: 'tools/find_mutations/server.R',
+        description: 'Compares a reference sequence with a query (mutated) sequence using a Needleman-Wunsch global alignment engine.',
+        flow: [
+          'Calculates alignment strings containing gap placeholders ("-") via pwalign.',
+          'Computes alignment score, match count, mismatch count, and identity.',
+          'Scans alignment strings to call SNPs, insertions, and deletions.',
+          'Renders highlighted comparative tracks and lists differences in a table.'
+        ],
+        vars: 'output$align_output\noutput$mutations_table\ninput$btn_run',
+        code: `# Inside tools/find_mutations/helpers.R\naln <- pwalign::pairwiseAlignment(subject = ref, pattern = query,\n                                 substitutionMatrix = subst_mat,\n                                 gapOpening = 2, gapExtension = 2)`
+      },
+      N10: {
+        type: 'TOOL',
+        title: 'Codon Bias Optimizer',
+        file: 'tools/codon_usage/server.R',
+        description: 'Analyzes host codon preferences and designs optimized expression sequences for E. coli, Yeast, or Humans.',
+        flow: [
+          'Calculates Codon Adaptation Index (CAI) profile along a sliding window.',
+          'Generates Plotly chart of rolling CAI values.',
+          'Back-translates proteins to host-adapted codons (CAI/Random/Harmonized).',
+          'Renders side-by-side tables comparing sequence vs host frequencies.'
+        ],
+        vars: 'output$codon_frequency_table\noutput$codon_cai_chart\ninput$optimization_strategy',
+        code: `# Inside tools/codon_usage/helpers.R\n# Codon Adaptation Index formula\nCAI <- (prod(w_adaptiveness)) ^ (1/N)`
+      },
+      N11: {
+        type: 'TOOL',
+        title: 'Motif Search & Discovery',
+        file: 'tools/motif_search/server.R',
+        description: 'Enables discovery of DNA sequence motifs and searches reference databases. Supports scanning exact matches, IUPAC codes, and Position Weight Matrices.',
+        flow: [
+          'Translates IUPAC codes to regex strings (e.g. Y -> [CT]).',
+          'Calculates Log-odds likelihood scoring for PWM matrix searches.',
+          'Triggers external binary execution (FIMO, MEME, TOMTOM) via system2().',
+          'Displays hit density plots, sequence logos, and database similarity lists.'
+        ],
+        vars: 'output$hits_table\noutput$motif_visualizations\ninput$search_pattern\ninput$threshold',
+        code: `# Inside tools/motif_search/engines/motif_scan_engine.R\n# PWM Score algorithm at each sliding position\nlog_odds_score <- sum(log2(PosFrequency[base, pos] / Background[base]))`
+      }
+    };
+
+    // ── USER INTERACTION AND SIDE PANEL UPDATES ───────────────────────
+    window.nodeClicked = function(nodeId) {
+      const data = nodeCatalog[nodeId];
+      if (!data) return;
+
+      // Update badge type
+      const badge = document.getElementById('lbl_node_type');
+      badge.textContent = data.type + ' ENGINE';
+      badge.className = 'node-type-badge ' + (
+        data.type === 'INPUT' ? 'badge-input' :
+        data.type === 'STATE' ? 'badge-state' :
+        data.type === 'METRIC' ? 'badge-metric' : 'badge-tool'
+      );
+
+      // Update basic fields
+      document.getElementById('lbl_node_title').textContent = data.title;
+      document.getElementById('lbl_node_file').textContent = '📄 ' + data.file;
+
+      // Build dataflow steps list
+      let stepsHtml = '';
+      data.flow.forEach(step => {
+        stepsHtml += `<li>${step}</li>`;
+      });
+
+      // Assemble body HTML
+      const body = document.getElementById('detail_body');
+      body.innerHTML = `
+        <div>
+          <h3 class="detail-section-title">Component Description</h3>
+          <p class="detail-text">${data.description}</p>
+        </div>
+        <div>
+          <h3 class="detail-section-title">Data Flow & Processing</h3>
+          <ul class="detail-list">${stepsHtml}</ul>
+        </div>
+        <div>
+          <h3 class="detail-section-title">R Variable Bindings</h3>
+          <div class="code-block" style="color: var(--accent-light);">${data.vars.replace(/\n/g, '<br>')}</div>
+        </div>
+        <div>
+          <h3 class="detail-section-title">Core Code Snippet</h3>
+          <div class="code-block" style="white-space: pre-wrap; font-size: 0.72rem; max-height: 180px; overflow-y: auto;">${escapeHtml(data.code)}</div>
+        </div>
+      `;
+    };
+
+    function escapeHtml(text) {
+      return text
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+
+    // ── SEARCH COMPONENT FILTERING ──────────────────────────────────
+    document.getElementById('txt_search').addEventListener('input', function(e) {
+      const query = e.target.value.toLowerCase();
+      
+      // Clear previous highlights
+      document.querySelectorAll('.highlight-node').forEach(el => {
+        el.classList.remove('highlight-node');
+      });
+
+      if (!query) return;
+
+      // Find matching keys in the catalog
+      for (const [nodeId, nodeData] of Object.entries(nodeCatalog)) {
+        if (nodeData.title.toLowerCase().includes(query) || 
+            nodeData.description.toLowerCase().includes(query) ||
+            nodeData.file.toLowerCase().includes(query)) {
+          
+          // Find matching SVG elements in rendered Mermaid
+          const svgNodes = document.querySelectorAll(`[id^="flowchart-${nodeId}-"]`);
+          svgNodes.forEach(node => {
+            node.classList.add('highlight-node');
+          });
+        }
+      }
+    });
+
+    // ── ZOOM AND PAN INTERACTIVES ─────────────────────────────────────
+    const container = document.getElementById('panzoom_container');
+    let isDragging = false;
+    let startX, startY;
+    let translateX = 0;
+    let translateY = 0;
+    let scale = 1;
+
+    // Zoom mouse wheel event
+    document.getElementById('diagram_pane').addEventListener('wheel', function(e) {
+      e.preventDefault();
+      const zoomFactor = 0.08;
+      if (e.deltaY < 0) {
+        scale = Math.min(2.5, scale + zoomFactor); // Zoom In
+      } else {
+        scale = Math.max(0.4, scale - zoomFactor); // Zoom Out
+      }
+      updateTransform();
+    });
+
+    // Pan mousedown event
+    container.addEventListener('mousedown', function(e) {
+      // Only drag if clicking viewport background, not buttons/nodes
+      if (e.target.closest('.node') || e.target.closest('button')) return;
+      isDragging = true;
+      startX = e.clientX - translateX;
+      startY = e.clientY - translateY;
+      container.style.cursor = 'grabbing';
+    });
+
+    window.addEventListener('mousemove', function(e) {
+      if (!isDragging) return;
+      translateX = e.clientX - startX;
+      translateY = e.clientY - startY;
+      updateTransform();
+    });
+
+    window.addEventListener('mouseup', function() {
+      isDragging = false;
+      container.style.cursor = 'grab';
+    });
+
+    // Control buttons
+    document.getElementById('btn_zoom_in').addEventListener('click', () => { scale = Math.min(2.5, scale + 0.15); updateTransform(); });
+    document.getElementById('btn_zoom_out').addEventListener('click', () => { scale = Math.max(0.4, scale - 0.15); updateTransform(); });
+    document.getElementById('btn_zoom_reset').addEventListener('click', () => { scale = 1; translateX = 0; translateY = 0; updateTransform(); });
+
+    function updateTransform() {
+      container.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="860" height="420" viewBox="0 0 860 420">
+<rect width="100%" height="100%" fill="#ffffff"/>
+<text x="24" y="24" font-family="Arial" font-size="16" font-weight="700" fill="#111827">Relative dinucleotide abundance</text>
+<line x1="54" y1="36" x2="54" y2="366" stroke="#cbd5e1"/>
+<line x1="54" y1="366" x2="840" y2="366" stroke="#cbd5e1"/>
+<rect x="60.84" y="133.96" width="35.19" height="232.04" fill="#475569"><title>AA: 1.0204</title></rect>
+<rect x="109.72" y="70.47" width="35.19" height="295.53" fill="#475569"><title>CA: 1.2996</title></rect>
+<rect x="158.59" y="97.68" width="35.19" height="268.32" fill="#475569"><title>GA: 1.1799</title></rect>
+<rect x="207.47" y="225.00" width="35.19" height="141.00" fill="#475569"><title>TA: 0.6200</title></rect>
+<rect x="256.34" y="80.16" width="35.19" height="285.84" fill="#475569"><title>AC: 1.2570</title></rect>
+<rect x="305.22" y="113.72" width="35.19" height="252.28" fill="#475569"><title>CC: 1.1094</title></rect>
+<rect x="354.09" y="213.85" width="35.19" height="152.15" fill="#475569"><title>GC: 0.6690</title></rect>
+<rect x="402.97" y="174.57" width="35.19" height="191.43" fill="#475569"><title>TC: 0.8418</title></rect>
+<rect x="451.84" y="163.59" width="35.19" height="202.41" fill="#475569"><title>AG: 0.8901</title></rect>
+<rect x="500.72" y="281.47" width="35.19" height="84.53" fill="#475569"><title>CG: 0.3717</title></rect>
+<rect x="549.59" y="94.98" width="35.19" height="271.02" fill="#475569"><title>GG: 1.1918</title></rect>
+<rect x="598.47" y="36.00" width="35.19" height="330.00" fill="#475569"><title>TG: 1.4511</title></rect>
+<rect x="647.34" y="166.54" width="35.19" height="199.46" fill="#475569"><title>AT: 0.8771</title></rect>
+<rect x="696.22" y="137.52" width="35.19" height="228.48" fill="#475569"><title>CT: 1.0047</title></rect>
+<rect x="745.09" y="174.00" width="35.19" height="192.00" fill="#475569"><title>GT: 0.8443</title></rect>
+<rect x="793.97" y="76.69" width="35.19" height="289.31" fill="#475569"><title>TT: 1.2722</title></rect>
+<text x="78.44" y="382" transform="rotate(60 78.44 382)" font-size="10" fill="#475569">AA</text>
+<text x="127.31" y="382" transform="rotate(60 127.31 382)" font-size="10" fill="#475569">CA</text>
+<text x="176.19" y="382" transform="rotate(60 176.19 382)" font-size="10" fill="#475569">GA</text>
+<text x="225.06" y="382" transform="rotate(60 225.06 382)" font-size="10" fill="#475569">TA</text>
+<text x="273.94" y="382" transform="rotate(60 273.94 382)" font-size="10" fill="#475569">AC</text>
+<text x="322.81" y="382" transform="rotate(60 322.81 382)" font-size="10" fill="#475569">CC</text>
+<text x="371.69" y="382" transform="rotate(60 371.69 382)" font-size="10" fill="#475569">GC</text>
+<text x="420.56" y="382" transform="rotate(60 420.56 382)" font-size="10" fill="#475569">TC</text>
+<text x="469.44" y="382" transform="rotate(60 469.44 382)" font-size="10" fill="#475569">AG</text>
+<text x="518.31" y="382" transform="rotate(60 518.31 382)" font-size="10" fill="#475569">CG</text>
+<text x="567.19" y="382" transform="rotate(60 567.19 382)" font-size="10" fill="#475569">GG</text>
+<text x="616.06" y="382" transform="rotate(60 616.06 382)" font-size="10" fill="#475569">TG</text>
+<text x="664.94" y="382" transform="rotate(60 664.94 382)" font-size="10" fill="#475569">AT</text>
+<text x="713.81" y="382" transform="rotate(60 713.81 382)" font-size="10" fill="#475569">CT</text>
+<text x="762.69" y="382" transform="rotate(60 762.69 382)" font-size="10" fill="#475569">GT</text>
+<text x="811.56" y="382" transform="rotate(60 811.56 382)" font-size="10" fill="#475569">TT</text>
+</svg>

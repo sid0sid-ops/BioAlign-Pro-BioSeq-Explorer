@@ -1,0 +1,1420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BioSeq Explorer — Researcher Reference Manual</title>
+  
+  <!-- Typography & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+  <!-- MathJax for rendering biological and mathematical formulas -->
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+  <!-- Mermaid.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      securityLevel: 'loose',
+      theme: 'default'
+    });
+  </script>
+
+  <style>
+    :root {
+      --bg-primary: #f8fafc;
+      --bg-secondary: #ffffff;
+      --bg-tertiary: #f1f5f9;
+      --panel-bg: #ffffff;
+      --border: #e2e8f0;
+      --text: #0f172a;
+      --text-muted: #475569;
+      
+      /* Harmonious Palette */
+      --accent-teal: #0d9488;
+      --accent-purple: #7c3aed;
+      --accent-emerald: #059669;
+      --accent-blue: #2563eb;
+      --accent-pink: #db2777;
+      --accent-orange: #ea580c;
+      --accent-danger: #dc2626;
+      
+      --sidebar-width: 280px;
+    }
+
+    * {
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background-color: var(--bg-primary);
+      background-image: 
+        radial-gradient(circle at 10% 20%, rgba(139, 92, 246, 0.08) 0%, transparent 40%),
+        radial-gradient(circle at 90% 80%, rgba(20, 184, 166, 0.08) 0%, transparent 40%);
+      background-attachment: fixed;
+      color: var(--text);
+      line-height: 1.6;
+      display: flex;
+    }
+
+    /* ── SIDEBAR NAVIGATION ────────────────────────────────────────── */
+    aside {
+      width: var(--sidebar-width);
+      height: 100vh;
+      position: fixed;
+      top: 0;
+      left: 0;
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(16px);
+      border-right: 1px solid var(--border);
+      padding: 32px 24px;
+      display: flex;
+      flex-direction: column;
+      z-index: 100;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 36px;
+    }
+
+    .brand-logo {
+      font-size: 1.5rem;
+      background: linear-gradient(135deg, var(--accent-teal), var(--accent-purple));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-weight: 800;
+    }
+
+    .nav-menu {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .nav-item a {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 16px;
+      color: var(--text-muted);
+      text-decoration: none;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: all 0.2s ease;
+    }
+
+    .nav-item a:hover, .nav-item.active a {
+      color: var(--text);
+      background: rgba(13, 148, 136, 0.06);
+      border-left: 3px solid var(--accent-teal);
+      padding-left: 13px;
+    }
+
+    /* ── MAIN CONTENT AREA ─────────────────────────────────────────── */
+    main {
+      margin-left: var(--sidebar-width);
+      flex-grow: 1;
+      padding: 48px 64px;
+      max-width: 1200px;
+    }
+
+    header {
+      margin-bottom: 48px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 32px;
+    }
+
+    .manual-tag {
+      background: rgba(20, 184, 166, 0.1);
+      color: var(--accent-teal);
+      border: 1px solid rgba(20, 184, 166, 0.2);
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      display: inline-block;
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      font-weight: 800;
+      margin: 0 0 12px 0;
+      background: linear-gradient(135deg, #0f172a, var(--text-muted));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .header-sub {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      margin: 0;
+    }
+
+    section {
+      margin-bottom: 64px;
+      scroll-margin-top: 48px;
+    }
+
+    h2 {
+      font-size: 1.75rem;
+      font-weight: 700;
+      margin-bottom: 24px;
+      border-left: 4px solid var(--accent-purple);
+      padding-left: 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    p {
+      color: #334155;
+      font-size: 0.975rem;
+      line-height: 1.7;
+      margin-bottom: 24px;
+    }
+
+    /* ── GLASSMORPHIC CARDS ────────────────────────────────────────── */
+    .glass-card {
+      background: var(--panel-bg);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 28px;
+      margin-bottom: 32px;
+      box-shadow: 0 4px 20px rgba(15, 23, 42, 0.05);
+      transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+
+    .glass-card:hover {
+      border-color: rgba(15, 23, 42, 0.15);
+      transform: translateY(-2px);
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+      gap: 24px;
+      margin-bottom: 32px;
+    }
+
+    /* ── SCROLL-IN ANIMATION FOR IMAGES ────────────────────────────── */
+    .img-container {
+      position: relative;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      margin: 28px 0;
+      background: #090d16;
+    }
+
+    .img-container img {
+      width: 100%;
+      height: auto;
+      display: block;
+      transition: transform 0.3s ease;
+    }
+
+    .img-container:hover img {
+      transform: scale(1.02);
+    }
+
+    .img-caption {
+      background: rgba(15, 23, 42, 0.95);
+      padding: 14px 20px;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .img-caption i {
+      color: var(--accent-teal);
+    }
+
+    /* ── FORMULAS AND BIOLOGICAL INTERPRETATIONS ──────────────────── */
+    .math-block {
+      background: #f1f5f9;
+      color: var(--text);
+      border-left: 4px solid var(--accent-teal);
+      padding: 20px;
+      border-radius: 0 8px 8px 0;
+      margin: 24px 0;
+      overflow-x: auto;
+    }
+
+    .interpretation-card {
+      background: rgba(16, 185, 129, 0.05);
+      border: 1px solid rgba(16, 185, 129, 0.15);
+      border-radius: 8px;
+      padding: 20px;
+      margin-top: 20px;
+    }
+
+    .interpretation-title {
+      font-weight: 700;
+      color: var(--accent-emerald);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 8px;
+      font-size: 0.95rem;
+    }
+
+    /* ── CODE LINKS & FILE POINTERS ────────────────────────────────── */
+    .file-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      background: rgba(59, 130, 246, 0.05);
+      border: 1px solid var(--border);
+      color: var(--accent-blue);
+      padding: 3px 8px;
+      border-radius: 4px;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .file-tag:hover {
+      background: rgba(59, 130, 246, 0.1);
+      border-color: rgba(59, 130, 246, 0.3);
+      color: var(--accent-blue);
+    }
+
+    /* ── TABLE AESTHETICS ─────────────────────────────────────────── */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 24px 0;
+      font-size: 0.9rem;
+    }
+
+    th {
+      background: rgba(241, 245, 249, 0.9);
+      color: var(--text);
+      font-weight: 600;
+      text-align: left;
+      padding: 12px 16px;
+      border-bottom: 2px solid var(--border);
+    }
+
+    td {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border);
+      color: var(--text-muted);
+    }
+
+    tr:hover td {
+      color: var(--text);
+      background: rgba(15, 23, 42, 0.02);
+    }
+
+    .badge {
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 12px;
+      text-transform: uppercase;
+    }
+
+    .badge-teal { background: rgba(20, 184, 166, 0.1); color: var(--accent-teal); border: 1px solid rgba(20, 184, 166, 0.2); }
+    .badge-purple { background: rgba(139, 92, 246, 0.1); color: var(--accent-purple); border: 1px solid rgba(139, 92, 246, 0.2); }
+    .badge-pink { background: rgba(236, 72, 153, 0.1); color: var(--accent-pink); border: 1px solid rgba(236, 72, 153, 0.2); }
+
+    /* ── INTERACTIVE DATAFLOW MAP STYLES (LIGHT THEME ONLY) ── */
+    .search-container {
+      margin-bottom: 16px;
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .dataflow-search-box {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 8px 14px;
+      color: var(--text);
+      font-size: 0.9rem;
+      outline: none;
+      width: 300px;
+      transition: border-color 0.2s;
+    }
+
+    .dataflow-search-box:focus {
+      border-color: var(--accent-purple);
+    }
+
+    .dataflow-workspace {
+      display: flex;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      height: 600px;
+      position: relative;
+      background: var(--bg-secondary);
+      box-shadow: 0 4px 20px rgba(15, 23, 42, 0.05);
+      margin-bottom: 40px;
+    }
+
+    .diagram-pane {
+      flex: 1;
+      position: relative;
+      background-color: #f1f5f9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .panzoom-container {
+      width: 100%;
+      height: 100%;
+      transform-origin: center center;
+      cursor: grab;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      user-select: none;
+    }
+
+    .panzoom-container:active {
+      cursor: grabbing;
+    }
+
+    .panzoom-container svg {
+      width: 100% !important;
+      height: auto !important;
+      max-width: 90% !important;
+    }
+
+    .detail-pane {
+      width: 380px;
+      background-color: var(--bg-secondary);
+      border-left: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+      z-index: 5;
+    }
+
+    .detail-header {
+      padding: 20px;
+      border-bottom: 1px solid var(--border);
+      background: rgba(15, 23, 42, 0.02);
+    }
+
+    .node-type-badge {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 3px 8px;
+      border-radius: 4px;
+      margin-bottom: 8px;
+    }
+
+    .badge-input { background: rgba(59, 130, 246, 0.1); color: var(--accent-blue); border: 1px solid rgba(59, 130, 246, 0.2); }
+    .badge-state { background: rgba(139, 92, 246, 0.1); color: var(--accent-purple); border: 1px solid rgba(139, 92, 246, 0.2); }
+    .badge-metric { background: rgba(16, 185, 129, 0.1); color: var(--accent-emerald); border: 1px solid rgba(16, 185, 129, 0.2); }
+    .badge-tool { background: rgba(245, 158, 11, 0.1); color: var(--accent-orange); border: 1px solid rgba(245, 158, 11, 0.2); }
+
+    .node-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin: 0;
+      color: var(--text);
+    }
+
+    .node-file {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-top: 4px;
+      word-break: break-all;
+    }
+
+    .detail-body {
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      flex: 1;
+    }
+
+    .detail-section-title {
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      letter-spacing: 0.05em;
+      margin-top: 0;
+      margin-bottom: 8px;
+    }
+
+    .detail-text {
+      font-size: 0.88rem;
+      line-height: 1.6;
+      color: #334155;
+      margin: 0;
+    }
+
+    .detail-list {
+      list-style-type: none;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      padding-left: 0;
+      margin: 0;
+    }
+
+    .detail-list li {
+      font-size: 0.85rem;
+      padding-left: 14px;
+      position: relative;
+      color: #334155;
+    }
+
+    .detail-list li::before {
+      content: "•";
+      color: var(--accent-purple);
+      position: absolute;
+      left: 0;
+    }
+
+    .code-block-pane {
+      background-color: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 12px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.78rem;
+      color: #0f172a;
+      overflow-x: auto;
+      white-space: pre-wrap;
+    }
+
+    .view-controls {
+      position: absolute;
+      bottom: 20px;
+      left: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      z-index: 10;
+    }
+
+    .btn-control {
+      width: 36px;
+      height: 36px;
+      border-radius: 6px;
+      background-color: var(--bg-secondary);
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-size: 1.1rem;
+      font-weight: bold;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+    }
+
+    .btn-control:hover {
+      background-color: var(--bg-tertiary);
+      border-color: var(--text-muted);
+    }
+
+    .instruction-overlay {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(8px);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 10px 14px;
+      border-radius: 8px;
+      max-width: 280px;
+      font-size: 0.75rem;
+      pointer-events: none;
+      z-index: 8;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+    }
+
+    .highlight-node rect {
+      stroke: var(--accent-orange) !important;
+      stroke-width: 3px !important;
+      filter: drop-shadow(0 0 6px var(--accent-orange));
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- ── SIDEBAR NAVIGATION ── -->
+  <aside>
+    <div class="brand">
+      <i class="bi bi-dna brand-logo" style="font-size: 1.8rem; -webkit-text-fill-color: initial; background: none; color: var(--accent-teal);"></i>
+      <span class="brand-logo">BioSeq Workspace</span>
+    </div>
+    <ul class="nav-menu">
+      <li class="nav-item"><a href="#introduction"><i class="bi bi-info-circle"></i> Introduction</a></li>
+      <li class="nav-item"><a href="#dataflow-map"><i class="bi bi-diagram-3"></i> System Dataflow</a></li>
+      <li class="nav-item"><a href="#codon-usage"><i class="bi bi-bar-chart-line"></i> Codon Usage Bias</a></li>
+      <li class="nav-item"><a href="#codon-opt"><i class="bi bi-lightning-charge"></i> Codon Optimization</a></li>
+      <li class="nav-item"><a href="#motif-discovery"><i class="bi bi-search"></i> Motif Discovery</a></li>
+      <li class="nav-item"><a href="#structure-aware"><i class="bi bi-bezier2"></i> Structural RNA Folds</a></li>
+      <li class="nav-item"><a href="#code-map"><i class="bi bi-code-slash"></i> Workstation Code Map</a></li>
+    </ul>
+  </aside>
+
+  <!-- ── MAIN CONTENT ── -->
+  <main>
+    <header>
+      <span class="manual-tag">Systems Biology Reference Manual</span>
+      <h1>Computational Biology & Molecular Diagnostics Guide</h1>
+      <p class="header-sub">An academic reference guide describing mathematical models, algorithms, and biological interpretations within the BioSeq Explorer Workstation.</p>
+    </header>
+
+    <!-- ── INTRODUCTION ── -->
+    <section id="introduction">
+      <h2><i class="bi bi-bookmark-star"></i> Workstation Ingestion & Global Architecture</h2>
+      <p>
+        The <strong>BioSeq Explorer</strong> workstation operates as an integrated, state-synchronized bioinformatics workbench. 
+        Upon sequence ingestion—via manual input, FASTA upload, or remote API fetches (NCBI Entrez or Ensembl BioMart)—the 
+        <a class="file-tag" href="file:///c:/Users/Siddharth Tripathi/OneDrive/Desktop/bioseq_explorer/modules/mod_sidebar.R"><i class="bi bi-file-earmark-code"></i> mod_sidebar.R</a> 
+        cleans and transmits sequence payloads to the central reactive values system 
+        (<a class="file-tag" href="file:///c:/Users/Siddharth Tripathi/OneDrive/Desktop/bioseq_explorer/server.R"><i class="bi bi-file-earmark-code"></i> server.R</a>). 
+        The workstation calculates several structural and composition baselines on load:
+      </p>
+      
+      <div class="grid-2">
+        <div class="glass-card">
+          <h4 style="margin-top:0; color:var(--accent-teal);"><i class="bi bi-activity"></i> Chargaff's Skew Metrics</h4>
+          <p style="font-size:0.9rem; margin-bottom:12px;">
+            Nucleotide density skews reveal DNA replication origins and transcription start sites. The workstation computes skews using sliding-windows:
+          </p>
+          <div class="math-block">
+            $$GC_{\text{skew}} = \frac{G - C}{G + C} \quad \text{and} \quad AT_{\text{skew}} = \frac{A - T}{A + T}$$
+          </div>
+        </div>
+        <div class="glass-card">
+          <h4 style="margin-top:0; color:var(--accent-purple);"><i class="bi bi-calculator"></i> Molecular Weight Calculation</h4>
+          <p style="font-size:0.9rem; margin-bottom:12px;">
+            The workstation estimates the molecular mass of double-stranded DNA based on nucleotide composition, assuming an average molecular weight of 660 Daltons per base pair:
+          </p>
+          <div class="math-block">
+            $$MW_{\text{dsDNA}} = \left( L_{\text{bp}} \times 660 \text{ Da} \right) \div 1000 \quad \text{(kDa)}$$
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── SYSTEM DATAFLOW MAP ── -->
+    <section id="dataflow-map">
+      <h2><i class="bi bi-diagram-3"></i> Interactive System Dataflow & Logic Map</h2>
+      <p>
+        To trace how sequence payloads migrate from ingestion ports down to advanced workstations, click on the nodes in the diagram below. 
+        The side panel will dynamically load calculations, state variables, and code paths.
+      </p>
+
+      <div class="search-container">
+        <i class="bi bi-search" style="color: var(--text-muted);"></i>
+        <input type="text" class="dataflow-search-box" placeholder="Search dataflow components..." id="txt_search">
+      </div>
+
+      <div class="dataflow-workspace">
+        <!-- Instructional Overlay -->
+        <div class="instruction-overlay">
+          <strong>Interactive Map Controls:</strong><br>
+          • Mouse wheel: Zoom diagram<br>
+          • Drag background: Pan diagram<br>
+          • <strong>Click diagram elements</strong> to load core logic and variable bindings.
+        </div>
+
+        <!-- Floating Zoom Controls -->
+        <div class="view-controls">
+          <button class="btn-control" id="btn_zoom_in" title="Zoom In">+</button>
+          <button class="btn-control" id="btn_zoom_out" title="Zoom Out">-</button>
+          <button class="btn-control" id="btn_zoom_reset" title="Reset View">⟲</button>
+        </div>
+
+        <!-- Diagram Viewport -->
+        <div class="diagram-pane" id="diagram_pane">
+          <div class="panzoom-container" id="panzoom_container">
+            <pre class="mermaid" id="mermaid_source">
+graph TD
+    %% Node Definitions %%
+    subgraph Ingestion ["1. Sequence Ingestion Ports"]
+        N1[Manual DNA Ingestion]
+        N2[File Upload Ingestion]
+        N3[NCBI API Ingestion]
+        N12[Ensembl API Ingestion]
+    end
+
+    subgraph State ["2. Core State Broker"]
+        N4[Central State Coordinator]
+    end
+
+    subgraph Tools ["3. Analytical & Workstation Tools"]
+        subgraph Viewers ["Visual Inspection"]
+            N5[Dashboard Metrics Engine]
+            N6[Sequence Viewer Tool]
+        end
+        subgraph Transducers ["Standard Operations"]
+            N7[RNA Transcript]
+            N13[Reverse Complement]
+            N14[Translate to Protein]
+            N8[6-Frame ORF Finder]
+        end
+        subgraph Advanced ["Advanced Analysis"]
+            N9[Pairwise Mutation Alignment]
+            N10[Codon Bias Optimizer]
+            N11[Motif Discovery Engines]
+        end
+    end
+
+    %% Connection Links %%
+    N1 -->|Load Click| N4
+    N2 -->|Upload FASTA/GBK| N4
+    N3 -->|Fetch Entrez API| N4
+    N12 -->|Fetch biomaRt API| N4
+    
+    N4 --> N5
+    N4 --> N6
+    N4 --> N7
+    N4 --> N13
+    N4 --> N14
+    N4 --> N8
+    N4 --> N9
+    N4 --> N10
+    N4 --> N11
+
+    %% Styling Nodes %%
+    classDef inputNode fill:#2563eb,stroke:#3b82f6,stroke-width:1px,color:#fff,font-size:12px,font-weight:600
+    classDef stateNode fill:#7c3aed,stroke:#8b5cf6,stroke-width:1px,color:#fff,font-size:12px,font-weight:600
+    classDef metricNode fill:#059669,stroke:#10b981,stroke-width:1px,color:#fff,font-size:12px,font-weight:600
+    classDef toolNode fill:#ea580c,stroke:#f97316,stroke-width:1px,color:#fff,font-size:12px,font-weight:600
+
+    class N1,N2,N3,N12 inputNode
+    class N4 stateNode
+    class N5 metricNode
+    class N6,N7,N8,N9,N10,N11,N13,N14 toolNode
+
+    %% Click Callbacks %%
+    click N1 call nodeClicked
+    click N2 call nodeClicked
+    click N3 call nodeClicked
+    click N4 call nodeClicked
+    click N5 call nodeClicked
+    click N6 call nodeClicked
+    click N7 call nodeClicked
+    click N8 call nodeClicked
+    click N9 call nodeClicked
+    click N10 call nodeClicked
+    click N11 call nodeClicked
+    click N12 call nodeClicked
+    click N13 call nodeClicked
+    click N14 call nodeClicked
+            </pre>
+          </div>
+        </div>
+
+        <!-- Side Detail Panel -->
+        <div class="detail-pane" id="detail_pane">
+          <div class="detail-header">
+            <span class="node-type-badge badge-state" id="lbl_node_type">SYSTEM LOGIC</span>
+            <h2 class="node-title" id="lbl_node_title">Select a Node</h2>
+            <div class="node-file" id="lbl_node_file">Click any flowchart element to begin</div>
+          </div>
+          <div class="detail-body" id="detail_body">
+            <p class="detail-text">This interactive map traces how biological sequence inputs travel, where variables are updated, and what computations are performed on the server.</p>
+            <div class="code-block-pane" style="text-align: center; color: var(--text-muted);">
+No component selected.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── CODON USAGE BIAS ── -->
+    <section id="codon-usage">
+      <h2><i class="bi bi-bar-chart-steps"></i> Codon Usage Bias & Host Adaptiveness</h2>
+      <p>
+        The genetic code is degenerate: 18 of the 20 standard amino acids are encoded by multiple synonymous codons. 
+        Codon usage bias (CUB) refers to the non-random distribution of these codons in protein-coding sequences. 
+        This workstation provides four metrics to analyze this bias, integrated inside 
+        <a class="file-tag" href="file:///c:/Users/Siddharth Tripathi/OneDrive/Desktop/bioseq_explorer/tools/codon_usage/server.R"><i class="bi bi-file-earmark-code"></i> codon_usage/server.R</a>.
+      </p>
+
+      <div class="glass-card">
+        <h3>1. Relative Synonymous Codon Usage (RSCU)</h3>
+        <p>
+          RSCU measures the relative frequency of a codon compared to the frequency expected under uniform codon usage for its corresponding amino acid:
+        </p>
+        <div class="math-block">
+          $$RSCU_{ij} = \frac{X_{ij}}{\frac{1}{n_i} \sum_{k=1}^{n_i} X_{ik}}$$
+        </div>
+        <p style="font-size:0.9rem; color:var(--text-muted);">
+          Where \(X_{ij}\) is the count of codon \(j\) encoding amino acid \(i\), and \(n_i\) is the degeneracy of amino acid \(i\).
+        </p>
+        <div class="interpretation-card">
+          <div class="interpretation-title"><i class="bi bi-info-circle-fill"></i> Biological Interpretation</div>
+          <p style="margin:0; font-size:0.9rem;">
+            An <strong>RSCU = 1.0</strong> signifies that all synonymous codons are chosen with equal probability. 
+            An <strong>RSCU &gt; 1.0</strong> highlights preferred codons (frequently matched with abundant tRNAs), whereas 
+            <strong>RSCU &lt; 1.0</strong> represents under-represented codons. High-expression genes typically exhibit a 
+            clustering of high RSCU values in their reading frames.
+          </p>
+        </div>
+      </div>
+
+      <div class="img-container">
+        <img src="../Images/codon_overview.png" alt="Codon Frequency and RSCU Heatmap Dashboard">
+        <div class="img-caption">
+          <i class="bi bi-image"></i>
+          <strong>Figure 1: Codon Usage Analytics Overview.</strong> Illustrates codon frequency distributions across all 64 codons and the Relative Synonymous Codon Usage (RSCU) clustering heatmap, mapping host-adaptation variations.
+        </div>
+      </div>
+
+      <div class="glass-card">
+        <h3>2. Codon Adaptation Index (CAI)</h3>
+        <p>
+          CAI measures the degree of codon optimization of a gene relative to a host reference set of highly expressed genes:
+        </p>
+        <div class="math-block">
+          $$w_{ij} = \frac{f_{ij}}{\max(f_{ik})} \quad \Rightarrow \quad CAI = \left( \prod_{m=1}^{L} w_m \right)^{\frac{1}{L}} = \exp\left( \frac{1}{L} \sum_{m=1}^{L} \ln(w_m) \right)$$
+        </div>
+        <p style="font-size:0.9rem; color:var(--text-muted);">
+          Where \(f_{ij}\) is the frequency of codon \(j\) encoding amino acid \(i\) in the host reference genome, and \(w_m\) is the relative adaptiveness of the \(m\)-th codon in a sequence of length \(L\).
+        </p>
+        <div class="interpretation-card">
+          <div class="interpretation-title"><i class="bi bi-info-circle-fill"></i> Biological Interpretation</div>
+          <p style="margin:0; font-size:0.9rem;">
+            <strong>CAI values range from 0 to 1</strong>. A CAI close to 1 indicates that the sequence is highly adapted 
+            to the host's translation machinery. CAI calculations are performed in 
+            <a class="file-tag" href="file:///c:/Users/Siddharth Tripathi/OneDrive/Desktop/bioseq_explorer/tools/codon_usage/engines/engine_cai.R"><i class="bi bi-file-earmark-code"></i> engine_cai.R</a> 
+            using local genome tables for <i>E. coli</i>, <i>S. cerevisiae</i>, and <i>H. sapiens</i>.
+          </p>
+        </div>
+      </div>
+
+      <div class="glass-card">
+        <h3>3. Effective Number of Codons (ENC) & Wright's Neutral Mutation Curve</h3>
+        <p>
+          ENC measures the overall codon bias of a gene, independent of host-specific references. It ranges from 20 (extreme bias, where only one codon is used for each amino acid) to 61 (no bias, where all codons are used equally). Wright's neutrality baseline relates \(ENC\) to \(GC_3\) (GC content at the third codon position) under neutral selection:
+        </p>
+        <div class="math-block">
+          $$ENC_{\text{neutral}} = 2 + s + \frac{29}{s^2 + (1 - s)^2} \quad \text{where } s = GC_3$$
+        </div>
+        <div class="interpretation-card">
+          <div class="interpretation-title"><i class="bi bi-graph-up-arrow"></i> Interpretation of ENC-GC3 Plots</div>
+          <p style="margin:0; font-size:0.9rem;">
+            Codon usage bias is driven by a combination of mutational pressure and translational selection. 
+            When ENC values fall on or close to the neutral curve, the bias is driven solely by <strong>mutational pressure</strong> (GC bias). 
+            When ENC values fall significantly below the curve, it indicates strong <strong>evolutionary selection</strong> for specific codons, 
+            which is common in highly expressed genes. This diagnostic is implemented in 
+            <a class="file-tag" href="file:///c:/Users/Siddharth Tripathi/OneDrive/Desktop/bioseq_explorer/tools/codon_usage/engines/engine_enc.R"><i class="bi bi-file-earmark-code"></i> engine_enc.R</a>.
+          </p>
+        </div>
+      </div>
+
+      <div class="img-container">
+        <img src="../Images/codon_bias.png" alt="Wright's ENC-GC3 Diagnostic Plot">
+        <div class="img-caption">
+          <i class="bi bi-image"></i>
+          <strong>Figure 2: Wright's ENC-GC3 Selection Plot.</strong> Displays the mathematical neutrality curve and plots the query sequence. Points falling below the curve indicate selection-driven codon bias rather than neutral mutational drift.
+        </div>
+      </div>
+    </section>
+
+    <!-- ── CODON OPTIMIZATION ── -->
+    <section id="codon-opt">
+      <h2><i class="bi bi-cpu"></i> Codon Optimization Studio & Back-Translation</h2>
+      <p>
+        For heterologous gene expression (e.g., expressing human GFP in <i>E. coli</i>), expression rates can be severely restricted by "rare codons"—codons whose matching tRNAs are scarce in the expression host. The workstation's optimization engine 
+        (<a class="file-tag" href="file:///c:/Users/Siddharth Tripathi/OneDrive/Desktop/bioseq_explorer/tools/codon_usage/engines/engine_codon_optimization.R"><i class="bi bi-file-earmark-code"></i> engine_codon_optimization.R</a>) 
+        implements three optimization strategies:
+      </p>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Strategy</th>
+            <th>Algorithm Details</th>
+            <th>Best Suited For</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="badge badge-teal">Max CAI</span></td>
+            <td>Selects the most frequently used codon (\(w_{ij} = 1.0\)) for every amino acid.</td>
+            <td>Maximum short-term expression levels.</td>
+          </tr>
+          <tr>
+            <td><span class="badge badge-purple">Harmonized</span></td>
+            <td>Selects codons randomly based on the host's relative frequency distribution, matching host codon ratios.</td>
+            <td>Preventing translation bottlenecks and protein misfolding.</td>
+          </tr>
+          <tr>
+            <td><span class="badge badge-pink">Balanced</span></td>
+            <td>Selects high-adaptiveness codons while balancing GC content at the third position to avoid mRNA secondary structures.</td>
+            <td>Stable expression across highly variable systems.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="img-container">
+        <img src="../Images/codon_optimization.png" alt="Codon Optimization Workbench and Diff Viewer">
+        <div class="img-caption">
+          <i class="bi bi-image"></i>
+          <strong>Figure 3: Codon Optimization Studio.</strong> Showcases the side-by-side diff view of the coding sequence before and after optimization, illustrating synonymous substitutions that improve CAI without modifying the protein sequence.
+        </div>
+      </div>
+    </section>
+
+    <!-- ── MOTIF SEARCH ── -->
+    <section id="motif-discovery">
+      <h2><i class="bi bi-search-heart"></i> Motif Search, IUPAC Expansion, & PWM Log-Odds</h2>
+      <p>
+        Conserved sequence motifs represent functional binding sites for transcription factors, RNA-binding proteins, or restriction enzymes. 
+        The Motif Search Workstation 
+        (<a class="file-tag" href="file:///c:/Users/Siddharth Tripathi/OneDrive/Desktop/bioseq_explorer/tools/motif_search/server.R"><i class="bi bi-file-earmark-code"></i> motif_search/server.R</a>) 
+        combines search modes to detect these signals.
+      </p>
+
+      <div class="glass-card">
+        <h3>1. IUPAC Degenerate Expansion</h3>
+        <p>
+          Degenerate DNA sequences (e.g. promoters containing TATA boxes or restriction recognition sequences) are scanned by expanding ambiguous IUPAC nucleotide letters into equivalent regular expressions:
+        </p>
+        <div class="math-block">
+          $$R \rightarrow [AG], \quad Y \rightarrow [CT], \quad S \rightarrow [GC], \quad W \rightarrow [AT], \quad N \rightarrow [ACGT]$$
+        </div>
+      </div>
+
+      <div class="glass-card">
+        <h3>2. Position Weight Matrix (PWM) Log-Odds Scoring</h3>
+        <p>
+          Unlike binary exact searches, transcription factors bind to sequences with varying affinity. 
+          To model this, the workstation calculates a log-odds likelihood score \(S\) at each position:
+        </p>
+        <div class="math-block">
+          $$S_j = \sum_{k=1}^{W} \log_2 \left( \frac{P(b, k) + p}{P_{\text{bg}}(b) + p} \right)$$
+        </div>
+        <p style="font-size:0.9rem; color:var(--text-muted);">
+          Where \(P(b,k)\) is the frequency of base \(b\) at position \(k\) in the Position Frequency Matrix (PFM), 
+          \(P_{\text{bg}}(b)\) is the genomic background frequency of base \(b\), and \(p\) is a Laplace pseudocount (0.25) to avoid division by zero.
+        </p>
+      </div>
+
+      <div class="img-container">
+        <img src="../Images/motif_matches.png" alt="Motif Scanning Hits Table and Positional Heatmap">
+        <div class="img-caption">
+          <i class="bi bi-image"></i>
+          <strong>Figure 4: Motif Scanning and Hit Distribution.</strong> Highlights the exact hit coordinates on both strands, with positional density heatmaps indicating clusters of TF binding sites.
+        </div>
+      </div>
+    </section>
+
+    <!-- ── STRUCTURE-AWARE ANALYSIS ── -->
+    <section id="structure-aware">
+      <h2><i class="bi bi-diagram-3"></i> RNA Secondary Folding & Fisher Structural Enrichment</h2>
+      <p>
+        The function of a motif is heavily modulated by its structural context (e.g. a loop-bound motif may be accessible to RNA-binding proteins, while stem-bound motifs are locked). The motif search engine integrates secondary structure folding calculations in 
+        <a class="file-tag" href="file:///c:/Users/Siddharth Tripathi/OneDrive/Desktop/bioseq_explorer/tools/motif_search/components/structure_summary_panel.R"><i class="bi bi-file-earmark-code"></i> structure_summary_panel.R</a>.
+      </p>
+
+      <div class="glass-card">
+        <h3>1. Dot-Bracket Folding & Structural Classification</h3>
+        <p>
+          Using thermodynamic folding algorithms (Minimum Free Energy), the sequence surrounding each motif match is folded, yielding a dot-bracket structure. Residues are classified as:
+        </p>
+        <ul>
+          <li><strong>Stem-like</strong>: Paired residues represented by matching brackets <code>(</code> or <code>)</code>.</li>
+          <li><strong>Hairpin-like</strong>: Unpaired residues <code>.</code> enclosed within a short loop (\(3 \le \text{len} \le 8\)).</li>
+          <li><strong>Loop-like</strong>: Unpaired residues <code>.</code> in large internal or bulge loops (\(8 &lt; \text{len} \le 20\)).</li>
+          <li><strong>Unstructured</strong>: Completely unpaired structural contexts.</li>
+        </ul>
+      </div>
+
+      <div class="glass-card">
+        <h3>2. Fisher's Exact Test for Structural Enrichment</h3>
+        <p>
+          To test whether detected motifs preferentially locate within certain structural environments, the workstation builds a \(2 \times 2\) contingency table and computes a one-tailed Fisher's exact test ($p$-value of hypergeometric distribution):
+        </p>
+        <div class="math-block">
+          $$p = \frac{\binom{a+b}{a} \binom{c+d}{c}}{\binom{n}{a+c}} = \frac{(a+b)!(c+d)!(a+c)!(b+d)!}{a! b! c! d! n!}$$
+        </div>
+        <div class="interpretation-card">
+          <div class="interpretation-title"><i class="bi bi-graph-up"></i> Contingency Table Definition</div>
+          <table style="margin: 12px 0 0 0;">
+            <thead>
+              <tr>
+                <th></th>
+                <th>Motif Hits</th>
+                <th>Non-Motif Sites</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>In Structure S</strong></td>
+                <td>\(a\)</td>
+                <td>\(c\)</td>
+              </tr>
+              <tr>
+                <td><strong>Not in Structure S</strong></td>
+                <td>\(b\)</td>
+                <td>\(d\)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="img-container">
+        <img src="../Images/motif_structure.png" alt="RNA folding and Fisher's structural enrichment results">
+        <div class="img-caption">
+          <i class="bi bi-image"></i>
+          <strong>Figure 5: Structure-Aware Motif Contexts.</strong> Renders minimum free energy stem-loop configurations and illustrates structural enrichment percentages. Significant Fisher p-values indicate binding site localization.
+        </div>
+      </div>
+    </section>
+
+    <!-- ── CODE MAP ── -->
+    <section id="code-map">
+      <h2><i class="bi bi-folder-symlink"></i> Interactive Code Map & File Paths</h2>
+      <p>
+        To trace calculations directly to the implementation code, click on the file pointers below to navigate to the exact biological engines and interface components:
+      </p>
+      
+      <div class="glass-card">
+        <table style="margin: 0;">
+          <thead>
+            <tr>
+              <th>Tool Component</th>
+              <th>Source Code File Path</th>
+              <th>Function / Entry Point</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Central State Coordinator</strong></td>
+              <td><a class="file-tag" href="file:///c:/Users/Siddharth Tripathi/OneDrive/Desktop/bioseq_explorer/server.R">server.R</a></td>
+              <td><code>shared_state</code> reactive container</td>
+            </tr>
+            <tr>
+              <td><strong>Codon Engine Core</strong></td>
+              <td><a class="file-tag" href="file:///c:/Users/Siddharth Tripathi/OneDrive/Desktop/bioseq_explorer/tools/codon_usage/server.R">codon_usage/server.R</a></td>
+              <td><code>build_analysis()</code> dispatcher</td>
+            </tr>
+            <tr>
+              <td><strong>Codon Adaptation Index (CAI)</strong></td>
+              <td><a class="file-tag" href="file:///c:/Users/Siddharth Tripathi/OneDrive/Desktop/bioseq_explorer/tools/codon_usage/engines/engine_cai.R">engine_cai.R</a></td>
+              <td><code>cai_adaptiveness()</code> and <code>CAI()</code></td>
+            </tr>
+            <tr>
+              <td><strong>Effective Codons (ENC)</strong></td>
+              <td><a class="file-tag" href="file:///c:/Users/Siddharth Tripathi/OneDrive/Desktop/bioseq_explorer/tools/codon_usage/engines/engine_enc.R">engine_enc.R</a></td>
+              <td><code>wright_enc()</code> selection model</td>
+            </tr>
+            <tr>
+              <td><strong>Back-Translation Optimizer</strong></td>
+              <td><a class="file-tag" href="file:///c:/Users/Siddharth Tripathi/OneDrive/Desktop/bioseq_explorer/tools/codon_usage/engines/engine_codon_optimization.R">engine_codon_optimization.R</a></td>
+              <td><code>optimize_codon_sequence()</code></td>
+            </tr>
+            <tr>
+              <td><strong>Motif Scan Coordinator</strong></td>
+              <td><a class="file-tag" href="file:///c:/Users/Siddharth Tripathi/OneDrive/Desktop/bioseq_explorer/tools/motif_search/server.R">motif_search/server.R</a></td>
+              <td><code>motif_search_server</code></td>
+            </tr>
+            <tr>
+              <td><strong>Secondary Fold Classifier</strong></td>
+              <td><a class="file-tag" href="file:///c:/Users/Siddharth Tripathi/OneDrive/Desktop/bioseq_explorer/tools/motif_search/components/structure_summary_panel.R">structure_summary_panel.R</a></td>
+              <td><code>fisher_exact_enrichment()</code></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // ── DATA CATALOG FOR INTERACTIVE NODES ────────────────────────────
+    const nodeCatalog = {
+      N1: {
+        type: 'INPUT',
+        title: 'Manual DNA Ingestion',
+        file: 'modules/mod_sidebar.R',
+        description: 'Enables users to copy/paste raw sequence strings. Includes client-side input validation and real-time character counting as the user types.',
+        flow: [
+          'TextArea text field captures raw sequence string.',
+          'Live validator monitors for non-alphabetic character triggers.',
+          'Clicking "Load Sequence" fires a sequence cleansing utility.',
+          'Cleansed sequence is updated in the central reactive values block.'
+        ],
+        vars: 'input$seq_input\ninput$seq_name_input\ninput$load_seq',
+        code: `# Inside modules/mod_sidebar.R\nval_clean <- toupper(gsub("[\\r\\n\\s]", "", trimws(input$seq_input)))\nif (nchar(val_clean) > 0) {\n  # Check validation and load\n  load_sequence_into_state(val_clean, name, NULL)\n}`
+      },
+      N2: {
+        type: 'INPUT',
+        title: 'File Upload Ingestion',
+        file: 'modules/mod_sidebar.R',
+        description: 'Accepts drag-and-drop or select file uploads. Autodetects format schemas (FASTA, GenBank, SnapGene) and routes them to their specific binary or text parsers.',
+        flow: [
+          'File drag/browse triggers shiny::fileInput event.',
+          'Extension scanner checks for .fasta, .gbk, or binary .dna formats.',
+          'Calls parse_fasta(), parse_genbank(), or parse_snapgene().',
+          'Yields structured data list: sequence, headers, features, primers.'
+        ],
+        vars: 'input$fasta_upload',
+        code: `# Sourced from utils/utils_sequence.R\nif (is_snapgene) {\n  parsed <- parse_snapgene(file_path)\n} else if (is_genbank) {\n  parsed <- parse_genbank(file_path)\n} else {\n  parsed <- parse_fasta(file_path)\n}`
+      },
+      N3: {
+        type: 'INPUT',
+        title: 'NCBI API Ingestion',
+        file: 'utils/utils_sequence.R',
+        description: 'Fetches sequence models programmatically from the NCBI GenBank/RefSeq databases using an online Entrez API query.',
+        flow: [
+          'User inputs Accession number (e.g., NM_000546) and clicks Fetch.',
+          'Constructs GET request URL targeting eutils.ncbi.nlm.nih.gov.',
+          'Downloads FASTA model via rentrez/httr.',
+          'Extracts sequence string, flushes whitespace, and triggers state reload.'
+        ],
+        vars: 'input$btn_fetch_ncbi\ninput$ncbi_acc',
+        code: `# Inside utils/utils_sequence.R\nurl <- paste0("https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?",\n              "db=nuccore&id=", acc_id, "&rettype=fasta&retmode=text")\nlines <- readLines(url)\nseq_lines <- lines[!grepl("^>", lines)]\nfull_sequence <- gsub("\\\s+", "", paste(seq_lines, collapse = ""))`
+      },
+      N12: {
+        type: 'INPUT',
+        title: 'Ensembl API Ingestion',
+        file: 'utils/utils_sequence.R',
+        description: 'Fetches cDNA transcript sequence records programmatically from the Ensembl database using the biomaRt API.',
+        flow: [
+          'User inputs Ensembl Gene or Transcript ID (e.g. ENSG00000141510) and clicks Fetch.',
+          'Determines host species and connects to Ensembl Mart.',
+          'Retrieves cDNA transcript sequence matching the target identifier.',
+          'Resolves gene symbols and fetches genomic feature coordinates from AnnotationHub.'
+        ],
+        vars: 'input$btn_fetch_ensembl\ninput$ensembl_id',
+        code: `# Sourced from utils/utils_sequence.R\nmart <- biomaRt::useMart("ensembl", dataset = dataset)\nseq_data <- biomaRt::getSequence(id = id, type = id_type, seqType = "cdna", mart = mart)\nseq_str <- seq_data$cdna[[1]]`
+      },
+      N4: {
+        type: 'STATE',
+        title: 'Central State Coordinator',
+        file: 'server.R',
+        description: 'Acts as the single source of truth for the entire application. Reacts instantly to any ingestion updates and broadcasts the new variables down to modules.',
+        flow: [
+          'Receives data payloads from sidebar manual, file, or API events.',
+          'Caches sequence string and loaded annotation lists.',
+          'Automatically invalidates all output calculations depending on state.',
+          'Ensures tab components receive dynamic environment bindings.'
+        ],
+        vars: 'shared_state$seq_string\nshared_state$seq_name\nshared_state$gbk_data\nshared_state$seq_source',
+        code: `# Central State in server.R\nshared_state <- reactiveValues(\n  seq_string = default_data$sequence,\n  seq_name   = default_data$header,\n  gbk_data   = default_data,\n  open_tool  = NULL\n)`
+      },
+      N5: {
+        type: 'METRIC',
+        title: 'Dashboard Metrics Engine',
+        file: 'modules/mod_tab_manager.R',
+        description: 'Computes basic nucleotide statistics for the dashboard landing page. Operates on raw strings without calling heavy BioSequence class wrappers.',
+        flow: [
+          'Calculates base composition percentages (A, T, C, G).',
+          'Computes estimated molecular weight using dsDNA formulas.',
+          'Calculates Chargaff\'s skew rules (GC and AT skew ratio).',
+          'Pipes counts to an interactive ECharts4r donut visualizer.'
+        ],
+        vars: 'nuc_stats() -> reactive\noutput$txt_length\noutput$txt_gc\noutput$nuc_donut',
+        code: `# Inside modules/mod_tab_manager.R\nnuc_stats <- reactive({\n  bioseq_sequence_stats(active_sequence())\n})\n# GC Skew formula\ngc_skew <- (s$G - s$C) / (s$G + s$C + 1e-9)`
+      },
+      N6: {
+        type: 'TOOL',
+        title: 'Sequence Viewer Tool',
+        file: 'tools/sequence_viewer/server.R',
+        description: 'Renders an interactive, zoomable, double-stranded view showing forward/reverse strands, ticks, line markers, annotations, and restriction cuts.',
+        flow: [
+          'Listens for changes in the active sequence and zoom wrap limit.',
+          'Extracts complementary bases (A-T, G-C matching).',
+          'Overlays color spans representing feature boundaries.',
+          'Locates restriction sites and draws marker carrots (▼).'
+        ],
+        vars: 'output$seq_track_ui\ninput$line_width\ninput$enzyme_search',
+        code: `# Inside tools/sequence_viewer/helpers.R\nrender_double_stranded_sequence <- function(seq_string, gbk_data, line_width, theme, search_query) {\n  # Loops through segments and compiles line-by-line HTML blocks\n  # Adds ▼ symbols, 5'->3' rulers, complement rows, and feature colors\n}`
+      },
+      N7: {
+        type: 'TOOL',
+        title: 'RNA Transcript',
+        file: 'tools/rna_transcript/server.R',
+        description: 'Implements core transcription operations: converts DNA strings to RNA by mapping T nucleotides to U.',
+        flow: [
+          'Listens to shared_state$seq_string changes.',
+          'Validates character set matches valid DNA letters.',
+          'Executes transcribe_dna() mapping: chartr("T", "U", seq).',
+          'Renders formatted RNA transcript based on visual styles (plain, coloured, boxed).'
+        ],
+        vars: 'output$rna_render\ninput$visual_style\ninput$wrap_width',
+        code: `# Inside tools/rna_transcript/helpers.R\ntranscribe_dna <- function(seq) {\n  chartr("T", "U", seq)\n}`
+      },
+      N13: {
+        type: 'TOOL',
+        title: 'Reverse Complement',
+        file: 'tools/reverse_complement/server.R',
+        description: 'Generates the reverse complementary strand of a DNA sequence to study opposing strands, primer bindings, and cloning sites.',
+        flow: [
+          'Listens to shared_state$seq_string changes.',
+          'Reverses the sequence string direction (3\' -> 5\').',
+          'Swaps nucleotides: A<->T, G<->C.',
+          'Renders formatted reverse complement strand based on style rules.'
+        ],
+        vars: 'output$rc_render\ninput$visual_style\ninput$wrap_width',
+        code: `# Inside tools/reverse_complement/helpers.R\nreverse_complement_dna <- function(seq) {\n  # Swap A/T and C/G, then reverse string\n  seq_comp <- chartr("ATCGatcg", "TAGCtagc", seq)\n  paste(rev(strsplit(seq_comp, "")[[1]]), collapse = "")\n}`
+      },
+      N14: {
+        type: 'TOOL',
+        title: 'Translate to Protein',
+        file: 'tools/translate_protein/server.R',
+        description: 'Translates a DNA sequence into an amino acid sequence using standard genetic code tables.',
+        flow: [
+          'Listens to shared_state$seq_string changes.',
+          'Groups nucleotides into codon triplets.',
+          'Translates triplets into amino acids.',
+          'Applies biochemical class coloring: Hydrophobic, Polar, Acidic, Basic, Stop.'
+        ],
+        vars: 'output$protein_render\ninput$visual_style\ninput$wrap_width',
+        code: `# Inside tools/translate_protein/helpers.R\ntranslate_codon <- function(codon) {\n  # Standard translation map lookup\n  GENETIC_CODE[[codon]] %||% "X"\n}`
+      },
+      N8: {
+        type: 'TOOL',
+        title: '6-Frame ORF Finder',
+        file: 'tools/orf_finder/server.R',
+        description: 'Scans both DNA strands across all 6 reading frames to identify potential gene coding regions (Open Reading Frames).',
+        flow: [
+          'Translates forward and reverse complement strands.',
+          'Scans frames +1, +2, +3 and -1, -2, -3.',
+          'Looks for ATG starts and downstream stop codons (TAA, TAG, TGA).',
+          'Filters matches by size and maps coordinates back to template.',
+          'Renders an interactive SVG visualizer showing genomic tracks.'
+        ],
+        vars: 'output$orf_table\noutput$orf_track_map\ninput$min_len_bp',
+        code: `# Sourced from tools/orf_finder/helpers.R\nfind_orfs_in_sequence <- function(seq, min_len_bp) {\n  # Sliding window scan with 3bp steps searching for starts/stops\n  # Re-maps reverse coordinates to template: GenomicStart = L - StrandEnd + 1\n}`
+      },
+      N9: {
+        type: 'TOOL',
+        title: 'Pairwise Mutation Alignment',
+        file: 'tools/find_mutations/server.R',
+        description: 'Compares a reference sequence with a query (mutated) sequence using a Needleman-Wunsch global alignment engine.',
+        flow: [
+          'Calculates alignment strings containing gap placeholders ("-") via pwalign.',
+          'Computes alignment score, match count, mismatch count, and identity.',
+          'Scans alignment strings to call SNPs, insertions, and deletions.',
+          'Renders highlighted comparative tracks and lists differences in a table.'
+        ],
+        vars: 'output$align_output\noutput$mutations_table\ninput$btn_run',
+        code: `# Inside tools/find_mutations/helpers.R\naln <- pwalign::pairwiseAlignment(subject = ref, pattern = query,\n                                 substitutionMatrix = subst_mat,\n                                 gapOpening = 2, gapExtension = 2)`
+      },
+      N10: {
+        type: 'TOOL',
+        title: 'Codon Bias Optimizer',
+        file: 'tools/codon_usage/server.R',
+        description: 'Analyzes host codon preferences and designs optimized expression sequences for E. coli, Yeast, or Humans.',
+        flow: [
+          'Calculates Codon Adaptation Index (CAI) profile along a sliding window.',
+          'Generates Plotly chart of rolling CAI values.',
+          'Back-translates proteins to host-adapted codons (CAI/Random/Harmonized).',
+          'Renders side-by-side tables comparing sequence vs host frequencies.'
+        ],
+        vars: 'output$codon_frequency_table\noutput$codon_cai_chart\ninput$optimization_strategy',
+        code: `# Inside tools/codon_usage/helpers.R\n# Codon Adaptation Index formula\nCAI <- (prod(w_adaptiveness)) ^ (1/N)`
+      },
+      N11: {
+        type: 'TOOL',
+        title: 'Motif Search & Discovery',
+        file: 'tools/motif_search/server.R',
+        description: 'Enables discovery of DNA sequence motifs and searches reference databases. Supports scanning exact matches, IUPAC codes, and Position Weight Matrices.',
+        flow: [
+          'Translates IUPAC codes to regex strings (e.g. Y -> [CT]).',
+          'Calculates Log-odds likelihood scoring for PWM matrix searches.',
+          'Triggers external binary execution (FIMO, MEME, TOMTOM) via system2().',
+          'Displays hit density plots, sequence logos, and database similarity lists.'
+        ],
+        vars: 'output$hits_table\noutput$motif_visualizations\ninput$search_pattern\ninput$threshold',
+        code: `# Inside tools/motif_search/engines/motif_scan_engine.R\n# PWM Score algorithm at each sliding position\nlog_odds_score <- sum(log2(PosFrequency[base, pos] / Background[base]))`
+      }
+    };
+
+    // ── USER INTERACTION AND SIDE PANEL UPDATES ───────────────────────
+    window.nodeClicked = function(nodeId) {
+      const data = nodeCatalog[nodeId];
+      if (!data) return;
+
+      // Update badge type
+      const badge = document.getElementById('lbl_node_type');
+      badge.textContent = data.type + ' ENGINE';
+      badge.className = 'node-type-badge ' + (
+        data.type === 'INPUT' ? 'badge-input' :
+        data.type === 'STATE' ? 'badge-state' :
+        data.type === 'METRIC' ? 'badge-metric' : 'badge-tool'
+      );
+
+      // Update basic fields
+      document.getElementById('lbl_node_title').textContent = data.title;
+      document.getElementById('lbl_node_file').textContent = '📄 ' + data.file;
+
+      // Build dataflow steps list
+      let stepsHtml = '';
+      data.flow.forEach(step => {
+        stepsHtml += `<li>${step}</li>`;
+      });
+
+      // Assemble body HTML
+      const body = document.getElementById('detail_body');
+      body.innerHTML = `
+        <div>
+          <h3 class="detail-section-title">Component Description</h3>
+          <p class="detail-text">${data.description}</p>
+        </div>
+        <div>
+          <h3 class="detail-section-title">Data Flow & Processing</h3>
+          <ul class="detail-list">${stepsHtml}</ul>
+        </div>
+        <div>
+          <h3 class="detail-section-title">R Variable Bindings</h3>
+          <div class="code-block-pane" style="color: var(--accent-purple); font-weight: 500;">${data.vars.replace(/\n/g, '<br>')}</div>
+        </div>
+        <div>
+          <h3 class="detail-section-title">Core Code Snippet</h3>
+          <div class="code-block-pane" style="white-space: pre-wrap; font-size: 0.72rem; max-height: 180px; overflow-y: auto;">${escapeHtml(data.code)}</div>
+        </div>
+      `;
+    };
+
+    function escapeHtml(text) {
+      return text
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+
+    // ── SEARCH COMPONENT FILTERING ──────────────────────────────────
+    document.getElementById('txt_search').addEventListener('input', function(e) {
+      const query = e.target.value.toLowerCase();
+      
+      // Clear previous highlights
+      document.querySelectorAll('.highlight-node').forEach(el => {
+        el.classList.remove('highlight-node');
+      });
+
+      if (!query) return;
+
+      // Find matching keys in the catalog
+      for (const [nodeId, nodeData] of Object.entries(nodeCatalog)) {
+        if (nodeData.title.toLowerCase().includes(query) || 
+            nodeData.description.toLowerCase().includes(query) ||
+            nodeData.file.toLowerCase().includes(query)) {
+          
+          // Find matching SVG elements in rendered Mermaid
+          const svgNodes = document.querySelectorAll(`[id^="flowchart-${nodeId}-"]`);
+          svgNodes.forEach(node => {
+            node.classList.add('highlight-node');
+          });
+        }
+      }
+    });
+
+    // ── ZOOM AND PAN INTERACTIVES ─────────────────────────────────────
+    const container = document.getElementById('panzoom_container');
+    let isDragging = false;
+    let startX, startY;
+    let translateX = 0;
+    let translateY = 0;
+    let scale = 1;
+
+    // Zoom mouse wheel event
+    document.getElementById('diagram_pane').addEventListener('wheel', function(e) {
+      e.preventDefault();
+      const zoomFactor = 0.08;
+      if (e.deltaY < 0) {
+        scale = Math.min(2.5, scale + zoomFactor); // Zoom In
+      } else {
+        scale = Math.max(0.4, scale - zoomFactor); // Zoom Out
+      }
+      updateTransform();
+    });
+
+    // Pan mousedown event
+    container.addEventListener('mousedown', function(e) {
+      if (e.target.closest('.node') || e.target.closest('button')) return;
+      isDragging = true;
+      startX = e.clientX - translateX;
+      startY = e.clientY - translateY;
+      container.style.cursor = 'grabbing';
+    });
+
+    window.addEventListener('mousemove', function(e) {
+      if (!isDragging) return;
+      translateX = e.clientX - startX;
+      translateY = e.clientY - startY;
+      updateTransform();
+    });
+
+    window.addEventListener('mouseup', function() {
+      isDragging = false;
+      container.style.cursor = 'grab';
+    });
+
+    // Control buttons
+    document.getElementById('btn_zoom_in').addEventListener('click', () => { scale = Math.min(2.5, scale + 0.15); updateTransform(); });
+    document.getElementById('btn_zoom_out').addEventListener('click', () => { scale = Math.max(0.4, scale - 0.15); updateTransform(); });
+    document.getElementById('btn_zoom_reset').addEventListener('click', () => { scale = 1; translateX = 0; translateY = 0; updateTransform(); });
+
+    function updateTransform() {
+      container.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
+    }
+
+    // Smooth scrolling active navigation state sync
+    const sections = document.querySelectorAll("section");
+    const navItems = document.querySelectorAll(".nav-item");
+
+    window.addEventListener("scroll", () => {
+      let current = "";
+      sections.forEach((section) => {
+        const sectionTop = section.offsetTop;
+        const sectionHeight = section.clientHeight;
+        if (pageYOffset >= sectionTop - 120) {
+          current = section.getAttribute("id");
+        }
+      });
+
+      navItems.forEach((li) => {
+        li.classList.remove("active");
+        if (li.querySelector("a").getAttribute("href") === `#${current}`) {
+          li.classList.add("active");
+        }
+      });
+    });
+  </script>
+</body>
+</html>

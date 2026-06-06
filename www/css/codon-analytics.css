@@ -1,0 +1,1283 @@
+/* =====================================================================
+   SCOPED STYLING FOR CODON USAGE ANALYTICS TOOL
+   ===================================================================== */
+
+.codon-usage-tool {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background: #F6F8FB;
+  color: #0F172A;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+.codon-usage-tool * {
+  box-sizing: border-box;
+}
+
+/* ── 1. HEADER MODULE (ROUNDED WHITE CARD LOOK) ── */
+.codon-header {
+  min-height: 76px;
+  background: #FFFFFF;
+  border: 1px solid #DDE5F0;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 20px;
+  margin-bottom: 18px;
+  width: 100%;
+  max-width: 1800px;
+  margin-left: auto;
+  margin-right: auto;
+  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.04);
+}
+
+.codon-header-left {
+  display: flex;
+  flex-direction: column;
+}
+
+.codon-title {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #0F172A;
+  margin: 0;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+
+.codon-subtitle {
+  font-size: 0.8rem;
+  color: #64748B;
+  margin: 2px 0 0 0;
+}
+
+.codon-header-badges {
+  display: flex;
+  gap: 6px;
+  margin-top: 6px;
+  flex-wrap: wrap;
+}
+
+.codon-header-badge {
+  font-size: 10.5px;
+  font-weight: 600;
+  background: #F1F5F9;
+  color: #475569;
+  border: 1px solid #E2E8F0;
+  border-radius: 6px;
+  padding: 1.5px 6px;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.codon-header-badge.codon-success {
+  background: #ECFDF5;
+  color: #047857;
+  border-color: #A7F3D0;
+}
+
+.codon-header-badge.codon-warning {
+  background: #FFFBEB;
+  color: #B45309;
+  border-color: #FDE68A;
+}
+
+.codon-header-badge.codon-danger {
+  background: #FEF2F2;
+  color: #B91C1C;
+  border-color: #FCA5A5;
+}
+
+.codon-header-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.codon-btn-settings {
+  height: 42px;
+  width: 42px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #FFFFFF;
+  border: 1px solid #CBD5E1;
+  border-radius: 12px;
+  color: #475569;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  padding: 0 !important;
+}
+
+.codon-btn-settings svg {
+  width: 16px !important;
+  height: 16px !important;
+  fill: #475569 !important;
+  display: block !important;
+}
+
+.codon-btn-settings:hover {
+  background: #F1F5F9;
+  color: #0F172A;
+}
+
+.codon-btn-primary {
+  height: 42px;
+  padding: 0 18px;
+  background: #2563EB;
+  border: none;
+  border-radius: 12px;
+  color: #FFFFFF;
+  font-weight: 600;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  box-shadow: 0 4px 10px rgba(37, 99, 235, 0.12);
+}
+
+.codon-btn-primary:hover {
+  background: #1D4ED8;
+  box-shadow: 0 6px 14px rgba(37, 99, 235, 0.2);
+}
+
+/* ── 2. LAYOUT MAIN CONTAINER (SINGLE SCROLLBAR RULE) ── */
+.codon-main-layout {
+  display: flex;
+  position: relative;
+  overflow: visible;
+  height: auto;
+  min-height: calc(100vh - 160px);
+}
+
+.codon-content-area {
+  flex: 1;
+  overflow-y: visible;
+  overflow-x: hidden;
+  padding: 8px 24px 40px;
+  background: #F6F8FB;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch !important;
+  min-height: auto;
+  width: 100%;
+}
+
+.codon-content-area > .shiny-html-output,
+.codon-content-area .shiny-html-output {
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+.codon-workspace-tabs .nav-pills {
+  margin-bottom: 24px !important;
+}
+
+/* Scoped centring max-width container wrapper */
+.codon-workspace-tabs,
+.codon-metrics-grid,
+.codon-empty-state-wrapper,
+.codon-table-card,
+.codon-chart-grid,
+.codon-optimization-workspace {
+  width: 100%;
+  max-width: 1800px;
+  margin-left: auto;
+  margin-right: auto;
+  overflow-y: visible;
+}
+
+/* ── 3. SETTINGS DRAWER (RESPONSIVE SIDE-BY-SIDE / MOBILE OVERLAY) ── */
+
+@media (max-width: 899px) {
+  .codon-settings-drawer {
+    position: fixed;
+    top: 80px;
+    right: -420px; /* Offscreen */
+    left: auto;
+    width: calc(100% - 24px);
+    max-width: 360px;
+    bottom: 12px;
+    z-index: 10000;
+    background: #FFFFFF;
+    border: 1px solid #DDE5F0;
+    border-radius: 18px;
+    box-shadow: 0 12px 32px rgba(15, 23, 42, 0.10);
+    display: flex;
+    flex-direction: column;
+    transition: right 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  
+  .codon-settings-open .codon-settings-drawer {
+    right: 12px;
+  }
+}
+
+/* Desktop settings behavior (min-width: 900px) */
+@media (min-width: 900px) {
+  .codon-main-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    transition: grid-template-columns 0.3s ease;
+  }
+  
+  .codon-usage-tool.codon-settings-open .codon-main-layout {
+    grid-template-columns: minmax(0, 1fr) 370px;
+    gap: 20px;
+    align-items: start;
+  }
+  
+  .codon-settings-drawer {
+    display: none !important;
+  }
+  
+  .codon-settings-open .codon-settings-drawer {
+    display: flex !important;
+    flex-direction: column;
+    width: 100%;
+    max-width: 370px;
+    position: sticky;
+    top: 16px;
+    height: auto;
+    max-height: calc(100vh - 120px);
+    overflow-y: auto;
+    background: #FFFFFF;
+    border: 1px solid #DDE5F0;
+    border-radius: 18px;
+    box-shadow: 0 12px 32px rgba(15, 23, 42, 0.10);
+    z-index: 100;
+  }
+}
+
+.codon-settings-header {
+  padding: 16px 20px;
+  border-bottom: 1px solid #F1F5F9;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.codon-settings-title {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: #0F172A;
+  margin: 0;
+}
+
+.codon-settings-subtitle {
+  font-size: 0.74rem;
+  color: #64748B;
+  margin: 2px 0 0 0;
+}
+
+.codon-btn-close {
+  background: transparent;
+  border: none;
+  font-size: 1.1rem;
+  color: #64748B;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.codon-btn-close:hover {
+  color: #0F172A;
+}
+
+.codon-settings-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px 20px;
+}
+
+.codon-control-row {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 14px;
+  background: #F8FAFC;
+  border: 1px solid #F1F5F9;
+  border-radius: 10px;
+  padding: 10px 12px;
+}
+
+.codon-control-row label {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #64748B;
+  margin-bottom: 4px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.codon-slider-value {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: #2563EB;
+  font-weight: 700;
+}
+
+.codon-control-row select,
+.codon-control-row input {
+  height: 38px;
+  background: #FFFFFF;
+  border: 1px solid #CBD5E1;
+  border-radius: 8px;
+  padding: 0 10px;
+  font-size: 12.5px;
+  color: #0F172A;
+  width: 100%;
+}
+
+.codon-control-row select:focus,
+.codon-control-row input:focus {
+  outline: none;
+  border-color: #2563EB;
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.1);
+}
+
+/* ── 4. EMPTY STATE ── */
+.codon-empty-state-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 0;
+  width: 100%;
+}
+
+.codon-empty-state-card {
+  background: #FFFFFF;
+  border: 1px solid #DDE5F0;
+  border-radius: 18px;
+  width: min(440px, 90%);
+  padding: 30px;
+  text-align: center;
+  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.02);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.codon-empty-state-icon {
+  font-size: 2.5rem;
+  color: #3B82F6;
+  margin-bottom: 16px;
+}
+
+.codon-empty-state-title {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #0F172A;
+  margin: 0 0 6px 0;
+}
+
+.codon-empty-state-subtext {
+  font-size: 0.8rem;
+  color: #64748B;
+  line-height: 1.4;
+  margin: 0 0 14px 0;
+}
+
+.codon-empty-state-hint {
+  font-size: 0.74rem;
+  color: #94A3B8;
+  background: #F8FAFC;
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: 1px solid #F1F5F9;
+}
+
+/* ── 5. TABS MODULE ── */
+.codon-nav-pills,
+.codon-nav-tabs {
+  display: flex !important;
+  gap: 6px !important;
+  padding: 4px !important;
+  background: #E2E8F0 !important;
+  border-radius: 12px !important;
+  width: fit-content !important;
+  max-width: 100% !important;
+  overflow-x: auto !important;
+  white-space: nowrap !important;
+  border: none !important;
+  margin-bottom: 18px !important;
+  overflow-y: hidden !important;
+}
+
+.codon-nav-pills::-webkit-scrollbar,
+.codon-nav-tabs::-webkit-scrollbar {
+  display: none !important;
+}
+
+.codon-nav-pills .nav-item,
+.codon-nav-tabs .nav-item {
+  margin: 0 !important;
+}
+
+.codon-nav-pills .nav-link,
+.codon-nav-tabs .nav-link {
+  height: 40px !important;
+  padding: 0 16px !important;
+  border: none !important;
+  background: transparent !important;
+  color: #475569 !important;
+  font-weight: 600 !important;
+  font-size: 0.8rem !important;
+  border-radius: 9px !important;
+  cursor: pointer !important;
+  transition: all 0.12s ease !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+}
+
+.codon-nav-pills .nav-link:hover,
+.codon-nav-tabs .nav-link:hover {
+  color: #0F172A !important;
+  background: rgba(255, 255, 255, 0.4) !important;
+}
+
+.codon-nav-pills .nav-link.active,
+.codon-nav-tabs .nav-link.active {
+  background: #2563EB !important;
+  color: #FFFFFF !important;
+  box-shadow: 0 2px 6px rgba(37, 99, 235, 0.12) !important;
+}
+
+/* ── 6. COMPACT METRIC CARDS ── */
+.codon-metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 12px;
+  margin-bottom: 18px;
+  width: 100%;
+}
+
+@media (min-width: 1200px) {
+  .codon-settings-open .codon-metrics-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (min-width: 900px) and (max-width: 1199px) {
+  .codon-settings-open .codon-metrics-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 899px) {
+  .codon-metrics-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 550px) {
+  .codon-metrics-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.codon-metric-card {
+  height: 86px;
+  background: #FFFFFF;
+  border: 1px solid #DDE5F0;
+  border-radius: 14px;
+  padding: 10px 12px;
+  box-shadow: 0 3px 8px rgba(15, 23, 42, 0.01);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: left;
+  border-left: 3px solid #CBD5E1;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.codon-metric-card:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 14px rgba(15, 23, 42, 0.03);
+}
+
+.codon-metric-card.good {
+  border-left-color: #10B981;
+}
+
+.codon-metric-card.warn {
+  border-left-color: #F59E0B;
+}
+
+.codon-metric-card.danger {
+  border-left-color: #EF4444;
+}
+
+.codon-metric-label {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #64748B;
+  letter-spacing: 0.04em;
+  margin: 0;
+}
+
+.codon-metric-value {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: #0F172A;
+  margin: 2px 0;
+  line-height: 1.1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.codon-metric-badge {
+  font-size: 9.5px;
+  font-weight: 600;
+  color: #64748B;
+  background: #F1F5F9;
+  padding: 1.5px 5px;
+  border-radius: 4px;
+  width: fit-content;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+/* ── 7. CHART CARDS (SIZE & CENTER CORRECTIVE ACTIONS) ── */
+.codon-chart-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+  margin-bottom: 18px;
+  width: 100%;
+}
+
+@media (max-width: 992px) {
+  .codon-chart-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.codon-chart-card {
+  background: #FFFFFF;
+  border: 1px solid #DDE5F0;
+  border-radius: 18px;
+  padding: 16px 18px;
+  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.04);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+}
+
+.codon-chart-card.codon-wide {
+  grid-column: 1 / -1;
+}
+
+.codon-chart-header {
+  margin-bottom: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  border-bottom: 1px solid #F8FAFC;
+  padding-bottom: 8px;
+}
+
+.codon-chart-title {
+  font-size: 0.9rem;
+  font-weight: 800;
+  color: #0F172A;
+  margin: 0;
+}
+
+.codon-chart-subtitle {
+  font-size: 0.74rem;
+  color: #64748B;
+  margin: 1px 0 0 0;
+}
+
+.codon-chart-body {
+  width: 100%;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  overflow: hidden;
+  position: relative;
+}
+
+/* FORCE WIDGET TO OCCUPY 100% AND ALIGN CENTER */
+.codon-chart-body .echarts4r,
+.codon-chart-body .js-plotly-plot,
+.codon-chart-body .plotly,
+.codon-chart-body .shiny-bound-output,
+.codon-chart-body .html-widget {
+  width: 100% !important;
+  height: 100% !important;
+  display: block !important;
+  margin: 0 auto !important;
+}
+
+.codon-chart-body .square-chart-wrap {
+  width: 100%;
+  height: 100%;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+/* ── 8. DATA TABLES MODULE ── */
+.codon-table-card {
+  background: #FFFFFF;
+  border: 1px solid #DDE5F0;
+  border-radius: 18px;
+  padding: 18px;
+  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.04);
+  overflow: hidden;
+  margin-bottom: 18px;
+  width: 100%;
+}
+
+.codon-table-header {
+  border-bottom: 1px solid #F1F5F9;
+  padding-bottom: 10px;
+  margin-bottom: 14px;
+}
+
+.codon-table-title {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: #0F172A;
+  margin: 0;
+}
+
+.codon-table-subtitle {
+  font-size: 0.76rem;
+  color: #64748B;
+  margin: 1px 0 0 0;
+}
+
+.codon-table-filters {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 14px;
+  flex-wrap: wrap;
+  align-items: flex-end;
+}
+
+.codon-table-filter-item {
+  display: flex;
+  flex-direction: column;
+  width: 170px;
+}
+
+.codon-table-filter-item .form-group {
+  margin-bottom: 0 !important;
+  width: 100%;
+}
+
+.codon-table-filter-item label {
+  font-size: 9.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #64748B;
+  margin-bottom: 4px;
+}
+
+.codon-table-filter-item select,
+.codon-table-filter-item input {
+  height: 36px;
+  width: 100% !important;
+  border: 1px solid #CBD5E1;
+  border-radius: 8px;
+  padding: 0 10px;
+  font-size: 12.5px;
+  color: #0F172A;
+  background: #FFFFFF;
+  box-sizing: border-box;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.codon-table-filter-item select:focus,
+.codon-table-filter-item input:focus {
+  outline: none;
+  border-color: #2563EB;
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.1);
+}
+
+.codon-table-filter-item select {
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8' viewBox='0 0 8 8'%3E%3Cpath fill='%2364748b' d='M0 2l4 4 4-4z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 10px;
+  padding-right: 28px !important;
+  cursor: pointer;
+}
+
+.codon-table-container {
+  width: 100%;
+  overflow-x: auto;
+}
+
+/* ── 9. OPTIMIZATION STUDIO MODULE ── */
+.codon-optimization-workspace {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  width: 100%;
+}
+
+.codon-opt-intro-card {
+  background: #FFFFFF;
+  border: 1px solid #DDE5F0;
+  border-radius: 18px;
+  padding: 18px;
+  box-shadow: 0 3px 12px rgba(15, 23, 42, 0.01);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 14px;
+  width: 100%;
+}
+
+.codon-opt-intro-left {
+  flex: 1;
+  min-width: 260px;
+}
+
+.codon-opt-intro-title {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: #0F172A;
+  margin: 0 0 4px 0;
+}
+
+.codon-opt-intro-text {
+  font-size: 0.8rem;
+  color: #64748B;
+  margin: 0 0 8px 0;
+  line-height: 1.35;
+}
+
+.codon-opt-badges {
+  display: flex;
+  gap: 6px;
+}
+
+.codon-opt-badge {
+  font-size: 10.5px;
+  font-weight: 600;
+  background: #F1F5F9;
+  color: #475569;
+  padding: 1.5px 6px;
+  border-radius: 4px;
+}
+
+.codon-opt-intro-right {
+  display: flex;
+  align-items: center;
+}
+
+/* Optimization summary cards */
+.codon-opt-summary-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  .codon-opt-summary-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+.codon-opt-summary-card {
+  height: 90px;
+  background: #FFFFFF;
+  border: 1px solid #DDE5F0;
+  border-radius: 14px;
+  padding: 12px 14px;
+  box-shadow: 0 3px 10px rgba(15, 23, 42, 0.01);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-left: 3px solid #10B981;
+}
+
+.codon-opt-summary-label {
+  font-size: 9.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #64748B;
+  letter-spacing: 0.04em;
+  margin: 0;
+}
+
+.codon-opt-summary-value {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #0F172A;
+  margin: 0;
+}
+
+.codon-opt-summary-diff {
+  font-size: 10.5px;
+  color: #059669;
+  font-weight: 600;
+}
+
+/* Split-pane DNA Diff Map */
+.codon-diff-wrapper {
+  background: #FFFFFF;
+  border: 1px solid #DDE5F0;
+  border-radius: 18px;
+  padding: 16px;
+  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.03);
+  width: 100%;
+}
+
+.codon-diff-legend {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 12px;
+  border-bottom: 1px solid #F8FAFC;
+  padding-bottom: 8px;
+}
+
+.codon-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 10px;
+  color: #64748B;
+  font-weight: 600;
+}
+
+.codon-legend-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+  display: inline-block;
+}
+
+.codon-legend-dot.codon-same { background: #F1F5F9; border: 1px solid #E2E8F0; }
+.codon-legend-dot.codon-removed { background: #FEE2E2; border: 1px solid #FCA5A5; }
+.codon-legend-dot.codon-added { background: #D1FAE5; border: 1px solid #A7F3D0; }
+
+.codon-diff-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+@media (max-width: 992px) {
+  .codon-diff-container {
+    grid-template-columns: 1fr;
+  }
+}
+
+.codon-diff-pane {
+  border: 1px solid #DDE5F0;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.codon-diff-pane-header {
+  height: 34px;
+  background: #F8FAFC;
+  border-bottom: 1px solid #DDE5F0;
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  font-size: 10.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #475569;
+}
+
+.codon-dot-indicator {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 5px;
+}
+.codon-dot-indicator.codon-red { background: #EF4444; }
+.codon-dot-indicator.codon-green { background: #16A34A; }
+
+.codon-diff-pane-body {
+  max-height: 360px;
+  overflow-y: auto;
+  padding: 12px;
+  background: #FFFFFF;
+}
+
+.codon-diff-editor-line {
+  display: flex;
+  line-height: 22px;
+  margin-bottom: 4px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11.5px;
+}
+
+.codon-diff-line-number {
+  width: 28px;
+  color: #94A3B8;
+  font-size: 9.5px;
+  user-select: none;
+  border-right: 1px solid #F1F5F9;
+  margin-right: 6px;
+}
+
+.codon-diff-line-codons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2.5px;
+}
+
+.codon-diff-codon {
+  padding: 1.5px 5px;
+  border-radius: 6px;
+  font-weight: 700;
+  display: inline-block;
+  border: 1px solid transparent;
+}
+
+.codon-diff-codon.codon-same {
+  background: #F1F5F9;
+  border-color: #E2E8F0;
+  color: #475569;
+}
+
+.codon-diff-codon.codon-removed {
+  background: #FEE2E2;
+  border-color: #FCA5A5;
+  color: #991B1B;
+}
+
+.codon-diff-codon.codon-added {
+  background: #D1FAE5;
+  border-color: #A7F3D0;
+  color: #065F46;
+}
+
+.codon-diff-empty {
+  text-align: center;
+  padding: 30px;
+  color: #64748B;
+  font-size: 0.8rem;
+  border: 1px dashed #DDE5F0;
+  border-radius: 10px;
+  width: 100%;
+}
+
+/* ── 10. SCROLLBAR OVERRIDE FOR PARENT WORKSPACE ── */
+.tab-pane:has(.codon-usage-tool) {
+  height: 100% !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+}
+
+.workspace-pad.pad-codon_usage {
+  height: auto !important;
+  min-height: 100% !important;
+  overflow-y: visible !important;
+  overflow-x: visible !important;
+  padding-bottom: 40px !important;
+}
+
+/* Scoped overrides to disable internal scrolling on nested tab panels inside Codon Usage */
+.codon-usage-tool .tab-pane {
+  height: auto !important;
+  min-height: 0 !important;
+  overflow-y: visible !important;
+  overflow-x: hidden !important;
+}
+
+.codon-usage-tool .tab-content {
+  height: auto !important;
+  min-height: 0 !important;
+  overflow: visible !important;
+}
+
+/* DT table overrides for centering, scrollbar height, padding, and rows-per-page alignment */
+.codon-table-wrapper,
+.codon-table-scroll,
+.codon-data-table-body,
+.dataTables_wrapper,
+.dataTables_scrollBody {
+  height: auto !important;
+  min-height: 0 !important;
+  max-height: none !important;
+}
+
+.codon-table-container table.dataTable,
+.codon-table-card table.dataTable {
+  width: 100% !important;
+  margin: 0 !important;
+  border-collapse: collapse !important;
+}
+
+.codon-table-container table.dataTable thead th,
+.codon-table-card table.dataTable thead th {
+  padding: 12px 14px !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em !important;
+  color: #64748B !important;
+  background: #F8FAFC !important;
+  border-bottom: 1px solid #E2E8F0 !important;
+  border-top: none !important;
+}
+
+.codon-table-container table.dataTable tbody td,
+.codon-table-card table.dataTable tbody td {
+  padding: 12px 14px !important;
+  font-size: 12.5px !important;
+  color: #0F172A !important;
+  vertical-align: middle !important;
+  border-bottom: 1px solid #F1F5F9 !important;
+}
+
+.codon-table-container table.dataTable tbody tr,
+.codon-table-card table.dataTable tbody tr {
+  height: 48px !important;
+  background-color: #FFFFFF !important;
+}
+
+.codon-table-container table.dataTable tbody tr:hover,
+.codon-table-card table.dataTable tbody tr:hover {
+  background-color: #F8FAFC !important;
+}
+
+/* Bottom pagination rows */
+.bottom-row-premium {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  padding-top: 14px !important;
+  margin-top: 12px !important;
+  border-top: 1px solid #E2E8F0 !important;
+  font-size: 0.8rem !important;
+  color: #64748B !important;
+}
+
+.bottom-row-premium .dataTables_paginate {
+  margin: 0 !important;
+}
+
+.bottom-row-premium .dataTables_paginate a.paginate_button {
+  padding: 4px 10px !important;
+  margin: 0 2px !important;
+  border-radius: 6px !important;
+  border: 1px solid #E2E8F0 !important;
+  background: #FFFFFF !important;
+  color: #475569 !important;
+  font-weight: 600 !important;
+  cursor: pointer !important;
+}
+
+.bottom-row-premium .dataTables_paginate a.paginate_button.current {
+  background: #2563EB !important;
+  color: #FFFFFF !important;
+  border-color: #2563EB !important;
+}
+
+.bottom-row-premium .dataTables_paginate a.paginate_button:hover:not(.current) {
+  background: #F1F5F9 !important;
+  color: #0F172A !important;
+}
+
+/* ── 11. BUTTON CACHE STATE STYLES ── */
+.codon-btn-primary.up-to-date {
+  background: #E2E8F0 !important;
+  color: #475569 !important;
+  border: 1px solid #CBD5E1 !important;
+  box-shadow: none !important;
+  cursor: default !important;
+}
+
+.codon-btn-primary.up-to-date:hover {
+  background: #E2E8F0 !important;
+  color: #475569 !important;
+}
+
+.codon-btn-primary.disabled,
+.codon-btn-primary[disabled] {
+  opacity: 0.65 !important;
+  cursor: not-allowed !important;
+  box-shadow: none !important;
+  pointer-events: none !important;
+}
+
+.codon-opt-badge.codon-danger-badge {
+  background: #FEF2F2;
+  color: #B91C1C;
+  border: 1px solid #FCA5A5;
+}
+
+/* Pulse animation for stale analysis badge */
+@keyframes codon-badge-pulse {
+  0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4); }
+  70% { transform: scale(1.02); box-shadow: 0 0 0 4px rgba(239, 68, 68, 0); }
+  100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+}
+
+.codon-header-badge.codon-danger.animate-pulse-subtle {
+  animation: codon-badge-pulse 2s infinite ease-in-out;
+  border-color: #EF4444;
+}
+
+/* ── 12. SHIMMERING SKELETON LOADERS ── */
+@keyframes codon-shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.codon-skeleton {
+  pointer-events: none !important;
+  user-select: none !important;
+}
+
+.codon-skeleton-line {
+  background: linear-gradient(90deg, #E2E8F0 25%, #EDF2F7 50%, #E2E8F0 75%);
+  background-size: 200% 100%;
+  animation: codon-shimmer 1.5s infinite linear;
+  border-radius: 4px;
+}
+
+.codon-skeleton-body {
+  background: linear-gradient(90deg, #F8FAFC 25%, #FFFFFF 50%, #F8FAFC 75%);
+  background-size: 200% 100%;
+  animation: codon-shimmer 1.5s infinite linear;
+  border-radius: 8px;
+  width: 100%;
+}
+
+.codon-skeleton-table-body {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px;
+  width: 100%;
+}
+
+.codon-skeleton-table-row {
+  height: 20px;
+  background: linear-gradient(90deg, #E2E8F0 25%, #EDF2F7 50%, #E2E8F0 75%);
+  background-size: 200% 100%;
+  animation: codon-shimmer 1.5s infinite linear;
+  border-radius: 4px;
+  width: 100%;
+}
+
+.codon-skeleton-table-row.header-row {
+  height: 28px;
+  background: #E2E8F0;
+  animation: none;
+  border-radius: 6px;
+}
+
+.codon-skeleton-table-row.filter-row {
+  height: 36px;
+  background: #F1F5F9;
+  animation: none;
+  width: 60%;
+  margin-bottom: 12px;
+  border-radius: 6px;
+}
+
+/* Skeletons detail configurations */
+.codon-metric-card.codon-skeleton {
+  border-left-color: #E2E8F0 !important;
+  background: #FFFFFF !important;
+}
+
+.label-skeleton {
+  width: 50%;
+  height: 12px;
+}
+
+.value-skeleton {
+  width: 70%;
+  height: 24px;
+  margin-top: 6px;
+}
+
+.badge-skeleton {
+  width: 45%;
+  height: 14px;
+  margin-top: 8px;
+}
+
+.title-skeleton {
+  width: 35%;
+  height: 16px;
+}
+
+.subtitle-skeleton {
+  width: 55%;
+  height: 12px;
+  margin-top: 5px;
+}
+
+
+/* Active Settings Gear button styling */
+.codon-settings-open .codon-btn-settings {
+  background: #EFF6FF !important;
+  border-color: #93C5FD !important;
+  color: #2563EB !important;
+}
+
+.codon-settings-open .codon-btn-settings svg {
+  fill: #2563EB !important;
+}
+
+/* Center and LTR align columns for the Detailed Codon Replacements table */
+/* Center and LTR align columns for the Detailed Codon Replacements table */
+[id$="-optimization_changes"] table.dataTable,
+.codon-replacement-section table.dataTable {
+  width: 100% !important;
+  table-layout: fixed !important;
+}
+
+[id$="-optimization_changes"] table.dataTable th,
+[id$="-optimization_changes"] table.dataTable td,
+.codon-replacement-section table.dataTable th,
+.codon-replacement-section table.dataTable td {
+  text-align: left !important;
+}
+
+[id$="-optimization_changes"] table.dataTable th:first-child,
+[id$="-optimization_changes"] table.dataTable td:first-child,
+.codon-replacement-section table.dataTable th:first-child,
+.codon-replacement-section table.dataTable td:first-child {
+  width: 12% !important;
+  padding-left: 16px !important;
+}
+
+[id$="-optimization_changes"] table.dataTable th:nth-child(2),
+[id$="-optimization_changes"] table.dataTable td:nth-child(2),
+.codon-replacement-section table.dataTable th:nth-child(2),
+.codon-replacement-section table.dataTable td:nth-child(2) {
+  width: 28% !important;
+}
+
+[id$="-optimization_changes"] table.dataTable th:nth-child(3),
+[id$="-optimization_changes"] table.dataTable td:nth-child(3),
+.codon-replacement-section table.dataTable th:nth-child(3),
+.codon-replacement-section table.dataTable td:nth-child(3) {
+  width: 30% !important;
+}
+
+[id$="-optimization_changes"] table.dataTable th:nth-child(4),
+[id$="-optimization_changes"] table.dataTable td:nth-child(4),
+.codon-replacement-section table.dataTable th:nth-child(4),
+.codon-replacement-section table.dataTable td:nth-child(4) {
+  width: 30% !important;
+}

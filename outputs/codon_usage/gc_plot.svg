@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="860" height="420" viewBox="0 0 860 420">
+<rect width="100%" height="100%" fill="#ffffff"/>
+<text x="24" y="24" font-family="Arial" font-size="16" font-weight="700" fill="#111827">GC metrics</text>
+<line x1="54" y1="36" x2="54" y2="366" stroke="#cbd5e1"/>
+<line x1="54" y1="366" x2="840" y2="366" stroke="#cbd5e1"/>
+<rect x="69.64" y="121.36" width="80.43" height="244.64" fill="#0f766e"><title>GC: 0.3877</title></rect>
+<rect x="181.35" y="36.00" width="80.43" height="330.00" fill="#0f766e"><title>GC1: 0.5230</title></rect>
+<rect x="293.07" y="165.36" width="80.43" height="200.64" fill="#0f766e"><title>GC2: 0.3180</title></rect>
+<rect x="404.78" y="162.72" width="80.43" height="203.28" fill="#0f766e"><title>GC3: 0.3222</title></rect>
+<rect x="516.50" y="100.68" width="80.43" height="265.32" fill="#0f766e"><title>GC12: 0.4205</title></rect>
+<rect x="628.21" y="177.53" width="80.43" height="188.47" fill="#0f766e"><title>GC3s: 0.2987</title></rect>
+<rect x="739.93" y="208.26" width="80.43" height="157.74" fill="#0f766e"><title>GC4d: 0.2500</title></rect>
+<text x="109.86" y="382" transform="rotate(60 109.86 382)" font-size="10" fill="#475569">GC</text>
+<text x="221.57" y="382" transform="rotate(60 221.57 382)" font-size="10" fill="#475569">GC1</text>
+<text x="333.29" y="382" transform="rotate(60 333.29 382)" font-size="10" fill="#475569">GC2</text>
+<text x="445.00" y="382" transform="rotate(60 445.00 382)" font-size="10" fill="#475569">GC3</text>
+<text x="556.71" y="382" transform="rotate(60 556.71 382)" font-size="10" fill="#475569">GC12</text>
+<text x="668.43" y="382" transform="rotate(60 668.43 382)" font-size="10" fill="#475569">GC3s</text>
+<text x="780.14" y="382" transform="rotate(60 780.14 382)" font-size="10" fill="#475569">GC4d</text>
+</svg>

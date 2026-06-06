@@ -1,0 +1,227 @@
+Folder PATH listing for volume Windows
+Volume serial number is 000002D1 B24D:15FC
+C:\USERS\SIDDHARTH TRIPATHI\ONEDRIVE\DESKTOP\BIOSEQ_EXPLORER
+|   .gitignore
+|   .Rhistory
+|   app.R
+|   BioSeq-Explorer.Rproj
+|   bootstrap.R
+|   docker-compose.yml
+|   Dockerfile
+|   global.R
+|   package-lock.json
+|   package.json
+|   README.md
+|   renv.lock
+|   requirements.R
+|   server.R
+|   ui.R
+|   
++---.vscode
+|       settings.json
+|       
++---documentation
+|       calculations_and_dataflow.md
+|       codebase_analysis.md
+|       docker_setup.md
+|       remediation_roadmap.md
+|       system_dataflow.html
+|       
++---examples
+|       GFP.fa
+|       Homo sapiens insulin (INS).fasta
+|       hras.fasta
+|       Kozak-EGFP.fasta
+|       
++---Images
++---logs
+|       package_install.log
+|       
++---modules
+|       mod_footer.R
+|       mod_sidebar.R
+|       mod_tab_manager.R
+|       
++---outputs
+|   \---codon_usage
+|           ca_clustered.svg
+|           correlation_features_dimensions.csv
+|           enc_plot.svg
+|           gc_plot.svg
+|           gene_features_mean.csv
+|           neutrality_plot.svg
+|           oe_dinuc_freq_plot.svg
+|           optimization_changes.csv
+|           optimized_sequence.fasta
+|           rscu_with_ref.csv
+|           significant_features_correlations.csv
+|           top10_dim1.svg
+|           top10_dim2.svg
+|           total_matrix.csv
+|           variance_explained.svg
+|           
++---renv
+|       .gitignore
+|       activate.R
+|       settings.json
+|       
++---scratch
+|       test_responsive_highlights.R
+|       test_shiny_app.py
+|       test_shiny_server.R
+|       trigger_shiny_ws.py
+|       verify_tests.R
+|       
++---tools
+|   |   registry.R
+|   |   
+|   +---codon_usage
+|   |   |   helpers.R
+|   |   |   server.R
+|   |   |   ui.R
+|   |   |   
+|   |   +---adapters
+|   |   |       adapter_biostrings.R
+|   |   |       adapter_cubar.R
+|   |   |       adapter_seqinr.R
+|   |   |       codonlib_adapter.R
+|   |   |       cubar_adapter.R
+|   |   |       seqinr_adapter.R
+|   |   |       
+|   |   +---components
+|   |   |       comp_codon_frequency_plot.R
+|   |   |       comp_codon_table.R
+|   |   |       comp_enc_plot.R
+|   |   |       comp_export_panel.R
+|   |   |       comp_gc_plot.R
+|   |   |       comp_host_selector.R
+|   |   |       comp_metric_cards.R
+|   |   |       comp_neutrality_plot.R
+|   |   |       comp_radar_chart.R
+|   |   |       comp_rscu_heatmap.R
+|   |   |       comp_sequence_optimizer.R
+|   |   |       comp_sliding_window_plot.R
+|   |   |       
+|   |   +---data
+|   |   |   \---host_reference
+|   |   |           ecoli_reference.rds
+|   |   |           human_reference.rds
+|   |   |           yeast_reference.rds
+|   |   |           
+|   |   +---engines
+|   |   |       engine_cai.R
+|   |   |       engine_codon_metrics.R
+|   |   |       engine_codon_optimization.R
+|   |   |       engine_differential_usage.R
+|   |   |       engine_enc.R
+|   |   |       engine_gc_metrics.R
+|   |   |       engine_rscu.R
+|   |   |       engine_sliding_window.R
+|   |   |       engine_tai.R
+|   |   |       engine_visualization_data.R
+|   |   |       
+|   |   \---services
+|   |           codon_analysis_service.R
+|   |           codon_optimization_service.R
+|   |           service_codon_cache.R
+|   |           service_export.R
+|   |           service_host_reference.R
+|   |           service_quality_control.R
+|   |           
+|   +---find_mutations
+|   |       helpers.R
+|   |       server.R
+|   |       ui.R
+|   |       
+|   +---motif_search
+|   |   |   helpers.R
+|   |   |   server.R
+|   |   |   settings.R
+|   |   |   ui.R
+|   |   |   
+|   |   +---adaptive
+|   |   |       adaptive_motif_dashboard.R
+|   |   |       adaptive_pwm_profiles.R
+|   |   |       adaptive_search_modes.R
+|   |   |       
+|   |   +---charts
+|   |   |       conserved_region_plot.R
+|   |   |       enrichment_chart.R
+|   |   |       enrichment_volcano.R
+|   |   |       motif_density_plot.R
+|   |   |       motif_distribution_chart.R
+|   |   |       motif_visualizations.R
+|   |   |       positional_enrichment_heatmap.R
+|   |   |       top_motif_frequency.R
+|   |   |       
+|   |   +---components
+|   |   |       comp_motif_workspace.R
+|   |   |       dataset_summary_panel.R
+|   |   |       enrichment_plot.R
+|   |   |       motif_alignment_panel.R
+|   |   |       motif_heatmap.R
+|   |   |       motif_logo.R
+|   |   |       motif_logo_gallery.R
+|   |   |       motif_table.R
+|   |   |       pwm_visualizer.R
+|   |   |       structure_summary_panel.R
+|   |   |       
+|   |   +---engines
+|   |   |       conserved_region_engine.R
+|   |   |       enrichment_engine.R
+|   |   |       logo_engine.R
+|   |   |       motif_enrichment_engine.R
+|   |   |       motif_scan_engine.R
+|   |   |       motif_structure_analysis.R
+|   |   |       motif_variant_engine.R
+|   |   |       pwm_engine.R
+|   |   |       structure_prediction_engine.R
+|   |   |       
+|   |   \---services
+|   |           meme_suite_service.R
+|   |           motif_cache_service.R
+|   |           motif_enrichment_service.R
+|   |           motif_safety_service.R
+|   |           motif_search_service.R
+|   |           
+|   +---orf_finder
+|   |       helpers.R
+|   |       server.R
+|   |       ui.R
+|   |       
+|   +---reverse_complement
+|   |       helpers.R
+|   |       server.R
+|   |       ui.R
+|   |       
+|   +---rna_transcript
+|   |       helpers.R
+|   |       server.R
+|   |       ui.R
+|   |       
+|   +---sequence_viewer
+|   |       helpers.R
+|   |       server.R
+|   |       ui.R
+|   |       
+|   \---translate_protein
+|           helpers.R
+|           server.R
+|           ui.R
+|           
++---utils
+|       install_required_packages.R
+|       safe_runtime.R
+|       utils_sequence.R
+|       
+\---www
+    |   custom.css
+    |   custom.js
+    |   
+    +---css
+    |       codon-analytics.css
+    |       motif-search.css
+    |       
+    \---js
+            echarts-resize.js
+            

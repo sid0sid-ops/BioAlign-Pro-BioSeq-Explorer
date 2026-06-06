@@ -1,0 +1,19 @@
+# =====================================================================
+# Docker Compose for BioSeq-Explorer (R Shiny Workstation)
+# =====================================================================
+
+version: '3.8'
+
+services:
+  bioseq-explorer:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: bioseq_explorer_app
+    ports:
+      - "3838:3838"
+    volumes:
+      # Mount logs and examples folders to keep runtime files synchronized with the host
+      - ./logs:/srv/shiny-server/logs
+      - ./examples:/srv/shiny-server/examples
+    restart: always

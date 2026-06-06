@@ -1,0 +1,2775 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BioSeq Explorer — Systems Biology & Diagnostics Guide</title>
+  
+  <!-- Typography & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+  <!-- MathJax for rendering biological and mathematical formulas -->
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+  <!-- Mermaid.js CDN for Flowcharts -->
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      securityLevel: 'loose',
+      theme: 'default'
+    });
+  </script>
+
+  <style>
+    :root {
+      --bg-primary: #f8fafc;
+      --bg-secondary: #ffffff;
+      --bg-tertiary: #f1f5f9;
+      --panel-bg: #ffffff;
+      --border: #e2e8f0;
+      --text-main: #0f172a;
+      --text-muted: #475569;
+      
+      /* Vibrant Highlights */
+      --accent-teal: #0d9488;
+      --accent-purple: #7c3aed;
+      --accent-emerald: #059669;
+      --accent-blue: #2563eb;
+      --accent-orange: #ea580c;
+      --accent-pink: #db2777;
+      --accent-danger: #dc2626;
+      
+      --sidebar-width: 290px;
+    }
+
+    * {
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg-primary);
+      background-image: 
+        radial-gradient(circle at 0% 0%, rgba(124, 58, 237, 0.05) 0%, transparent 40%),
+        radial-gradient(circle at 100% 100%, rgba(13, 148, 136, 0.05) 0%, transparent 40%);
+      background-attachment: fixed;
+      color: var(--text-main);
+      line-height: 1.6;
+      display: flex;
+    }
+
+    /* ── LEFT SIDEBAR NAVIGATION ── */
+    aside {
+      width: var(--sidebar-width);
+      height: 100vh;
+      position: fixed;
+      top: 0;
+      left: 0;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(16px);
+      border-right: 1px solid var(--border);
+      padding: 30px 20px;
+      display: flex;
+      flex-direction: column;
+      z-index: 100;
+      overflow-y: auto;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 30px;
+      padding-left: 8px;
+    }
+
+    .brand-logo-icon {
+      font-size: 1.8rem;
+      color: var(--accent-teal);
+    }
+
+    .brand-title {
+      font-size: 1.3rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #0f172a, var(--text-muted));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .nav-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .nav-item {
+      cursor: pointer;
+    }
+
+    .nav-link {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 14px;
+      color: var(--text-muted);
+      text-decoration: none;
+      border-radius: 8px;
+      font-size: 0.92rem;
+      font-weight: 600;
+      transition: all 0.2s ease;
+    }
+
+    .nav-link:hover, .nav-item.active > .nav-link {
+      color: #0f172a;
+      background: rgba(13, 148, 136, 0.05);
+      border-left: 4px solid var(--accent-teal);
+      padding-left: 10px;
+    }
+
+    /* ── NESTED SUBMENU ── */
+    .submenu-list {
+      list-style: none;
+      padding-left: 36px;
+      margin-top: 4px;
+      margin-bottom: 8px;
+      display: none;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .nav-item.active .submenu-list {
+      display: flex;
+    }
+
+    .submenu-item {
+      position: relative;
+    }
+
+    .submenu-link {
+      display: block;
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.8rem;
+      font-weight: 500;
+      transition: color 0.2s ease, padding-left 0.2s ease;
+    }
+
+    .submenu-link:hover, .submenu-item.active .submenu-link {
+      color: var(--accent-teal);
+      padding-left: 4px;
+    }
+
+    /* ── MAIN CONTAINER ── */
+    main {
+      margin-left: var(--sidebar-width);
+      flex-grow: 1;
+      padding: 48px 60px;
+      max-width: 1400px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      margin-bottom: 40px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 24px;
+    }
+
+    .manual-tag {
+      background: rgba(13, 148, 136, 0.1);
+      color: var(--accent-teal);
+      border: 1px solid rgba(13, 148, 136, 0.2);
+      padding: 6px 16px;
+      border-radius: 30px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      display: inline-block;
+      margin-bottom: 18px;
+    }
+
+    h1 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 2.6rem;
+      font-weight: 800;
+      margin: 0 0 12px 0;
+      background: linear-gradient(135deg, #0f172a, #475569);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: -0.5px;
+    }
+
+    .header-subtext {
+      font-size: 1.15rem;
+      color: var(--text-muted);
+      margin: 0;
+    }
+
+    section {
+      margin-bottom: 48px;
+      scroll-margin-top: 24px;
+    }
+
+    h2 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-top: 0;
+      margin-bottom: 24px;
+      border-left: 4px solid var(--accent-purple);
+      padding-left: 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      scroll-margin-top: 30px;
+    }
+
+    h3 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-top: 0;
+      margin-bottom: 16px;
+      scroll-margin-top: 30px;
+    }
+
+    h4 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-top: 0;
+      margin-bottom: 12px;
+    }
+
+    p {
+      color: var(--text-muted);
+      font-size: 1rem;
+      line-height: 1.7;
+      margin-bottom: 24px;
+    }
+
+    /* ── SINGLE-PAGE TAB SYSTEM ── */
+    .tab-content {
+      position: absolute;
+      left: -99999px;
+      top: -99999px;
+      width: calc(100% - var(--sidebar-width));
+      height: 0;
+      overflow: hidden;
+      opacity: 0;
+      transition: opacity 0.25s ease;
+    }
+    
+    .tab-content.active {
+      position: static;
+      width: 100%;
+      height: auto;
+      overflow: visible;
+      opacity: 1;
+    }
+
+    /* ── ALERT CARDS ── */
+    .alert-card {
+      background: rgba(239, 68, 68, 0.05);
+      border: 1px solid rgba(239, 68, 68, 0.15);
+      border-left: 4px solid var(--accent-danger);
+      border-radius: 8px;
+      padding: 20px;
+      margin: 24px 0;
+    }
+
+    .alert-card-title {
+      font-weight: 700;
+      color: #dc2626;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 8px;
+      font-size: 1.05rem;
+    }
+
+    .alert-card p {
+      margin: 0;
+      font-size: 0.95rem;
+      color: #475569;
+    }
+
+    .info-alert-card {
+      background: rgba(37, 99, 235, 0.05);
+      border: 1px solid rgba(37, 99, 235, 0.15);
+      border-left: 4px solid var(--accent-blue);
+      border-radius: 8px;
+      padding: 20px;
+      margin: 24px 0;
+    }
+
+    .info-alert-card-title {
+      font-weight: 700;
+      color: var(--accent-blue);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 8px;
+      font-size: 1.05rem;
+    }
+
+    .info-alert-card p {
+      margin: 0;
+      font-size: 0.95rem;
+      color: #475569;
+    }
+
+    /* ── GLASS CARDS ── */
+    .glass-card {
+      background: var(--panel-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 28px;
+      margin-bottom: 32px;
+      box-shadow: 0 4px 20px rgba(15, 23, 42, 0.04);
+      transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+
+    .glass-card:hover {
+      border-color: rgba(15, 23, 42, 0.1);
+      transform: translateY(-2px);
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+      gap: 24px;
+      margin-bottom: 32px;
+    }
+
+    /* ── IMAGE WRAPPERS ── */
+    .screenshot-box, .img-container {
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      margin: 28px 0;
+      background: #f8fafc;
+      box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
+    }
+
+    .screenshot-box img, .img-container img {
+      width: 100%;
+      height: auto;
+      display: block;
+      transition: transform 0.3s ease;
+    }
+
+    .screenshot-box:hover img, .img-container:hover img {
+      transform: scale(1.01);
+    }
+
+    .screenshot-caption, .img-caption {
+      background: rgba(241, 245, 249, 0.95);
+      padding: 14px 20px;
+      font-size: 0.88rem;
+      color: var(--text-main);
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .screenshot-caption i, .img-caption i {
+      color: var(--accent-teal);
+      font-size: 1.1rem;
+    }
+
+    /* ── FORMULAS & CODEBLOCKS ── */
+    .equation-box, .math-block {
+      background: #f1f5f9;
+      color: var(--text-main);
+      border-left: 4px solid var(--accent-teal);
+      padding: 20px;
+      border-radius: 0 8px 8px 0;
+      margin: 24px 0;
+      overflow-x: auto;
+      font-size: 1.05rem;
+    }
+
+    .bio-box, .interpretation-card {
+      background: rgba(5, 150, 105, 0.05);
+      border: 1px solid rgba(5, 150, 105, 0.15);
+      border-radius: 8px;
+      padding: 20px;
+      margin-top: 20px;
+    }
+
+    .bio-box-title, .interpretation-title {
+      font-weight: 700;
+      color: #059669;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 8px;
+      font-size: 0.98rem;
+    }
+
+    .bio-box p, .interpretation-card p {
+      margin: 0;
+      font-size: 0.95rem;
+    }
+
+    .code-ref, .file-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.82rem;
+      background: rgba(37, 99, 235, 0.05);
+      border: 1px solid var(--border);
+      color: #1d4ed8;
+      padding: 4px 8px;
+      border-radius: 4px;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .code-ref:hover, .file-tag:hover {
+      background: rgba(37, 99, 235, 0.1);
+      border-color: rgba(37, 99, 235, 0.3);
+      color: #1d4ed8;
+    }
+
+    .code-block, .code-block-pane {
+      background-color: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 12px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      color: #0f172a;
+      overflow-x: auto;
+      white-space: pre;
+    }
+
+    .terminal-box {
+      background: #0f172a;
+      color: #38bdf8;
+      border: 1px solid #1e293b;
+      border-radius: 8px;
+      padding: 20px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      line-height: 1.4;
+      max-height: 500px;
+      overflow: auto;
+      margin: 24px 0;
+    }
+
+    /* ── TABLES ── */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 24px 0;
+      font-size: 0.92rem;
+    }
+
+    th {
+      background: rgba(241, 245, 249, 0.9);
+      color: var(--text-main);
+      font-weight: 600;
+      text-align: left;
+      padding: 14px 18px;
+      border-bottom: 2px solid var(--border);
+    }
+
+    td {
+      padding: 14px 18px;
+      border-bottom: 1px solid var(--border);
+      color: var(--text-muted);
+    }
+
+    tr:hover td {
+      color: var(--text-main);
+      background: rgba(15, 23, 42, 0.02);
+    }
+
+    .badge {
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      display: inline-block;
+    }
+
+    .badge-teal { background: rgba(13, 148, 136, 0.1); color: var(--accent-teal); border: 1px solid rgba(13, 148, 136, 0.2); }
+    .badge-purple { background: rgba(124, 58, 237, 0.1); color: var(--accent-purple); border: 1px solid rgba(124, 58, 237, 0.2); }
+    .badge-pink { background: rgba(219, 39, 119, 0.1); color: var(--accent-pink); border: 1px solid rgba(219, 39, 119, 0.2); }
+    .badge-blue { background: rgba(37, 99, 235, 0.1); color: var(--accent-blue); border: 1px solid rgba(37, 99, 235, 0.2); }
+    .badge-orange { background: rgba(234, 88, 12, 0.1); color: var(--accent-orange); border: 1px solid rgba(234, 88, 12, 0.2); }
+
+    /* ── INTERACTIVE DATAFLOW LAYOUT ── */
+    .dataflow-workspace {
+      display: flex;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      height: 620px;
+      position: relative;
+      background: var(--bg-secondary);
+      box-shadow: 0 4px 20px rgba(15, 23, 42, 0.05);
+      margin-bottom: 40px;
+    }
+
+    .diagram-pane {
+      flex: 1;
+      position: relative;
+      background-color: #f1f5f9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .panzoom-container {
+      width: 100%;
+      height: 100%;
+      transform-origin: center center;
+      cursor: grab;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      user-select: none;
+    }
+
+    .panzoom-container:active {
+      cursor: grabbing;
+    }
+
+    .panzoom-container svg {
+      width: 100% !important;
+      height: auto !important;
+      max-width: 95% !important;
+    }
+
+    .detail-pane {
+      width: 400px;
+      background-color: var(--bg-secondary);
+      border-left: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+      z-index: 5;
+    }
+
+    .detail-header {
+      padding: 20px;
+      border-bottom: 1px solid var(--border);
+      background: rgba(15, 23, 42, 0.02);
+    }
+
+    .node-type-badge {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 3px 8px;
+      border-radius: 4px;
+      margin-bottom: 8px;
+    }
+
+    .badge-input { background: rgba(59, 130, 246, 0.1); color: var(--accent-blue); border: 1px solid rgba(59, 130, 246, 0.2); }
+    .badge-state { background: rgba(139, 92, 246, 0.1); color: var(--accent-purple); border: 1px solid rgba(139, 92, 246, 0.2); }
+    .badge-metric { background: rgba(16, 185, 129, 0.1); color: var(--accent-emerald); border: 1px solid rgba(16, 185, 129, 0.2); }
+    .badge-tool { background: rgba(245, 158, 11, 0.1); color: var(--accent-orange); border: 1px solid rgba(245, 158, 11, 0.2); }
+
+    .node-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin: 0;
+      color: var(--text-main);
+    }
+
+    .node-file {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-top: 4px;
+      word-break: break-all;
+    }
+
+    .detail-body {
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      flex: 1;
+    }
+
+    .detail-section-title {
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      letter-spacing: 0.05em;
+      margin-top: 0;
+      margin-bottom: 8px;
+    }
+
+    .detail-text {
+      font-size: 0.88rem;
+      line-height: 1.6;
+      color: #334155;
+      margin: 0;
+    }
+
+    .detail-list {
+      list-style-type: none;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      padding-left: 0;
+      margin: 0;
+    }
+
+    .detail-list li {
+      font-size: 0.85rem;
+      padding-left: 14px;
+      position: relative;
+      color: #334155;
+    }
+
+    .detail-list li::before {
+      content: "•";
+      color: var(--accent-purple);
+      position: absolute;
+      left: 0;
+    }
+
+    .code-block-pane-inner {
+      background-color: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 12px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.76rem;
+      color: #0f172a;
+      overflow-x: auto;
+      white-space: pre-wrap;
+    }
+
+    .view-controls {
+      position: absolute;
+      bottom: 20px;
+      left: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      z-index: 10;
+    }
+
+    .btn-control {
+      width: 36px;
+      height: 36px;
+      border-radius: 6px;
+      background-color: var(--bg-secondary);
+      border: 1px solid var(--border);
+      color: var(--text-main);
+      font-size: 1.1rem;
+      font-weight: bold;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+    }
+
+    .btn-control:hover {
+      background-color: var(--bg-tertiary);
+      border-color: var(--text-muted);
+    }
+
+    .instruction-overlay {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(8px);
+      border: 1px solid var(--border);
+      color: var(--text-main);
+      padding: 10px 14px;
+      border-radius: 8px;
+      max-width: 280px;
+      font-size: 0.75rem;
+      pointer-events: none;
+      z-index: 8;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+    }
+
+    .highlight-node rect {
+      stroke: var(--accent-orange) !important;
+      stroke-width: 3px !important;
+      filter: drop-shadow(0 0 6px var(--accent-orange));
+    }
+
+    .search-container {
+      margin-bottom: 16px;
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .dataflow-search-box {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 8px 14px;
+      color: var(--text-main);
+      font-size: 0.9rem;
+      outline: none;
+      width: 300px;
+      transition: border-color 0.2s;
+    }
+
+    .dataflow-search-box:focus {
+      border-color: var(--accent-purple);
+    }
+
+    /* ── CODEBASE FILE EXPLORER ── */
+    .file-explorer {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.85rem;
+      background: #0f172a;
+      color: #cbd5e1;
+      border: 1px solid #1e293b;
+      border-radius: 8px;
+      padding: 20px;
+      max-height: 520px;
+      overflow-y: auto;
+      margin: 24px 0;
+    }
+
+    .explorer-folder {
+      margin-left: 12px;
+      margin-top: 2px;
+    }
+
+    .explorer-folder > summary {
+      cursor: pointer;
+      list-style: none;
+      padding: 4px 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border-radius: 4px;
+      transition: background 0.15s ease;
+      user-select: none;
+      color: #38bdf8; /* Blue folders */
+      font-weight: 500;
+    }
+
+    .explorer-folder > summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .explorer-folder > summary:hover {
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    .explorer-folder > summary::before {
+      content: "\f282"; /* Bootstrap Icon Chevron Right */
+      font-family: "bootstrap-icons";
+      font-size: 0.7rem;
+      color: #64748b;
+      transition: transform 0.18s ease;
+      display: inline-block;
+    }
+
+    .explorer-folder[open] > summary::before {
+      transform: rotate(90deg);
+    }
+
+    .explorer-folder-contents {
+      margin-left: 18px;
+      border-left: 1px dashed rgba(148, 163, 184, 0.15);
+      padding-left: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      margin-top: 2px;
+      margin-bottom: 6px;
+    }
+
+    .explorer-file {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 3px 6px;
+      color: #94a3b8;
+      border-radius: 4px;
+      transition: all 0.15s ease;
+      user-select: none;
+      text-decoration: none;
+    }
+
+    .explorer-file:hover {
+      background: rgba(255, 255, 255, 0.06);
+      color: #e2e8f0;
+      padding-left: 8px;
+    }
+
+    .explorer-file i {
+      color: #a78bfa; /* Violet code files */
+      font-size: 0.95rem;
+    }
+
+    .explorer-file.script-file i {
+      color: #f43f5e; /* Rose scripts */
+    }
+
+    .explorer-file.doc-file i {
+      color: #10b981; /* Emerald markdown */
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── SIDEBAR NAV ── -->
+  <aside>
+    <div class="brand">
+      <i class="bi bi-dna brand-logo-icon"></i>
+      <span class="brand-title">BioSeq Explorer</span>
+    </div>
+    <ul class="nav-list">
+      <li class="nav-item active" data-tab="page-overview">
+        <a class="nav-link" href="#overview"><i class="bi bi-rocket-takeoff"></i> Overview & Wizard</a>
+        <ul class="submenu-list">
+          <li class="submenu-item"><a class="submenu-link" href="#intro-section" data-parent-tab="page-overview">Project Overview</a></li>
+          <li class="submenu-item"><a class="submenu-link" href="#workflow-section" data-parent-tab="page-overview">Tab Rules & Workflows</a></li>
+          <li class="submenu-item"><a class="submenu-link" href="#six-tools-section" data-parent-tab="page-overview">The 6 Core Tools</a></li>
+        </ul>
+      </li>
+      <li class="nav-item" data-tab="page-dataflow">
+        <a class="nav-link" href="#dataflow"><i class="bi bi-diagram-3"></i> System Dataflow Map</a>
+        <ul class="submenu-list">
+          <li class="submenu-item"><a class="submenu-link" href="#map-section" data-parent-tab="page-dataflow">Interactive Map View</a></li>
+        </ul>
+      </li>
+      <li class="nav-item" data-tab="page-manual">
+        <a class="nav-link" href="#manual"><i class="bi bi-book"></i> Academic Reference</a>
+        <ul class="submenu-list">
+          <li class="submenu-item"><a class="submenu-link" href="#ingestion-section" data-parent-tab="page-manual">Ingestion & Skews</a></li>
+          <li class="submenu-item"><a class="submenu-link" href="#codon-usage-section" data-parent-tab="page-manual">Codon Bias & Adaptiveness</a></li>
+          <li class="submenu-item"><a class="submenu-link" href="#codon-opt-section" data-parent-tab="page-manual">Codon Optimization Studio</a></li>
+          <li class="submenu-item"><a class="submenu-link" href="#motif-ref-section" data-parent-tab="page-manual">Motif Search & PWM</a></li>
+          <li class="submenu-item"><a class="submenu-link" href="#folding-section" data-parent-tab="page-manual">RNA Folding & Enrichment</a></li>
+          <li class="submenu-item"><a class="submenu-link" href="#code-paths-section" data-parent-tab="page-manual">Workstation Code Map</a></li>
+        </ul>
+      </li>
+      <li class="nav-item" data-tab="page-calculations">
+        <a class="nav-link" href="#calculations"><i class="bi bi-calculator"></i> Calculations Spec</a>
+        <ul class="submenu-list">
+          <li class="submenu-item"><a class="submenu-link" href="#calc-metrics-section" data-parent-tab="page-calculations">Global Dashboard Metrics</a></li>
+          <li class="submenu-item"><a class="submenu-link" href="#calc-tools-section" data-parent-tab="page-calculations">Tool Spec Sheets</a></li>
+        </ul>
+      </li>
+      <li class="nav-item" data-tab="page-codebase">
+        <a class="nav-link" href="#codebase"><i class="bi bi-folder-symlink"></i> Codebase Explorer</a>
+        <ul class="submenu-list">
+          <li class="submenu-item"><a class="submenu-link" href="#code-arch-section" data-parent-tab="page-codebase">Architectural Details</a></li>
+          <li class="submenu-item"><a class="submenu-link" href="#code-tree-section" data-parent-tab="page-codebase">Codebase Directory Tree</a></li>
+          <li class="submenu-item"><a class="submenu-link" href="#code-audits-section" data-parent-tab="page-codebase">Dead Code & Leaks Audits</a></li>
+        </ul>
+      </li>
+      <li class="nav-item" data-tab="page-docker">
+        <a class="nav-link" href="#docker"><i class="bi bi-box"></i> Docker Deployment</a>
+        <ul class="submenu-list">
+          <li class="submenu-item"><a class="submenu-link" href="#dock-arch-section" data-parent-tab="page-docker">Containerization Setup</a></li>
+          <li class="submenu-item"><a class="submenu-link" href="#dock-inst-section" data-parent-tab="page-docker">Deployment Instructions</a></li>
+        </ul>
+      </li>
+      <li class="nav-item" data-tab="page-roadmap">
+        <a class="nav-link" href="#roadmap"><i class="bi bi-lightning-charge"></i> Optimization Roadmap</a>
+        <ul class="submenu-list">
+          <li class="submenu-item"><a class="submenu-link" href="#opt-phase-section" data-parent-tab="page-roadmap">Task Phasing Roadmap</a></li>
+          <li class="submenu-item"><a class="submenu-link" href="#opt-patterns-section" data-parent-tab="page-roadmap">Leak Refactoring Patterns</a></li>
+        </ul>
+      </li>
+    </ul>
+  </aside>
+
+  <!-- ── MAIN SECTION ── -->
+  <main>
+    
+    <!-- ── PAGE 1: OVERVIEW & WIZARD ── -->
+    <div class="tab-content active" id="page-overview">
+      <header>
+        <span class="manual-tag">Interactive Diagnostics Manual</span>
+        <h1>Computational Biology & Workstation Guide</h1>
+        <p class="header-subtext">A reference manual explaining R Shiny architecture, tab navigation workflows, biological metrics, and analytical results.</p>
+      </header>
+
+      <section>
+        <h2 id="intro-section"><i class="bi bi-rocket-takeoff"></i> Project Overview</h2>
+        <p>
+          <strong>BioSeq Explorer</strong> is an advanced genomics workstation built to manipulate, translate, optimize, and analyze genetic sequences. 
+          Engineered with a Benchling-inspired dark theme, the workstation is designed to operate like a professional integrated development environment (IDE). 
+          It integrates high-performance C-backends (like the Bioconductor <code>Biostrings</code> package) for manipulation, and offers deep molecular biology tools.
+        </p>
+
+        <div class="screenshot-box">
+          <img src="Images/dashboard_home.png" alt="BioSeq Explorer Central Dashboard">
+          <div class="screenshot-caption">
+            <i class="bi bi-info-circle-fill"></i>
+            <strong>Figure 1: Central Workstation Dashboard.</strong> Demonstrates the landing interface hosting nucleobase summaries (A/T/G/C counts, percentages, double-stranded molecular weight), Chargaff density skews, and sequence previews.
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2 id="workflow-section"><i class="bi bi-arrow-right-square"></i> Tab manager Workflow & Navigation Rules</h2>
+        <p>
+          To preserve CPU runtime and manage screen space efficiently, the workstation uses a lazy-loading tab system. 
+          It is essential to understand the difference in navigation between the 6 core tools and the 2 advanced workstations.
+        </p>
+
+        <div class="alert-card">
+          <div class="alert-card-title">
+            <i class="bi bi-exclamation-triangle-fill"></i> Tab Manager Core Workflow Rules
+          </div>
+          <p>
+            1. The <strong>Plus button (+)</strong> in the tab bar sequentially adds tabs for **all 8 tools**: 
+            <em>Sequence Viewer</em> &rarr; <em>RNA Transcript</em> &rarr; <em>Reverse Complement</em> &rarr; 
+            <em>Translate to Protein</em> &rarr; <em>ORF Finder</em> &rarr; <em>Find Mutations</em> &rarr; <em>Codon Usage</em> &rarr; <em>Motif Search</em>.
+            <br><br>
+            2. The **Codon Usage** and **Motif Search** tools are advanced analytical engines, but they can now be conveniently opened directly using the <strong>Plus (+) button</strong>.
+            <br><br>
+            3. You can also open any specific tool instantly by navigating to the collapsible **left sidebar** and clicking on its respective button under the navigation list, OR
+            <br>
+            &nbsp;&nbsp;&bull; Click the **Dashboard** tab to return home, scroll down to the **Quick Actions Dashboard**, and click their dedicated cards.
+          </p>
+        </div>
+
+        <div class="grid-2">
+          <div class="glass-card">
+            <h4 style="color:var(--accent-teal);"><i class="bi bi-plus-circle"></i> Sequential Plus (+) Tab Expansion</h4>
+            <p style="font-size:0.92rem; margin-bottom:0;">
+              The plus button acts as a wizard. If you are in the Sequence Viewer, clicking it opens the RNA Transcript, and so on, building up the standard biological dogma pipeline one tab at a time. It stops at Mutation Tracker (Tool 6).
+            </p>
+          </div>
+          <div class="glass-card">
+            <h4 style="color:var(--accent-purple);"><i class="bi bi-layout-wtf"></i> Dashboard & Sidebar Navigation</h4>
+            <p style="font-size:0.92rem; margin-bottom:0;">
+              The Dashboard quick action buttons bypass the sequential wizard, allowing direct, parallel execution of Codon Usage and Motif Search workstations. Clicking these cards dynamically mounts the advanced engines.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2 id="six-tools-section"><i class="bi bi-cpu"></i> The 6 Core Sequencing Tools (Dogma Wizard Pipeline)</h2>
+        <p>
+          The core sequence manipulation workflow inside BioSeq Explorer is structured as a sequential pipeline mimicking the central dogma of biology. 
+          These tools are dynamically managed by the <strong>Plus (+) button</strong> which allows sequential expansion up to Tool 6.
+        </p>
+
+        <div class="grid-2">
+          <!-- TOOL 1 -->
+          <div class="glass-card">
+            <h3 style="color:var(--accent-teal);"><i class="bi bi-eye"></i> Tool 1: Sequence Viewer</h3>
+            <p>
+              Displays query sequences in color-coded blocks (A, T, G, C, U) for immediate visual identification. It provides real-time single-strand base percentage counts, Chargaff skews, and molecular weight calculations.
+            </p>
+            <div class="screenshot-box">
+              <img src="Images/sequence_viewer.png" alt="Sequence Viewer Dashboard">
+              <div class="screenshot-caption">
+                <strong>Figure 2: Sequence Viewer Interface.</strong> Highlights CpG islands and base composition metrics.
+              </div>
+            </div>
+          </div>
+
+          <!-- TOOL 2 -->
+          <div class="glass-card">
+            <h3 style="color:var(--accent-purple);"><i class="bi bi-dna"></i> Tool 2: RNA Transcription</h3>
+            <p>
+              Simulates transcription of DNA sequences into single-stranded messenger RNA (mRNA). Converts all Thymine (T) bases to Uracil (U) and supports sense (coding) or antisense (template) transcription.
+            </p>
+            <div class="screenshot-box">
+              <img src="Images/rna_transcript.png" alt="RNA Transcription Dashboard">
+              <div class="screenshot-caption">
+                <strong>Figure 3: RNA Transcription Interface.</strong> Generates transcribed single-stranded mRNA outputs in real-time.
+              </div>
+            </div>
+          </div>
+
+          <!-- TOOL 3 -->
+          <div class="glass-card">
+            <h3 style="color:var(--accent-emerald);"><i class="bi bi-arrow-left-right"></i> Tool 3: Reverse Complement</h3>
+            <p>
+              Computes the reverse-complement strand of the active DNA sequence. Reverses direction (5' to 3') and translates bases to their Watson-Crick pairing partner (A-T, G-C). Essential for molecular cloning and PCR primer design.
+            </p>
+            <div class="screenshot-box">
+              <img src="Images/reverse_complement.png" alt="Reverse Complement Dashboard">
+              <div class="screenshot-caption">
+                <strong>Figure 4: Reverse Complement Interface.</strong> Provides fast antisense sequence mapping.
+              </div>
+            </div>
+          </div>
+
+          <!-- TOOL 4 -->
+          <div class="glass-card">
+            <h3 style="color:var(--accent-blue);"><i class="bi bi-droplet-half"></i> Tool 4: Translate to Protein</h3>
+            <p>
+              Translates nucleotide sequences to amino acids using standard genetic code tables. Color-codes amino acids by biochemical properties: acidic (red), basic (blue), polar (green), non-polar (yellow), and stops (black).
+            </p>
+            <div class="screenshot-box">
+              <img src="Images/translate_protein.png" alt="Protein Translation Dashboard">
+              <div class="screenshot-caption">
+                <strong>Figure 5: Protein Translation Interface.</strong> Simplifies the scan for polar residues or hydrophobic domains.
+              </div>
+            </div>
+          </div>
+
+          <!-- TOOL 5 -->
+          <div class="glass-card">
+            <h3 style="color:var(--accent-orange);"><i class="bi bi-search"></i> Tool 5: ORF Finder</h3>
+            <p>
+              Searches for potential protein-coding Open Reading Frames (ORFs) across all 6 translation frames (3 forward, 3 reverse-complement). Features adjustable start/stop codon registry thresholds and minimum length filters.
+            </p>
+            <div class="screenshot-box">
+              <img src="Images/orf_finder.png" alt="ORF Finder Dashboard">
+              <div class="screenshot-caption">
+                <strong>Figure 6: ORF Finder Interface.</strong> Tracks coordinates, lengths, and frame orientations of coding regions.
+              </div>
+            </div>
+          </div>
+
+          <!-- TOOL 6 -->
+          <div class="glass-card">
+            <h3 style="color:var(--accent-pink);"><i class="bi-shuffle"></i> Tool 6: Mutation Tracker</h3>
+            <p>
+              Aligns query sequences against reference sequences (Needleman-Wunsch algorithm) to scan for variants. Identifies mutations (substitutions, insertions, and deletions) in a dynamic, color-coded sequence alignment track.
+            </p>
+            <div class="screenshot-box">
+              <img src="Images/find_mutations.png" alt="Mutation Tracker Dashboard">
+              <div class="screenshot-caption">
+                <strong>Figure 7: Mutation Tracker Interface.</strong> Showcases sequence alignments and positional diff highlights.
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- ── PAGE 2: INTERACTIVE DATAFLOW MAP ── -->
+    <div class="tab-content" id="page-dataflow">
+      <header>
+        <span class="manual-tag">Interactive Logic Map</span>
+        <h1>System Dataflow & Reactivity Map</h1>
+        <p class="header-subtext">Visual trace of how nucleotide sequences, variables, and biological metrics flow through server reactors.</p>
+      </header>
+
+      <section>
+        <h2 id="map-section"><i class="bi bi-diagram-3"></i> System Dataflow Map & Interactive Logic View</h2>
+        <p>
+          To trace how sequence payloads migrate from ingestion ports down to advanced workstations, click on the nodes in the diagram below. 
+          The side panel will dynamically load calculations, state variables, and code paths.
+        </p>
+
+        <div class="search-container">
+          <i class="bi bi-search" style="color: var(--text-muted);"></i>
+          <input type="text" class="dataflow-search-box" placeholder="Search dataflow components..." id="df_txt_search">
+        </div>
+
+        <div class="dataflow-workspace">
+          <!-- Instructional Overlay -->
+          <div class="instruction-overlay">
+            <strong>Interactive Map Controls:</strong><br>
+            • Mouse wheel: Zoom diagram<br>
+            • Drag background: Pan diagram<br>
+            • <strong>Click diagram elements</strong> to load core logic and variable bindings.
+          </div>
+
+          <!-- Floating Zoom Controls -->
+          <div class="view-controls">
+            <button class="btn-control" id="df_zoom_in" title="Zoom In">+</button>
+            <button class="btn-control" id="df_zoom_out" title="Zoom Out">-</button>
+            <button class="btn-control" id="df_zoom_reset" title="Reset View">⟲</button>
+          </div>
+
+          <!-- Diagram Viewport -->
+          <div class="diagram-pane" id="df_diagram_pane">
+            <div class="panzoom-container" id="df_panzoom_container">
+              <pre class="mermaid" id="df_mermaid_source">
+graph TD
+    %% Node Definitions %%
+    subgraph Ingestion ["1. Sequence Ingestion Ports"]
+        N1[Manual DNA Ingestion]
+        N2[File Upload Ingestion]
+        N3[NCBI API Ingestion]
+        N12[Ensembl API Ingestion]
+    end
+
+    subgraph State ["2. Core State Broker"]
+        N4[Central State Coordinator]
+    end
+
+    subgraph Tools ["3. Analytical & Workstation Tools"]
+        subgraph Viewers ["Visual Inspection"]
+            N5[Dashboard Metrics Engine]
+            N6[Sequence Viewer Tool]
+        end
+        subgraph Transducers ["Standard Operations"]
+            N7[RNA Transcript]
+            N13[Reverse Complement]
+            N14[Translate to Protein]
+            N8[6-Frame ORF Finder]
+        end
+        subgraph Advanced ["Advanced Analysis"]
+            N9[Pairwise Mutation Alignment]
+            N10[Codon Bias Optimizer]
+            N11[Motif Discovery Engines]
+        end
+    end
+
+    %% Connection Links %%
+    N1 -->|Load Click| N4
+    N2 -->|Upload FASTA/GBK| N4
+    N3 -->|Fetch Entrez API| N4
+    N12 -->|Fetch biomaRt API| N4
+    
+    N4 --> N5
+    N4 --> N6
+    N4 --> N7
+    N4 --> N13
+    N4 --> N14
+    N4 --> N8
+    N4 --> N9
+    N4 --> N10
+    N4 --> N11
+
+    %% Styling Nodes %%
+    classDef inputNode fill:#2563eb,stroke:#3b82f6,stroke-width:1px,color:#fff,font-size:12px,font-weight:600
+    classDef stateNode fill:#7c3aed,stroke:#8b5cf6,stroke-width:1px,color:#fff,font-size:12px,font-weight:600
+    classDef metricNode fill:#059669,stroke:#10b981,stroke-width:1px,color:#fff,font-size:12px,font-weight:600
+    classDef toolNode fill:#ea580c,stroke:#f97316,stroke-width:1px,color:#fff,font-size:12px,font-weight:600
+
+    class N1,N2,N3,N12 inputNode
+    class N4 stateNode
+    class N5 metricNode
+    class N6,N7,N8,N9,N10,N11,N13,N14 toolNode
+
+    %% Click Callbacks %%
+    click N1 nodeClicked
+    click N2 nodeClicked
+    click N3 nodeClicked
+    click N4 nodeClicked
+    click N5 nodeClicked
+    click N6 nodeClicked
+    click N7 nodeClicked
+    click N8 nodeClicked
+    click N9 nodeClicked
+    click N10 nodeClicked
+    click N11 nodeClicked
+    click N12 nodeClicked
+    click N13 nodeClicked
+    click N14 nodeClicked
+              </pre>
+            </div>
+          </div>
+
+          <!-- Side Detail Panel -->
+          <div class="detail-pane" id="df_detail_pane">
+            <div class="detail-header">
+              <span class="node-type-badge badge-state" id="df_lbl_node_type">SYSTEM LOGIC</span>
+              <h2 class="node-title" id="df_lbl_node_title">Select a Node</h2>
+              <div class="node-file" id="df_lbl_node_file">Click any flowchart element to begin</div>
+            </div>
+            <div class="detail-body" id="df_detail_body">
+              <p class="detail-text">This interactive map traces how biological sequence inputs travel, where variables are updated, and what computations are performed on the server.</p>
+              <div class="code-block-pane-inner" style="text-align: center; color: var(--text-muted); margin-top: 10px;">
+No component selected.
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- ── PAGE 3: ACADEMIC REFERENCE MANUAL ── -->
+    <div class="tab-content" id="page-manual">
+      <header>
+        <span class="manual-tag">Systems Biology Reference Manual</span>
+        <h1>Academic & Mathematical Reference Guide</h1>
+        <p class="header-subtext">Scientific specifications of biological skews, Wright's ENC neutral curve, secondary structures, and Fisher hyperparameters.</p>
+      </header>
+
+      <section>
+        <h2 id="ingestion-section"><i class="bi bi-bookmark-star"></i> Workstation Ingestion & Global Architecture</h2>
+        <p>
+          The <strong>BioSeq Explorer</strong> workstation operates as an integrated, state-synchronized bioinformatics workbench. 
+          Upon sequence ingestion—via manual input, FASTA upload, or remote API fetches (NCBI Entrez or Ensembl BioMart)—the 
+          <a class="file-tag" href="file:///c:/Users/Siddharth Tripathi/OneDrive/Desktop/bioseq_explorer/modules/mod_sidebar.R"><i class="bi bi-file-earmark-code"></i> mod_sidebar.R</a> 
+          cleans and transmits sequence payloads to the central reactive values system 
+          (<a class="file-tag" href="file:///c:/Users/Siddharth Tripathi/OneDrive/Desktop/bioseq_explorer/server.R"><i class="bi bi-file-earmark-code"></i> server.R</a>). 
+          The workstation calculates several structural and composition baselines on load:
+        </p>
+        
+        <div class="grid-2">
+          <div class="glass-card">
+            <h4 style="color:var(--accent-teal);"><i class="bi bi-activity"></i> Chargaff's Skew Metrics</h4>
+            <p style="font-size:0.9rem; margin-bottom:12px;">
+              Nucleotide density skews reveal DNA replication origins and transcription start sites. The workstation computes skews using sliding-windows:
+            </p>
+            <div class="math-block">
+              $$GC_{\text{skew}} = \frac{G - C}{G + C} \quad \text{and} \quad AT_{\text{skew}} = \frac{A - T}{A + T}$$
+            </div>
+          </div>
+          <div class="glass-card">
+            <h4 style="color:var(--accent-purple);"><i class="bi bi-calculator"></i> Molecular Weight Calculation</h4>
+            <p style="font-size:0.9rem; margin-bottom:12px;">
+              The workstation estimates the molecular mass of double-stranded DNA based on nucleotide composition, assuming an average molecular weight of 660 Daltons per base pair:
+            </p>
+            <div class="math-block">
+              $$MW_{\text{dsDNA}} = \left( L_{\text{bp}} \times 660 \text{ Da} \right) \div 1000 \quad \text{(kDa)}$$
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2 id="codon-usage-section"><i class="bi bi-bar-chart-steps"></i> Codon Usage Bias & Host Adaptiveness</h2>
+        <p>
+          The genetic code is degenerate: 18 of the 20 standard amino acids are encoded by multiple synonymous codons. 
+          Codon usage bias (CUB) refers to the non-random distribution of these codons in protein-coding sequences. 
+          This workstation provides four metrics to analyze this bias, integrated inside 
+          <a class="file-tag" href="file:///c:/Users/Siddharth Tripathi/OneDrive/Desktop/bioseq_explorer/tools/codon_usage/server.R"><i class="bi bi-file-earmark-code"></i> codon_usage/server.R</a>.
+        </p>
+
+        <div class="glass-card">
+          <h3>1. Relative Synonymous Codon Usage (RSCU)</h3>
+          <p>
+            RSCU measures the relative frequency of a codon compared to the frequency expected under uniform codon usage for its corresponding amino acid:
+          </p>
+          <div class="math-block">
+            $$RSCU_{ij} = \frac{X_{ij}}{\frac{1}{n_i} \sum_{k=1}^{n_i} X_{ik}}$$
+          </div>
+          <p style="font-size:0.9rem; color:var(--text-muted);">
+            Where \(X_{ij}\) is the count of codon \(j\) encoding amino acid \(i\), and \(n_i\) is the degeneracy of amino acid \(i\).
+          </p>
+          <div class="interpretation-card">
+            <div class="interpretation-title"><i class="bi bi-info-circle-fill"></i> Biological Interpretation</div>
+            <p style="margin:0; font-size:0.9rem;">
+              An <strong>RSCU = 1.0</strong> signifies that all synonymous codons are chosen with equal probability. 
+              An <strong>RSCU &gt; 1.0</strong> highlights preferred codons (frequently matched with abundant tRNAs), whereas 
+              <strong>RSCU &lt; 1.0</strong> represents under-represented codons. High-expression genes typically exhibit a 
+              clustering of high RSCU values in their reading frames.
+            </p>
+          </div>
+        </div>
+
+        <div class="img-container">
+          <img src="Images/codon_overview.png" alt="Codon Frequency and RSCU Heatmap Dashboard">
+          <div class="img-caption">
+            <i class="bi bi-image"></i>
+            <strong>Figure 8: Codon Usage Analytics Overview.</strong> Illustrates codon frequency distributions across all 64 codons and the Relative Synonymous Codon Usage (RSCU) clustering heatmap, mapping host-adaptation variations.
+          </div>
+        </div>
+
+        <div class="glass-card">
+          <h3>2. Codon Adaptation Index (CAI)</h3>
+          <p>
+            CAI measures the degree of codon optimization of a gene relative to a host reference set of highly expressed genes:
+          </p>
+          <div class="math-block">
+            $$w_{ij} = \frac{f_{ij}}{\max(f_{ik})} \quad \Rightarrow \quad CAI = \left( \prod_{m=1}^{L} w_m \right)^{\frac{1}{L}} = \exp\left( \frac{1}{L} \sum_{m=1}^{L} \ln(w_m) \right)$$
+          </div>
+          <p style="font-size:0.9rem; color:var(--text-muted);">
+            Where \(f_{ij}\) is the frequency of codon \(j\) encoding amino acid \(i\) in the host reference genome, and \(w_m\) is the relative adaptiveness of the \(m\)-th codon in a sequence of length \(L\).
+          </p>
+          <div class="interpretation-card">
+            <div class="interpretation-title"><i class="bi bi-info-circle-fill"></i> Biological Interpretation</div>
+            <p style="margin:0; font-size:0.9rem;">
+              <strong>CAI values range from 0 to 1</strong>. A CAI close to 1 indicates that the sequence is highly adapted 
+              to the host's translation machinery. CAI calculations are performed in 
+              <a class="file-tag" href="file:///c:/Users/Siddharth Tripathi/OneDrive/Desktop/bioseq_explorer/tools/codon_usage/engines/engine_cai.R"><i class="bi bi-file-earmark-code"></i> engine_cai.R</a> 
+              using local genome tables for <i>E. coli</i>, <i>S. cerevisiae</i>, and <i>H. sapiens</i>.
+            </p>
+          </div>
+        </div>
+
+        <div class="glass-card">
+          <h3>3. Effective Number of Codons (ENC) & Wright's Neutral Mutation Curve</h3>
+          <p>
+            ENC measures the overall codon bias of a gene, independent of host-specific references. It ranges from 20 (extreme bias, where only one codon is used for each amino acid) to 61 (no bias, where all codons are used equally). Wright's neutrality baseline relates \(ENC\) to \(GC_3\) (GC content at the third codon position) under neutral selection:
+          </p>
+          <div class="math-block">
+            $$ENC_{\text{neutral}} = 2 + s + \frac{29}{s^2 + (1 - s)^2} \quad \text{where } s = GC_3$$
+          </div>
+          <div class="interpretation-card">
+            <div class="interpretation-title"><i class="bi bi-graph-up-arrow"></i> Interpretation of ENC-GC3 Plots</div>
+            <p style="margin:0; font-size:0.9rem;">
+              Codon usage bias is driven by a combination of mutational pressure and translational selection. 
+              When ENC values fall on or close to the neutral curve, the bias is driven solely by <strong>mutational pressure</strong> (GC bias). 
+              When ENC values fall significantly below the curve, it indicates strong <strong>evolutionary selection</strong> for specific codons, 
+              which is common in highly expressed genes. This diagnostic is implemented in 
+              <a class="file-tag" href="file:///c:/Users/Siddharth Tripathi/OneDrive/Desktop/bioseq_explorer/tools/codon_usage/engines/engine_enc.R"><i class="bi bi-file-earmark-code"></i> engine_enc.R</a>.
+            </p>
+          </div>
+        </div>
+
+        <div class="img-container">
+          <img src="Images/codon_bias.png" alt="Wright's ENC-GC3 Diagnostic Plot">
+          <div class="img-caption">
+            <i class="bi bi-image"></i>
+            <strong>Figure 9: Wright's ENC-GC3 Selection Plot.</strong> Displays the mathematical neutrality curve and plots the query sequence. Points falling below the curve indicate selection-driven codon bias rather than neutral mutational drift.
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2 id="codon-opt-section"><i class="bi bi-cpu"></i> Codon Optimization Studio & Back-Translation</h2>
+        <p>
+          For heterologous gene expression (e.g., expressing human GFP in <i>E. coli</i>), expression rates can be severely restricted by "rare codons"—codons whose matching tRNAs are scarce in the expression host. The workstation's optimization engine 
+          (<a class="file-tag" href="file:///c:/Users/Siddharth Tripathi/OneDrive/Desktop/bioseq_explorer/tools/codon_usage/engines/engine_codon_optimization.R"><i class="bi bi-file-earmark-code"></i> engine_codon_optimization.R</a>) 
+          implements three optimization strategies:
+        </p>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Strategy</th>
+              <th>Algorithm Details</th>
+              <th>Best Suited For</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="badge badge-teal">Max CAI</span></td>
+              <td>Selects the most frequently used codon (\(w_{ij} = 1.0\)) for every amino acid.</td>
+              <td>Maximum expression levels in expression hosts.</td>
+            </tr>
+            <tr>
+              <td><span class="badge badge-purple">Harmonized</span></td>
+              <td>Selects codons randomly based on the host's relative frequency distribution, matching host codon ratios.</td>
+              <td>Preventing translation bottlenecks and protein misfolding.</td>
+            </tr>
+            <tr>
+              <td><span class="badge badge-pink">Balanced</span></td>
+              <td>Selects high-adaptiveness codons while balancing GC content at the third position to avoid mRNA secondary structures.</td>
+              <td>Stable expression across highly variable systems.</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="img-container">
+          <img src="Images/codon_optimization.png" alt="Codon Optimization Workbench and Diff Viewer">
+          <div class="img-caption">
+            <i class="bi bi-image"></i>
+            <strong>Figure 11: Codon Optimization Studio.</strong> Showcases the side-by-side diff view of the coding sequence before and after optimization, illustrating synonymous substitutions that improve CAI without modifying the protein sequence.
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2 id="motif-ref-section"><i class="bi bi-search-heart"></i> Motif Search, IUPAC Expansion, & PWM Log-Odds</h2>
+        <p>
+          Conserved sequence motifs represent functional binding sites for transcription factors, RNA-binding proteins, or restriction enzymes. 
+          The Motif Search Workstation 
+          (<a class="file-tag" href="file:///c:/Users/Siddharth Tripathi/OneDrive/Desktop/bioseq_explorer/tools/motif_search/server.R"><i class="bi bi-file-earmark-code"></i> motif_search/server.R</a>) 
+          combines search modes to detect these signals.
+        </p>
+
+        <div class="glass-card">
+          <h3>1. IUPAC Degenerate Expansion</h3>
+          <p>
+            Degenerate DNA sequences (e.g. promoters containing TATA boxes or restriction recognition sequences) are scanned by expanding ambiguous IUPAC nucleotide letters into equivalent regular expressions:
+          </p>
+          <div class="math-block">
+            $$R \rightarrow [AG], \quad Y \rightarrow [CT], \quad S \rightarrow [GC], \quad W \rightarrow [AT], \quad N \rightarrow [ACGT]$$
+          </div>
+        </div>
+
+        <div class="glass-card">
+          <h3>2. Position Weight Matrix (PWM) Log-Odds Scoring</h3>
+          <p>
+            Unlike binary exact searches, transcription factors bind to sequences with varying affinity. 
+            To model this, the workstation calculates a log-odds likelihood score \(S\) at each position:
+          </p>
+          <div class="math-block">
+            $$S_j = \sum_{k=1}^{W} \log_2 \left( \frac{P(b, k) + p}{P_{\text{bg}}(b) + p} \right)$$
+          </div>
+          <p style="font-size:0.9rem; color:var(--text-muted);">
+            Where \(P(b,k)\) is the frequency of base \(b\) at motif position \(k\) in the Position Frequency Matrix (PFM), 
+            \(P_{\text{bg}}(b)\) is the genomic background frequency of base \(b\), and \(p\) is a Laplace pseudocount (0.25) to avoid division by zero.
+          </p>
+        </div>
+
+        <div class="img-container">
+          <img src="Images/motif_matches.png" alt="Motif Scanning Hits Table and Positional Heatmap">
+          <div class="img-caption">
+            <i class="bi bi-image"></i>
+            <strong>Figure 12: Motif Scanning and Hit Distribution.</strong> Highlights the exact hit coordinates on both strands, with positional density heatmaps indicating clusters of TF binding sites.
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2 id="folding-section"><i class="bi bi-diagram-3"></i> RNA Secondary Folding & Fisher Structural Enrichment</h2>
+        <p>
+          The function of a motif is heavily modulated by its structural context (e.g. a loop-bound motif may be accessible to RNA-binding proteins, while stem-bound motifs are locked). The motif search engine integrates secondary structure folding calculations in 
+          <a class="file-tag" href="file:///c:/Users/Siddharth Tripathi/OneDrive/Desktop/bioseq_explorer/tools/motif_search/components/structure_summary_panel.R"><i class="bi bi-file-earmark-code"></i> structure_summary_panel.R</a>.
+        </p>
+
+        <div class="glass-card">
+          <h3>1. Dot-Bracket Folding & Structural Classification</h3>
+          <p>
+            Using thermodynamic folding algorithms (Minimum Free Energy), the sequence surrounding each motif match is folded, yielding a dot-bracket structure. Residues are classified as:
+          </p>
+          <ul>
+            <li><strong>Stem-like</strong>: Paired residues represented by matching brackets <code>(</code> or <code>)</code>.</li>
+            <li><strong>Hairpin-like</strong>: Unpaired residues <code>.</code> enclosed within a short loop (\(3 \le \text{len} \le 8\)).</li>
+            <li><strong>Loop-like</strong>: Unpaired residues <code>.</code> in large internal or bulge loops (\(8 &lt; \text{len} \le 20\)).</li>
+            <li><strong>Unstructured</strong>: Completely unpaired structural contexts.</li>
+          </ul>
+        </div>
+
+        <div class="glass-card">
+          <h3>2. Fisher's Exact Test for Structural Enrichment</h3>
+          <p>
+            To test whether detected motifs preferentially locate within certain structural environments, the workstation builds a \(2 \times 2\) contingency table and computes a one-tailed Fisher's exact test ($p$-value of hypergeometric distribution):
+          </p>
+          <div class="math-block">
+            $$p = \frac{\binom{a+b}{a} \binom{c+d}{c}}{\binom{n}{a+c}} = \frac{(a+b)!(c+d)!(a+c)!(b+d)!}{a! b! c! d! n!}$$
+          </div>
+          <div class="interpretation-card">
+            <div class="interpretation-title"><i class="bi bi-graph-up"></i> Contingency Table Definition</div>
+            <table style="margin: 12px 0 0 0;">
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>Motif Hits</th>
+                  <th>Non-Motif Sites</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>In Structure S</strong></td>
+                  <td>\(a\)</td>
+                  <td>\(c\)</td>
+                </tr>
+                <tr>
+                  <td><strong>Not in Structure S</strong></td>
+                  <td>\(b\)</td>
+                  <td>\(d\)</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="img-container">
+          <img src="Images/motif_structure.png" alt="RNA folding and Fisher's structural enrichment results">
+          <div class="img-caption">
+            <i class="bi bi-image"></i>
+            <strong>Figure 13: Structure-Aware Motif Contexts.</strong> Renders minimum free energy stem-loop configurations and illustrates structural enrichment percentages. Significant Fisher p-values indicate binding site localization.
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2 id="code-paths-section"><i class="bi bi-folder-symlink"></i> Interactive Code Map & File Paths</h2>
+        <p>
+          To trace calculations directly to the implementation code, click on the file pointers below to navigate to the exact biological engines and interface components:
+        </p>
+        
+        <div class="glass-card">
+          <table style="margin: 0;">
+            <thead>
+              <tr>
+                <th>Tool Component</th>
+                <th>Source Code File Path</th>
+                <th>Function / Entry Point</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Central State Coordinator</strong></td>
+                <td><a class="file-tag" href="file:///c:/Users/Siddharth Tripathi/OneDrive/Desktop/bioseq_explorer/server.R">server.R</a></td>
+                <td><code>shared_state</code> reactive container</td>
+              </tr>
+              <tr>
+                <td><strong>Codon Engine Core</strong></td>
+                <td><a class="file-tag" href="file:///c:/Users/Siddharth Tripathi/OneDrive/Desktop/bioseq_explorer/tools/codon_usage/server.R">codon_usage/server.R</a></td>
+                <td><code>build_analysis()</code> dispatcher</td>
+              </tr>
+              <tr>
+                <td><strong>Codon Adaptation Index (CAI)</strong></td>
+                <td><a class="file-tag" href="file:///c:/Users/Siddharth Tripathi/OneDrive/Desktop/bioseq_explorer/tools/codon_usage/engines/engine_cai.R">engine_cai.R</a></td>
+                <td><code>cai_adaptiveness()</code> and <code>CAI()</code></td>
+              </tr>
+              <tr>
+                <td><strong>Effective Codons (ENC)</strong></td>
+                <td><a class="file-tag" href="file:///c:/Users/Siddharth Tripathi/OneDrive/Desktop/bioseq_explorer/tools/codon_usage/engines/engine_enc.R">engine_enc.R</a></td>
+                <td><code>wright_enc()</code> selection model</td>
+              </tr>
+              <tr>
+                <td><strong>Back-Translation Optimizer</strong></td>
+                <td><a class="file-tag" href="file:///c:/Users/Siddharth Tripathi/OneDrive/Desktop/bioseq_explorer/tools/codon_usage/engines/engine_codon_optimization.R">engine_codon_optimization.R</a></td>
+                <td><code>optimize_codon_sequence()</code></td>
+              </tr>
+              <tr>
+                <td><strong>Motif Scan Coordinator</strong></td>
+                <td><a class="file-tag" href="file:///c:/Users/Siddharth Tripathi/OneDrive/Desktop/bioseq_explorer/tools/motif_search/server.R">motif_search/server.R</a></td>
+                <td><code>motif_search_server</code></td>
+              </tr>
+              <tr>
+                <td><strong>Secondary Fold Classifier</strong></td>
+                <td><a class="file-tag" href="file:///c:/Users/Siddharth Tripathi/OneDrive/Desktop/bioseq_explorer/tools/motif_search/components/structure_summary_panel.R">structure_summary_panel.R</a></td>
+                <td><code>fisher_exact_enrichment()</code></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+
+    <!-- ── PAGE 4: CALCULATIONS SPEC SHEET ── -->
+    <div class="tab-content" id="page-calculations">
+      <header>
+        <span class="manual-tag">Calculations Reference Guide</span>
+        <h1>Calculations & Dataflow Spec Sheet</h1>
+        <p class="header-subtext">A formal specification detailing input properties, mathematical transforms, and outputs for all 8 workstations.</p>
+      </header>
+
+      <section>
+        <h2 id="calc-metrics-section">Summary of Global Workstation Metrics</h2>
+        <p>The main Dashboard (<code>mod_tab_manager.R</code>) performs initial calculations whenever a sequence is loaded into <code>shared_state$seq_string</code>:</p>
+
+        <div class="glass-card">
+          <table style="margin: 0;">
+            <thead>
+              <tr>
+                <th>Metric</th>
+                <th>Calculation / Formula</th>
+                <th>Output Element</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Sequence Length</strong></td>
+                <td>Count of characters $L$ in cleaned DNA string</td>
+                <td><code>#txt_length</code> (Text: `X,XXX bp`)</td>
+              </tr>
+              <tr>
+                <td><strong>GC Content</strong></td>
+                <td>$GC\% = \frac{\text{Count}(G) + \text{Count}(C)}{L} \times 100$</td>
+                <td><code>#txt_gc</code> (Text: `XX.XX%`)</td>
+              </tr>
+              <tr>
+                <td><strong>AT Content</strong></td>
+                <td>$AT\% = \frac{\text{Count}(A) + \text{Count}(T)}{L} \times 100$</td>
+                <td><code>#txt_at</code> (Text: `XX.XX%`)</td>
+              </tr>
+              <tr>
+                <td><strong>Molecular Weight</strong></td>
+                <td>$MW_{\text{dsDNA}} = L \times 660 \text{ Da} \div 1000$ (double-stranded estimate)</td>
+                <td><code>#txt_mw</code> (Text: `X,XXX kDa`)</td>
+              </tr>
+              <tr>
+                <td><strong>GC Skew</strong></td>
+                <td>$GC_{\text{skew}} = \frac{G - C}{G + C}$</td>
+                <td><code>#gc_skew</code> (Text: `-X.XXX`)</td>
+              </tr>
+              <tr>
+                <td><strong>AT Skew</strong></td>
+                <td>$AT_{\text{skew}} = \frac{A - T}{A + T}$</td>
+                <td><code>#at_skew</code> (Text: `-X.XXX`)</td>
+              </tr>
+              <tr>
+                <td><strong>Composition Chart</strong></td>
+                <td>Pie chart of absolute counts: A, T, C, G</td>
+                <td><code>#nuc_donut</code> (ECharts4r Donut Plot)</td>
+              </tr>
+              <tr>
+                <td><strong>Sequence Preview</strong></td>
+                <td>Extraction of bases $1$ to $800$</td>
+                <td><code>#seq_preview</code> (HTML color grid)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section>
+        <h2 id="calc-tools-section">Tool-Specific Parameters & Data Flows</h2>
+        <p>Below is the complete spec sheets for each of the dynamic workstation tools:</p>
+
+        <div class="glass-card">
+          <h3>Tool 1: Sequence Viewer</h3>
+          <ul>
+            <li><strong>Inputs</strong>:
+              <ul>
+                <li><code>color_theme</code>: Choices: <code>Default (SnapGene)</code>, <code>Print (Grayscale)</code>, <code>High Contrast (Neon)</code></li>
+                <li><code>enzyme_search</code>: Target sequence or restriction enzyme name to highlight</li>
+                <li><code>line_width</code>: Wrap width slider (50 to 180 bp)</li>
+              </ul>
+            </li>
+            <li><strong>Calculations</strong>:
+              <ul>
+                <li><strong>Complement Strand</strong>: Maps Watson-Crick base-pairs ($A \leftrightarrow T, G \leftrightarrow C$) in reverse direction.</li>
+                <li><strong>Restriction Site Scanner</strong>: Locates recognition sites (e.g. EcoRI `GAATTC`) and draws markers.</li>
+                <li><strong>GenBank Feature Spanning</strong>: Renders colored banners along coordinate intervals.</li>
+              </ul>
+            </li>
+            <li><strong>Outputs</strong>:
+              <ul>
+                <li><code>seq_track_ui</code>: Interactive, zoomable sequence block layout showing double strands and features.</li>
+                <li><code>seq_enzymes_ui</code>: Registry table listing matching enzymes, recognition cuts, and exact positions.</li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+
+        <div class="glass-card">
+          <h3>Tool 2: RNA Transcript</h3>
+          <ul>
+            <li><strong>Inputs</strong>:
+              <ul>
+                <li><code>visual_style</code>: Choices: <code>plain</code>, <code>coloured</code>, <code>boxed</code></li>
+                <li><code>wrap_width</code>: Line wrap boundary (50, 80, 100, 120 bp)</li>
+              </ul>
+            </li>
+            <li><strong>Calculations</strong>:
+              <ul>
+                <li><strong>Transcription</strong>: Translates Thymine ($T$) bases to Uracil ($U$) ($DNA \rightarrow RNA$).</li>
+              </ul>
+            </li>
+            <li><strong>Outputs</strong>:
+              <ul>
+                <li><code>rna_render</code>: Formatted RNA sequence wrapper.</li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+
+        <div class="glass-card">
+          <h3>Tool 3: Reverse Complement</h3>
+          <ul>
+            <li><strong>Inputs</strong>:
+              <ul>
+                <li><code>visual_style</code>: Choices: <code>plain</code>, <code>coloured</code>, <code>boxed</code></li>
+                <li><code>wrap_width</code>: Line wrap boundary (50, 80, 100, 120 bp)</li>
+              </ul>
+            </li>
+            <li><strong>Calculations</strong>:
+              <ul>
+                <li><strong>Reverse Complement</strong>: Reverses the sequence direction and applies Watson-Crick base-swapping rules.</li>
+              </ul>
+            </li>
+            <li><strong>Outputs</strong>:
+              <ul>
+                <li><code>rc_render</code>: Formatted reverse complement sequence.</li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+
+        <div class="glass-card">
+          <h3>Tool 4: Translate to Protein</h3>
+          <ul>
+            <li><strong>Inputs</strong>:
+              <ul>
+                <li><code>visual_style</code>: Choices: <code>plain</code>, <code>coloured</code>, <code>boxed</code></li>
+                <li><code>wrap_width</code>: Line wrap boundary (30, 40, 50, 60 aa)</li>
+              </ul>
+            </li>
+            <li><strong>Calculations</strong>:
+              <ul>
+                <li><strong>Translation</strong>: Translates codons (triplets) to amino acids using standard genetic code rules.</li>
+                <li><strong>Biochemical Styling</strong>: Classes residues as Polar (green), Nonpolar (yellow), Basic (blue), or Acidic (red).</li>
+              </ul>
+            </li>
+            <li><strong>Outputs</strong>:
+              <ul>
+                <li><code>protein_render</code>: Color-coded amino acid sequence.</li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+
+        <div class="glass-card">
+          <h3>Tool 5: ORF Finder</h3>
+          <ul>
+            <li><strong>Inputs</strong>:
+              <ul>
+                <li><code>min_len_bp</code>: Minimum open reading frame length in bp (default: 300 bp).</li>
+              </ul>
+            </li>
+            <li><strong>Calculations</strong>:
+              <ul>
+                <li><strong>6-Frame Scan</strong>: Scans forward (+1, +2, +3) and reverse complement (-1, -2, -3) frames for `ATG` starts and downstream stops.</li>
+                <li><strong>Reverse Mapping</strong>: Remaps coordinates for reverse complement ORFs using:
+                  $$\text{GenomicStart} = L - \text{StrandEnd} + 1 \quad \text{and} \quad \text{GenomicEnd} = L - \text{StrandStart} + 1$$
+                </li>
+              </ul>
+            </li>
+            <li><strong>Outputs</strong>:
+              <ul>
+                <li><code>orf_table</code>: Dynamic table listing ORF indices, frames, lengths, and amino acid counts.</li>
+                <li><code>orf_track_map</code>: Interactive SVG lanes plotting found ORFs.</li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+
+        <div class="glass-card">
+          <h3>Tool 6: Find Mutations</h3>
+          <ul>
+            <li><strong>Inputs</strong>:
+              <ul>
+                <li><code>query_seq_input</code>: Copy-pasted mutated sequence.</li>
+                <li><code>btn_random_mutate</code>: Randomly mutates reference sequence by 1% for mock testing.</li>
+                <li><code>btn_run</code>: Triggers NW alignment.</li>
+              </ul>
+            </li>
+            <li><strong>Calculations</strong>:
+              <ul>
+                <li><strong>Needleman-Wunsch Alignment</strong>: Computes global alignment using scoring rules (+1 Match, -1 Mismatch, -2 Gap).</li>
+                <li><strong>Identity Percentage</strong>:
+                  $$\text{Identity}\% = \frac{\text{Matches}}{\text{Alignment Length}} \times 100$$
+                </li>
+                <li><strong>Mutation Classifier</strong>: Scans indices to call SNPs, insertions, and deletions.</li>
+              </ul>
+            </li>
+            <li><strong>Outputs</strong>:
+              <ul>
+                <li><code>align_score_card</code>: Metrics dashboard for alignments.</li>
+                <li><code>align_output</code>: Highlighted comparative track panel.</li>
+                <li><code>mutations_table</code>: List of called variants, positions, ref, and alt alleles.</li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+
+        <div class="glass-card">
+          <h3>Tool 7: Codon Usage & Optimization</h3>
+          <ul>
+            <li><strong>Inputs</strong>:
+              <ul>
+                <li><code>host</code>: Organism genome model (<em>E. coli</em>, <em>Yeast</em>, <em>Human</em>).</li>
+                <li><code>optimization_strategy</code>: <code>CAI</code>, <code>Random</code>, <code>Harmonized</code>.</li>
+                <li><code>window_size</code> / <code>window_step</code>: Rolling sliding window settings.</li>
+              </ul>
+            </li>
+            <li><strong>Calculations</strong>:
+              <ul>
+                <li><strong>RSCU</strong>: Normalizes codon counts against amino acid family abundance.</li>
+                <li><strong>CAI</strong>: Geometric mean of adaptiveness weights along the reading frame.</li>
+                <li><strong>ENC</strong>: Wright's codon bias score, plotted against GC3 neutrality baselines.</li>
+              </ul>
+            </li>
+            <li><strong>Outputs</strong>:
+              <ul>
+                <li><code>plot_codon_freq</code>: Bar charts showing codon distributions.</li>
+                <li><code>plot_rscu_heatmap</code>: RSCU heatmaps.</li>
+                <li><code>plot_enc</code>: Wright's diagnostic selection charts.</li>
+                <li><code>plot_sliding</code>: Rolling CAI curves.</li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+
+        <div class="glass-card">
+          <h3>Tool 8: Motif Search & Discovery</h3>
+          <ul>
+            <li><strong>Inputs</strong>:
+              <ul>
+                <li><code>search_type</code>: Choices: <code>Exact</code>, <code>IUPAC</code>, <code>Regex</code>, <code>PWM</code>, <code>FIMO</code></li>
+                <li><code>search_pattern</code>: Input string to match or scan.</li>
+                <li><code>threshold</code>: Score threshold for PWM matrix searches (0 to 1, default: 0.8).</li>
+              </ul>
+            </li>
+            <li><strong>Calculations</strong>:
+              <ul>
+                <li><strong>IUPAC Regex Expansion</strong>: Expands ambiguous letters to regular expressions.</li>
+                <li><strong>PWM Log-Odds</strong>: Scans sliding windows using log-odds likelihood values.</li>
+                <li><strong>Fisher hyperenrichment</strong>: Runs hypergeometric tests on RNA structural stem/loop contexts.</li>
+              </ul>
+            </li>
+            <li><strong>Outputs</strong>:
+              <ul>
+                <li><code>hits_table</code>: Coordinate positions of motif hits.</li>
+                <li><code>plot_positional_bins</code>: Volcano and heatmap distribution tracks.</li>
+                <li><code>structure_summary_panel</code>: Percentage breakups and Fisher structural enrichment results.</li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </section>
+    </div>
+
+    <!-- ── PAGE 5: CODEBASE EXPLORER ── -->
+    <div class="tab-content" id="page-codebase">
+      <header>
+        <span class="manual-tag">Codebase Map</span>
+        <h1>Codebase Explorer & File Tree</h1>
+        <p class="header-subtext">Structural audit, directory paths, dead code reviews, and memory leak analysis of the Shiny MVC workstation.</p>
+      </header>
+
+      <section>
+        <h2 id="code-arch-section"><i class="bi bi-grid-3x3-gap"></i> Architectural Overview</h2>
+        <p>The BioSeq-Explorer application is structured as a modular R Shiny Web Application using a coordinated Model-View-Controller (MVC) design pattern:</p>
+
+        <div class="glass-card" style="background: #ffffff; text-align: center;">
+          <pre class="mermaid">
+graph TD
+    User([User Inputs]) -->|File Upload/Paste| Sidebar[Sidebar Module]
+    Sidebar -->|Updates| State[(Central State: shared_state)]
+    State -->|Triggers Reactives| TabManager[Tab Manager Module]
+    TabManager -->|Dynamic Tab Injection| ActiveTabs[Active Tool Sub-Modules]
+    ActiveTabs -->|Saves History| RHistory[.Rhistory File]
+    ActiveTabs -->|Renders| UI[Browser Interface]
+          </pre>
+        </div>
+      </section>
+
+      <section>
+        <h2 id="code-tree-section"><i class="bi bi-tree"></i> Codebase Directory Tree</h2>
+        <p>Use the interactive folder explorer below to click and inspect files and components (excluding node_modules/):</p>
+        
+        <!-- INTERACTIVE NATIVE FILE TREE EXPLORER -->
+        <div class="file-explorer">
+          <details class="explorer-folder" open>
+            <summary><i class="bi bi-folder-fill"></i> bioseq_explorer</summary>
+            <div class="explorer-folder-contents">
+              <!-- Root Files -->
+              <a class="explorer-file" href="file:///c:/Users/Siddharth Tripathi/OneDrive/Desktop/bioseq_explorer/app.R"><i class="bi bi-file-earmark-code"></i> app.R</a>
+              <a class="explorer-file" href="file:///c:/Users/Siddharth Tripathi/OneDrive/Desktop/bioseq_explorer/global.R"><i class="bi bi-file-earmark-code"></i> global.R</a>
+              <a class="explorer-file" href="file:///c:/Users/Siddharth Tripathi/OneDrive/Desktop/bioseq_explorer/server.R"><i class="bi bi-file-earmark-code"></i> server.R</a>
+              <a class="explorer-file" href="file:///c:/Users/Siddharth Tripathi/OneDrive/Desktop/bioseq_explorer/ui.R"><i class="bi bi-file-earmark-code"></i> ui.R</a>
+              <a class="explorer-file" href="file:///c:/Users/Siddharth Tripathi/OneDrive/Desktop/bioseq_explorer/bootstrap.R"><i class="bi bi-file-earmark-code"></i> bootstrap.R</a>
+              <a class="explorer-file" href="file:///c:/Users/Siddharth Tripathi/OneDrive/Desktop/bioseq_explorer/requirements.R"><i class="bi bi-file-earmark-code"></i> requirements.R</a>
+              <a class="explorer-file script-file" href="file:///c:/Users/Siddharth Tripathi/OneDrive/Desktop/bioseq_explorer/Dockerfile"><i class="bi bi-filetype-docker"></i> Dockerfile</a>
+              <a class="explorer-file script-file" href="file:///c:/Users/Siddharth Tripathi/OneDrive/Desktop/bioseq_explorer/docker-compose.yml"><i class="bi bi-file-earmark-ruled"></i> docker-compose.yml</a>
+              <a class="explorer-file doc-file" href="file:///c:/Users/Siddharth Tripathi/OneDrive/Desktop/bioseq_explorer/README.md"><i class="bi bi-file-earmark-markdown"></i> README.md</a>
+              
+              <!-- .vscode -->
+              <details class="explorer-folder">
+                <summary><i class="bi bi-folder-fill"></i> .vscode</summary>
+                <div class="explorer-folder-contents">
+                  <a class="explorer-file" href="file:///c:/Users/Siddharth Tripathi/OneDrive/Desktop/bioseq_explorer/.vscode/settings.json"><i class="bi bi-file-earmark-code"></i> settings.json</a>
+                </div>
+              </details>
+
+              <!-- documentation -->
+              <details class="explorer-folder" open>
+                <summary><i class="bi bi-folder-fill"></i> documentation</summary>
+                <div class="explorer-folder-contents">
+                  <a class="explorer-file doc-file" href="file:///c:/Users/Siddharth Tripathi/OneDrive/Desktop/bioseq_explorer/documentation/calculations_and_dataflow.md"><i class="bi bi-file-earmark-markdown"></i> calculations_and_dataflow.md</a>
+                  <a class="explorer-file doc-file" href="file:///c:/Users/Siddharth Tripathi/OneDrive/Desktop/bioseq_explorer/documentation/codebase_analysis.md"><i class="bi bi-file-earmark-markdown"></i> codebase_analysis.md</a>
+                  <a class="explorer-file doc-file" href="file:///c:/Users/Siddharth Tripathi/OneDrive/Desktop/bioseq_explorer/documentation/docker_setup.md"><i class="bi bi-file-earmark-markdown"></i> docker_setup.md</a>
+                  <a class="explorer-file doc-file" href="file:///c:/Users/Siddharth Tripathi/OneDrive/Desktop/bioseq_explorer/documentation/remediation_roadmap.md"><i class="bi bi-file-earmark-markdown"></i> remediation_roadmap.md</a>
+                  <a class="explorer-file" href="file:///c:/Users/Siddharth Tripathi/OneDrive/Desktop/bioseq_explorer/documentation/system_dataflow.html"><i class="bi bi-file-earmark-code"></i> system_dataflow.html</a>
+                </div>
+              </details>
+
+              <!-- examples -->
+              <details class="explorer-folder">
+                <summary><i class="bi bi-folder-fill"></i> examples</summary>
+                <div class="explorer-folder-contents">
+                  <a class="explorer-file" href="file:///c:/Users/Siddharth Tripathi/OneDrive/Desktop/bioseq_explorer/examples/GFP.fa"><i class="bi bi-file-earmark-code"></i> GFP.fa</a>
+                  <a class="explorer-file" href="file:///c:/Users/Siddharth Tripathi/OneDrive/Desktop/bioseq_explorer/examples/Homo sapiens insulin (INS).fasta"><i class="bi bi-file-earmark-code"></i> Homo sapiens insulin (INS).fasta</a>
+                  <a class="explorer-file" href="file:///c:/Users/Siddharth Tripathi/OneDrive/Desktop/bioseq_explorer/examples/hras.fasta"><i class="bi bi-file-earmark-code"></i> hras.fasta</a>
+                  <a class="explorer-file" href="file:///c:/Users/Siddharth Tripathi/OneDrive/Desktop/bioseq_explorer/examples/Kozak-EGFP.fasta"><i class="bi bi-file-earmark-code"></i> Kozak-EGFP.fasta</a>
+                </div>
+              </details>
+
+              <!-- modules -->
+              <details class="explorer-folder" open>
+                <summary><i class="bi bi-folder-fill"></i> modules</summary>
+                <div class="explorer-folder-contents">
+                  <a class="explorer-file" href="file:///c:/Users/Siddharth Tripathi/OneDrive/Desktop/bioseq_explorer/modules/mod_footer.R"><i class="bi bi-file-earmark-code"></i> mod_footer.R</a>
+                  <a class="explorer-file" href="file:///c:/Users/Siddharth Tripathi/OneDrive/Desktop/bioseq_explorer/modules/mod_sidebar.R"><i class="bi bi-file-earmark-code"></i> mod_sidebar.R</a>
+                  <a class="explorer-file" href="file:///c:/Users/Siddharth Tripathi/OneDrive/Desktop/bioseq_explorer/modules/mod_tab_manager.R"><i class="bi bi-file-earmark-code"></i> mod_tab_manager.R</a>
+                </div>
+              </details>
+
+              <!-- outputs -->
+              <details class="explorer-folder">
+                <summary><i class="bi bi-folder-fill"></i> outputs</summary>
+                <div class="explorer-folder-contents">
+                  <details class="explorer-folder">
+                    <summary><i class="bi bi-folder-fill"></i> codon_usage</summary>
+                    <div class="explorer-folder-contents">
+                      <a class="explorer-file script-file" href="file:///c:/Users/Siddharth Tripathi/OneDrive/Desktop/bioseq_explorer/outputs/codon_usage/ca_clustered.svg"><i class="bi bi-image"></i> ca_clustered.svg</a>
+                      <a class="explorer-file script-file" href="file:///c:/Users/Siddharth Tripathi/OneDrive/Desktop/bioseq_explorer/outputs/codon_usage/enc_plot.svg"><i class="bi bi-image"></i> enc_plot.svg</a>
+                      <a class="explorer-file script-file" href="file:///c:/Users/Siddharth Tripathi/OneDrive/Desktop/bioseq_explorer/outputs/codon_usage/gc_plot.svg"><i class="bi bi-image"></i> gc_plot.svg</a>
+                      <a class="explorer-file script-file" href="file:///c:/Users/Siddharth Tripathi/OneDrive/Desktop/bioseq_explorer/outputs/codon_usage/neutrality_plot.svg"><i class="bi bi-image"></i> neutrality_plot.svg</a>
+                    </div>
+                  </details>
+                </div>
+              </details>
+
+              <!-- renv -->
+              <details class="explorer-folder">
+                <summary><i class="bi bi-folder-fill"></i> renv</summary>
+                <div class="explorer-folder-contents">
+                  <a class="explorer-file" href="file:///c:/Users/Siddharth Tripathi/OneDrive/Desktop/bioseq_explorer/renv/activate.R"><i class="bi bi-file-earmark-code"></i> activate.R</a>
+                  <a class="explorer-file" href="file:///c:/Users/Siddharth Tripathi/OneDrive/Desktop/bioseq_explorer/renv/settings.json"><i class="bi bi-file-earmark-code"></i> settings.json</a>
+                </div>
+              </details>
+
+              <!-- scratch -->
+              <details class="explorer-folder">
+                <summary><i class="bi bi-folder-fill"></i> scratch</summary>
+                <div class="explorer-folder-contents">
+                  <a class="explorer-file" href="file:///c:/Users/Siddharth Tripathi/OneDrive/Desktop/bioseq_explorer/scratch/test_responsive_highlights.R"><i class="bi bi-file-earmark-code"></i> test_responsive_highlights.R</a>
+                  <a class="explorer-file" href="file:///c:/Users/Siddharth Tripathi/OneDrive/Desktop/bioseq_explorer/scratch/test_shiny_app.py"><i class="bi bi-file-earmark-code"></i> test_shiny_app.py</a>
+                  <a class="explorer-file" href="file:///c:/Users/Siddharth Tripathi/OneDrive/Desktop/bioseq_explorer/scratch/test_shiny_server.R"><i class="bi bi-file-earmark-code"></i> test_shiny_server.R</a>
+                  <a class="explorer-file" href="file:///c:/Users/Siddharth Tripathi/OneDrive/Desktop/bioseq_explorer/scratch/trigger_shiny_ws.py"><i class="bi bi-file-earmark-code"></i> trigger_shiny_ws.py</a>
+                  <a class="explorer-file" href="file:///c:/Users/Siddharth Tripathi/OneDrive/Desktop/bioseq_explorer/scratch/verify_tests.R"><i class="bi bi-file-earmark-code"></i> verify_tests.R</a>
+                </div>
+              </details>
+
+              <!-- tools -->
+              <details class="explorer-folder" open>
+                <summary><i class="bi bi-folder-fill"></i> tools</summary>
+                <div class="explorer-folder-contents">
+                  <a class="explorer-file" href="file:///c:/Users/Siddharth Tripathi/OneDrive/Desktop/bioseq_explorer/tools/registry.R"><i class="bi bi-file-earmark-code"></i> registry.R</a>
+                  
+                  <!-- codon_usage -->
+                  <details class="explorer-folder">
+                    <summary><i class="bi bi-folder-fill"></i> codon_usage</summary>
+                    <div class="explorer-folder-contents">
+                      <a class="explorer-file" href="file:///c:/Users/Siddharth Tripathi/OneDrive/Desktop/bioseq_explorer/tools/codon_usage/helpers.R"><i class="bi bi-file-earmark-code"></i> helpers.R</a>
+                      <a class="explorer-file" href="file:///c:/Users/Siddharth Tripathi/OneDrive/Desktop/bioseq_explorer/tools/codon_usage/server.R"><i class="bi bi-file-earmark-code"></i> server.R</a>
+                      <a class="explorer-file" href="file:///c:/Users/Siddharth Tripathi/OneDrive/Desktop/bioseq_explorer/tools/codon_usage/ui.R"><i class="bi bi-file-earmark-code"></i> ui.R</a>
+                      
+                      <details class="explorer-folder">
+                        <summary><i class="bi bi-folder-fill"></i> adapters</summary>
+                        <div class="explorer-folder-contents">
+                          <a class="explorer-file" href="file:///c:/Users/Siddharth Tripathi/OneDrive/Desktop/bioseq_explorer/tools/codon_usage/adapters/adapter_biostrings.R"><i class="bi bi-file-earmark-code"></i> adapter_biostrings.R</a>
+                          <a class="explorer-file" href="file:///c:/Users/Siddharth Tripathi/OneDrive/Desktop/bioseq_explorer/tools/codon_usage/adapters/adapter_cubar.R"><i class="bi bi-file-earmark-code"></i> adapter_cubar.R</a>
+                          <a class="explorer-file" href="file:///c:/Users/Siddharth Tripathi/OneDrive/Desktop/bioseq_explorer/tools/codon_usage/adapters/adapter_seqinr.R"><i class="bi bi-file-earmark-code"></i> adapter_seqinr.R</a>
+                        </div>
+                      </details>
+                      
+                      <details class="explorer-folder">
+                        <summary><i class="bi bi-folder-fill"></i> components</summary>
+                        <div class="explorer-folder-contents">
+                          <a class="explorer-file" href="file:///c:/Users/Siddharth Tripathi/OneDrive/Desktop/bioseq_explorer/tools/codon_usage/components/comp_codon_frequency_plot.R"><i class="bi bi-file-earmark-code"></i> comp_codon_frequency_plot.R</a>
+                          <a class="explorer-file" href="file:///c:/Users/Siddharth Tripathi/OneDrive/Desktop/bioseq_explorer/tools/codon_usage/components/comp_codon_table.R"><i class="bi bi-file-earmark-code"></i> comp_codon_table.R</a>
+                          <a class="explorer-file" href="file:///c:/Users/Siddharth Tripathi/OneDrive/Desktop/bioseq_explorer/tools/codon_usage/components/comp_enc_plot.R"><i class="bi bi-file-earmark-code"></i> comp_enc_plot.R</a>
+                          <a class="explorer-file" href="file:///c:/Users/Siddharth Tripathi/OneDrive/Desktop/bioseq_explorer/tools/codon_usage/components/comp_sequence_optimizer.R"><i class="bi bi-file-earmark-code"></i> comp_sequence_optimizer.R</a>
+                        </div>
+                      </details>
+
+                      <details class="explorer-folder">
+                        <summary><i class="bi bi-folder-fill"></i> engines</summary>
+                        <div class="explorer-folder-contents">
+                          <a class="explorer-file" href="file:///c:/Users/Siddharth Tripathi/OneDrive/Desktop/bioseq_explorer/tools/codon_usage/engines/engine_cai.R"><i class="bi bi-file-earmark-code"></i> engine_cai.R</a>
+                          <a class="explorer-file" href="file:///c:/Users/Siddharth Tripathi/OneDrive/Desktop/bioseq_explorer/tools/codon_usage/engines/engine_enc.R"><i class="bi bi-file-earmark-code"></i> engine_enc.R</a>
+                          <a class="explorer-file" href="file:///c:/Users/Siddharth Tripathi/OneDrive/Desktop/bioseq_explorer/tools/codon_usage/engines/engine_codon_optimization.R"><i class="bi bi-file-earmark-code"></i> engine_codon_optimization.R</a>
+                          <a class="explorer-file" href="file:///c:/Users/Siddharth Tripathi/OneDrive/Desktop/bioseq_explorer/tools/codon_usage/engines/engine_rscu.R"><i class="bi bi-file-earmark-code"></i> engine_rscu.R</a>
+                        </div>
+                      </details>
+                    </div>
+                  </details>
+
+                  <!-- find_mutations -->
+                  <details class="explorer-folder">
+                    <summary><i class="bi bi-folder-fill"></i> find_mutations</summary>
+                    <div class="explorer-folder-contents">
+                      <a class="explorer-file" href="file:///c:/Users/Siddharth Tripathi/OneDrive/Desktop/bioseq_explorer/tools/find_mutations/helpers.R"><i class="bi bi-file-earmark-code"></i> helpers.R</a>
+                      <a class="explorer-file" href="file:///c:/Users/Siddharth Tripathi/OneDrive/Desktop/bioseq_explorer/tools/find_mutations/server.R"><i class="bi bi-file-earmark-code"></i> server.R</a>
+                      <a class="explorer-file" href="file:///c:/Users/Siddharth Tripathi/OneDrive/Desktop/bioseq_explorer/tools/find_mutations/ui.R"><i class="bi bi-file-earmark-code"></i> ui.R</a>
+                    </div>
+                  </details>
+
+                  <!-- motif_search -->
+                  <details class="explorer-folder">
+                    <summary><i class="bi bi-folder-fill"></i> motif_search</summary>
+                    <div class="explorer-folder-contents">
+                      <a class="explorer-file" href="file:///c:/Users/Siddharth Tripathi/OneDrive/Desktop/bioseq_explorer/tools/motif_search/helpers.R"><i class="bi bi-file-earmark-code"></i> helpers.R</a>
+                      <a class="explorer-file" href="file:///c:/Users/Siddharth Tripathi/OneDrive/Desktop/bioseq_explorer/tools/motif_search/server.R"><i class="bi bi-file-earmark-code"></i> server.R</a>
+                      <a class="explorer-file" href="file:///c:/Users/Siddharth Tripathi/OneDrive/Desktop/bioseq_explorer/tools/motif_search/settings.R"><i class="bi bi-file-earmark-code"></i> settings.R</a>
+                      <a class="explorer-file" href="file:///c:/Users/Siddharth Tripathi/OneDrive/Desktop/bioseq_explorer/tools/motif_search/ui.R"><i class="bi bi-file-earmark-code"></i> ui.R</a>
+                      
+                      <details class="explorer-folder">
+                        <summary><i class="bi bi-folder-fill"></i> adaptive</summary>
+                        <div class="explorer-folder-contents">
+                          <a class="explorer-file" href="file:///c:/Users/Siddharth Tripathi/OneDrive/Desktop/bioseq_explorer/tools/motif_search/adaptive/adaptive_search_modes.R"><i class="bi bi-file-earmark-code"></i> adaptive_search_modes.R</a>
+                          <a class="explorer-file" href="file:///c:/Users/Siddharth Tripathi/OneDrive/Desktop/bioseq_explorer/tools/motif_search/adaptive/adaptive_pwm_profiles.R"><i class="bi bi-file-earmark-code"></i> adaptive_pwm_profiles.R</a>
+                        </div>
+                      </details>
+
+                      <details class="explorer-folder">
+                        <summary><i class="bi bi-folder-fill"></i> charts</summary>
+                        <div class="explorer-folder-contents">
+                          <a class="explorer-file" href="file:///c:/Users/Siddharth Tripathi/OneDrive/Desktop/bioseq_explorer/tools/motif_search/charts/motif_density_plot.R"><i class="bi bi-file-earmark-code"></i> motif_density_plot.R</a>
+                          <a class="explorer-file" href="file:///c:/Users/Siddharth Tripathi/OneDrive/Desktop/bioseq_explorer/tools/motif_search/charts/motif_visualizations.R"><i class="bi bi-file-earmark-code"></i> motif_visualizations.R</a>
+                          <a class="explorer-file" href="file:///c:/Users/Siddharth Tripathi/OneDrive/Desktop/bioseq_explorer/tools/motif_search/charts/positional_enrichment_heatmap.R"><i class="bi bi-file-earmark-code"></i> positional_enrichment_heatmap.R</a>
+                        </div>
+                      </details>
+
+                      <details class="explorer-folder">
+                        <summary><i class="bi bi-folder-fill"></i> components</summary>
+                        <div class="explorer-folder-contents">
+                          <a class="explorer-file" href="file:///c:/Users/Siddharth Tripathi/OneDrive/Desktop/bioseq_explorer/tools/motif_search/components/motif_alignment_panel.R"><i class="bi bi-file-earmark-code"></i> motif_alignment_panel.R</a>
+                          <a class="explorer-file" href="file:///c:/Users/Siddharth Tripathi/OneDrive/Desktop/bioseq_explorer/tools/motif_search/components/motif_table.R"><i class="bi bi-file-earmark-code"></i> motif_table.R</a>
+                          <a class="explorer-file" href="file:///c:/Users/Siddharth Tripathi/OneDrive/Desktop/bioseq_explorer/tools/motif_search/components/structure_summary_panel.R"><i class="bi bi-file-earmark-code"></i> structure_summary_panel.R</a>
+                        </div>
+                      </details>
+
+                      <details class="explorer-folder">
+                        <summary><i class="bi bi-folder-fill"></i> engines</summary>
+                        <div class="explorer-folder-contents">
+                          <a class="explorer-file" href="file:///c:/Users/Siddharth Tripathi/OneDrive/Desktop/bioseq_explorer/tools/motif_search/engines/motif_scan_engine.R"><i class="bi bi-file-earmark-code"></i> motif_scan_engine.R</a>
+                          <a class="explorer-file" href="file:///c:/Users/Siddharth Tripathi/OneDrive/Desktop/bioseq_explorer/tools/motif_search/engines/motif_structure_analysis.R"><i class="bi bi-file-earmark-code"></i> motif_structure_analysis.R</a>
+                        </div>
+                      </details>
+                    </div>
+                  </details>
+
+                  <!-- orf_finder -->
+                  <details class="explorer-folder">
+                    <summary><i class="bi bi-folder-fill"></i> orf_finder</summary>
+                    <div class="explorer-folder-contents">
+                      <a class="explorer-file" href="file:///c:/Users/Siddharth Tripathi/OneDrive/Desktop/bioseq_explorer/tools/orf_finder/helpers.R"><i class="bi bi-file-earmark-code"></i> helpers.R</a>
+                      <a class="explorer-file" href="file:///c:/Users/Siddharth Tripathi/OneDrive/Desktop/bioseq_explorer/tools/orf_finder/server.R"><i class="bi bi-file-earmark-code"></i> server.R</a>
+                      <a class="explorer-file" href="file:///c:/Users/Siddharth Tripathi/OneDrive/Desktop/bioseq_explorer/tools/orf_finder/ui.R"><i class="bi bi-file-earmark-code"></i> ui.R</a>
+                    </div>
+                  </details>
+
+                  <!-- reverse_complement -->
+                  <details class="explorer-folder">
+                    <summary><i class="bi bi-folder-fill"></i> reverse_complement</summary>
+                    <div class="explorer-folder-contents">
+                      <a class="explorer-file" href="file:///c:/Users/Siddharth Tripathi/OneDrive/Desktop/bioseq_explorer/tools/reverse_complement/helpers.R"><i class="bi bi-file-earmark-code"></i> helpers.R</a>
+                      <a class="explorer-file" href="file:///c:/Users/Siddharth Tripathi/OneDrive/Desktop/bioseq_explorer/tools/reverse_complement/server.R"><i class="bi bi-file-earmark-code"></i> server.R</a>
+                      <a class="explorer-file" href="file:///c:/Users/Siddharth Tripathi/OneDrive/Desktop/bioseq_explorer/tools/reverse_complement/ui.R"><i class="bi bi-file-earmark-code"></i> ui.R</a>
+                    </div>
+                  </details>
+
+                  <!-- rna_transcript -->
+                  <details class="explorer-folder">
+                    <summary><i class="bi bi-folder-fill"></i> rna_transcript</summary>
+                    <div class="explorer-folder-contents">
+                      <a class="explorer-file" href="file:///c:/Users/Siddharth Tripathi/OneDrive/Desktop/bioseq_explorer/tools/rna_transcript/helpers.R"><i class="bi bi-file-earmark-code"></i> helpers.R</a>
+                      <a class="explorer-file" href="file:///c:/Users/Siddharth Tripathi/OneDrive/Desktop/bioseq_explorer/tools/rna_transcript/server.R"><i class="bi bi-file-earmark-code"></i> server.R</a>
+                      <a class="explorer-file" href="file:///c:/Users/Siddharth Tripathi/OneDrive/Desktop/bioseq_explorer/tools/rna_transcript/ui.R"><i class="bi bi-file-earmark-code"></i> ui.R</a>
+                    </div>
+                  </details>
+
+                  <!-- sequence_viewer -->
+                  <details class="explorer-folder">
+                    <summary><i class="bi bi-folder-fill"></i> sequence_viewer</summary>
+                    <div class="explorer-folder-contents">
+                      <a class="explorer-file" href="file:///c:/Users/Siddharth Tripathi/OneDrive/Desktop/bioseq_explorer/tools/sequence_viewer/helpers.R"><i class="bi bi-file-earmark-code"></i> helpers.R</a>
+                      <a class="explorer-file" href="file:///c:/Users/Siddharth Tripathi/OneDrive/Desktop/bioseq_explorer/tools/sequence_viewer/server.R"><i class="bi bi-file-earmark-code"></i> server.R</a>
+                      <a class="explorer-file" href="file:///c:/Users/Siddharth Tripathi/OneDrive/Desktop/bioseq_explorer/tools/sequence_viewer/ui.R"><i class="bi bi-file-earmark-code"></i> ui.R</a>
+                    </div>
+                  </details>
+
+                  <!-- translate_protein -->
+                  <details class="explorer-folder">
+                    <summary><i class="bi bi-folder-fill"></i> translate_protein</summary>
+                    <div class="explorer-folder-contents">
+                      <a class="explorer-file" href="file:///c:/Users/Siddharth Tripathi/OneDrive/Desktop/bioseq_explorer/tools/translate_protein/helpers.R"><i class="bi bi-file-earmark-code"></i> helpers.R</a>
+                      <a class="explorer-file" href="file:///c:/Users/Siddharth Tripathi/OneDrive/Desktop/bioseq_explorer/tools/translate_protein/server.R"><i class="bi bi-file-earmark-code"></i> server.R</a>
+                      <a class="explorer-file" href="file:///c:/Users/Siddharth Tripathi/OneDrive/Desktop/bioseq_explorer/tools/translate_protein/ui.R"><i class="bi bi-file-earmark-code"></i> ui.R</a>
+                    </div>
+                  </details>
+                </div>
+              </details>
+
+              <!-- utils -->
+              <details class="explorer-folder" open>
+                <summary><i class="bi bi-folder-fill"></i> utils</summary>
+                <div class="explorer-folder-contents">
+                  <a class="explorer-file" href="file:///c:/Users/Siddharth Tripathi/OneDrive/Desktop/bioseq_explorer/utils/install_required_packages.R"><i class="bi bi-file-earmark-code"></i> install_required_packages.R</a>
+                  <a class="explorer-file" href="file:///c:/Users/Siddharth Tripathi/OneDrive/Desktop/bioseq_explorer/utils/safe_runtime.R"><i class="bi bi-file-earmark-code"></i> safe_runtime.R</a>
+                  <a class="explorer-file" href="file:///c:/Users/Siddharth Tripathi/OneDrive/Desktop/bioseq_explorer/utils/utils_sequence.R"><i class="bi bi-file-earmark-code"></i> utils_sequence.R</a>
+                </div>
+              </details>
+
+              <!-- www -->
+              <details class="explorer-folder">
+                <summary><i class="bi bi-folder-fill"></i> www</summary>
+                <div class="explorer-folder-contents">
+                  <a class="explorer-file" href="file:///c:/Users/Siddharth Tripathi/OneDrive/Desktop/bioseq_explorer/www/custom.css"><i class="bi bi-file-earmark-code"></i> custom.css</a>
+                  <a class="explorer-file" href="file:///c:/Users/Siddharth Tripathi/OneDrive/Desktop/bioseq_explorer/www/custom.js"><i class="bi bi-file-earmark-code"></i> custom.js</a>
+                  
+                  <details class="explorer-folder">
+                    <summary><i class="bi bi-folder-fill"></i> css</summary>
+                    <div class="explorer-folder-contents">
+                      <a class="explorer-file" href="file:///c:/Users/Siddharth Tripathi/OneDrive/Desktop/bioseq_explorer/www/css/codon-analytics.css"><i class="bi bi-file-earmark-code"></i> codon-analytics.css</a>
+                      <a class="explorer-file" href="file:///c:/Users/Siddharth Tripathi/OneDrive/Desktop/bioseq_explorer/www/css/motif-search.css"><i class="bi bi-file-earmark-code"></i> motif-search.css</a>
+                    </div>
+                  </details>
+
+                  <details class="explorer-folder">
+                    <summary><i class="bi bi-folder-fill"></i> js</summary>
+                    <div class="explorer-folder-contents">
+                      <a class="explorer-file" href="file:///c:/Users/Siddharth Tripathi/OneDrive/Desktop/bioseq_explorer/www/js/echarts-resize.js"><i class="bi bi-file-earmark-code"></i> echarts-resize.js</a>
+                    </div>
+                  </details>
+                </div>
+              </details>
+            </div>
+          </details>
+        </div>
+      </section>
+
+      <section>
+        <h2 id="code-audits-section"><i class="bi bi-shield-check"></i> Dead Code & Memory Audits</h2>
+        <div class="glass-card">
+          <h3>Dead Code Audits</h3>
+          <p>The workspace was pruned to remove unused packages and directories:</p>
+          <ul>
+            <li><strong>Removed dependencies</strong>: Deleted <code>ORFik</code> and <code>openPrimeR</code>, which were declared in requirements but never loaded.</li>
+            <li><strong>Deleted Folders</strong>: Removed duplicated codebase structures under <code>tools/motif_search/1. use this for motif...</code> and <code>utils/shared/</code>.</li>
+          </ul>
+        </div>
+
+        <div class="glass-card">
+          <h3>Memory Leaks & reactivity Bottlenecks</h3>
+          <p>Three main performance risks were identified in the codebase:</p>
+          <ol>
+            <li><strong>Non-Teardown Reactives</strong>: Dynamic observers in tabs (e.g. sequence logs) remain active on the server even after a user closes a tab UI.</li>
+            <li><strong>Character-by-Character Loop Rendering</strong>: Loops splitting sequences to generate character-by-character HTML spans create 10,000+ separate span elements in server memory, stalling transfer payloads.</li>
+            <li><strong>Nested reactiveValues Cycles</strong>: Nested state containers inside <code>server.R</code> risk infinite loop events.</li>
+          </ol>
+        </div>
+
+        <div class="glass-card">
+          <h3>Accessibility Audits (A11y)</h3>
+          <ul>
+            <li><strong>Contrast Issues</strong>: The yellow-on-white text in sequence preview grids fails WCAG AAA contrast scales.</li>
+            <li><strong>Missing ARIA Elements</strong>: Sidebars toggled via buttons lack expanded states.</li>
+            <li><strong>Focus Traps</strong>: Close button anchors lack focus states, preventing keyboard navigation.</li>
+          </ul>
+        </div>
+      </section>
+    </div>
+
+    <!-- ── PAGE 6: DOCKER SETUP ── -->
+    <div class="tab-content" id="page-docker">
+      <header>
+        <span class="manual-tag">Deployment Guide</span>
+        <h1>Docker Container Setup & Deployment</h1>
+        <p class="header-subtext">Architectures, Dockerfile configurations, compose orchestrations, and container management workflows.</p>
+      </header>
+
+      <section>
+        <h2 id="dock-arch-section"><i class="bi bi-box"></i> Containerization Architecture</h2>
+        <p>
+          To ensure the workstation runs identically across all server environments, we bundle R, Shiny Server, required Linux system dependencies, 
+          and bioinformatics packages inside a unified container:
+        </p>
+        <ul>
+          <li><strong>Base image</strong>: <code>rocker/shiny:4.3.0</code> ( Shiny Server standard R instance).</li>
+          <li><strong>System Libraries</strong>: Installs SSL, XML parsing, and network packages required for Bioconductor.</li>
+          <li><strong>Exposure</strong>: Exposes port <code>3838</code>.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2 id="dock-inst-section"><i class="bi bi-terminal"></i> Deployment Instructions</h2>
+        <div class="glass-card">
+          <h3>Quick Start Guide</h3>
+          <ol>
+            <li><strong>Build the container</strong>:
+              <pre class="code-block">docker compose build</pre>
+              <p style="font-size:0.85rem; margin-top:5px; color:var(--text-muted);">Note: Initial builds compile C++ library dependencies (like Biostrings) and can take 15-20 minutes. Subsequent builds utilize cache layers and build under 10 seconds.</p>
+            </li>
+            <li><strong>Run the container</strong>:
+              <pre class="code-block">docker compose up -d</pre>
+            </li>
+            <li><strong>Access the workstation</strong>:
+              <p>Navigate to: <code>http://localhost:3838</code></p>
+            </li>
+          </ol>
+        </div>
+
+        <div class="glass-card">
+          <h3>Container Management CLI Commands</h3>
+          <table style="margin:0;">
+            <thead>
+              <tr>
+                <th>Action</th>
+                <th>CLI Command</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>View logs</strong></td>
+                <td><code>docker compose logs -f</code></td>
+              </tr>
+              <tr>
+                <td><strong>Stop application</strong></td>
+                <td><code>docker compose down</code></td>
+              </tr>
+              <tr>
+                <td><strong>Force rebuild</strong></td>
+                <td><code>docker compose build --no-cache</code></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+
+    <!-- ── PAGE 7: ROADMAP ── -->
+    <div class="tab-content" id="page-roadmap">
+      <header>
+        <span class="manual-tag">Remediation Roadmap</span>
+        <h1>Optimization & Remediation Roadmap</h1>
+        <p class="header-subtext">Implementation schedules, code refactoring patterns, and automated testing strategies to scale the workstation runtime.</p>
+      </header>
+
+      <section>
+        <h2 id="opt-phase-section"><i class="bi bi-calendar-check"></i> Task Phasing</h2>
+        <p>Optimization is divided into three sequential steps:</p>
+        
+        <div class="glass-card" style="background:#ffffff; text-align:center;">
+          <pre class="mermaid">
+graph LR
+    P1[Phase 1: Memory & Leak Fixes] --> P2[Phase 2: String Render Refactoring]
+    P2 --> P3[Phase 3: Accessibility & Docker]
+          </pre>
+        </div>
+      </section>
+
+      <section>
+        <h2 id="opt-patterns-section"><i class="bi bi-code-slash"></i> Refactoring Patterns</h2>
+        
+        <div class="glass-card">
+          <h3>Phase 1: Dynamic Observer Visibility control</h3>
+          <p>To prevent renderers from running in closed tabs, we wrap outputs with visibility flags from the tab manager:</p>
+          <pre class="code-block"># Refactoring Sequence Viewer Server (tools/sequence_viewer/server.R)
+sequence_viewer_server <- function(id, shared_state, is_visible, destroy_trigger = NULL) {
+  moduleServer(id, function(input, output, session) {
+    
+    # Halt calculation if tab is closed
+    sequence_text <- reactive({
+      req(is_visible())
+      req(shared_state$seq_string)
+      bioseq_clean_dna(shared_state$seq_string)
+    })
+    
+    output$seq_track_ui <- renderUI({
+      req(is_visible())
+      # Renders sequence viewer tracks only if currently visible...
+    })
+  })
+}</pre>
+        </div>
+
+        <div class="glass-card">
+          <h3>Phase 2: Vectorized Sequence Formatting</h3>
+          <p>Replacing standard R character-by-character loops with vectorized equivalents significantly boosts performance:</p>
+          <pre class="code-block"># Fast Vectorized R Formatting
+vectorized_colour_seq <- function(seq_str, theme = "Default") {
+  chars <- strsplit(seq_str, "")[[1]]
+  colour_map <- c(A="#3b82f6", T="#10b981", C="#b45309", G="#ef4444", U="#a78bfa")
+  
+  # Vectorized lookup (executes in C++ layers under R)
+  colors <- colour_map[chars]
+  colors[is.na(colors)] <- "#94a3b8"
+  
+  spans := paste0('&lt;span style="color:', colors, '; font-weight:700;"&gt;', chars, '&lt;/span&gt;')
+  paste(spans, collapse = "")
+}</pre>
+          <p style="font-size:0.9rem; color:var(--text-muted); margin-top:10px;">
+            *Performance gain: Renders 100,000 bp in ~0.08 seconds (90% memory overhead reduction).*
+          </p>
+        </div>
+      </section>
+    </div>
+
+  </main>
+
+  <!-- ── SCRIPTS ── -->
+  <script>
+    // ── SPA Tab & Submenu Navigation Logic ────────────────────────────
+    const navItems = document.querySelectorAll('.nav-list > .nav-item');
+    const tabContents = document.querySelectorAll('.tab-content');
+    const submenuLinks = document.querySelectorAll('.submenu-link');
+
+    // Handle clicking on main navigation items
+    navItems.forEach(item => {
+      const link = item.querySelector('.nav-link');
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const targetTabId = item.getAttribute('data-tab');
+
+        // Switch Tab
+        switchTab(targetTabId);
+        
+        // Scroll main to top
+        window.scrollTo(0, 0);
+
+        // Clear sub-link active states
+        document.querySelectorAll('.submenu-item').forEach(el => el.classList.remove('active'));
+      });
+    });
+
+    // Handle clicking on submenu links
+    submenuLinks.forEach(subLink => {
+      subLink.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation(); // Prevent triggering parent click event
+        
+        const parentTabId = subLink.getAttribute('data-parent-tab');
+        const targetElementId = subLink.getAttribute('href').substring(1);
+
+        // Switch Tab
+        switchTab(parentTabId);
+
+        // Remove active class from all other submenu items, set current to active
+        document.querySelectorAll('.submenu-item').forEach(el => el.classList.remove('active'));
+        subLink.parentElement.classList.add('active');
+
+        // Smoothly scroll to the target section with a tiny timeout to allow tab flow rendering
+        setTimeout(() => {
+          const targetElement = document.getElementById(targetElementId);
+          if (targetElement) {
+            targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        }, 50);
+      });
+    });
+
+    function switchTab(tabId) {
+      // Deactivate all nav-list links
+      navItems.forEach(nav => nav.classList.remove('active'));
+      // Hide all tabs
+      tabContents.forEach(content => content.classList.remove('active'));
+
+      // Find Nav item corresponding to this tab and activate
+      const targetNavItem = Array.from(navItems).find(nav => nav.getAttribute('data-tab') === tabId);
+      if (targetNavItem) {
+        targetNavItem.classList.add('active');
+      }
+
+      // Show tab content
+      const targetTabContent = document.getElementById(tabId);
+      if (targetTabContent) {
+        targetTabContent.classList.add('active');
+      }
+
+      // Refresh window size to redraw Mermaid layouts
+      if (tabId === 'page-dataflow' || tabId === 'page-codebase' || tabId === 'page-roadmap') {
+        window.dispatchEvent(new Event('resize'));
+      }
+    }
+
+    // Hash tracking for initial loads
+    function handleHashChange() {
+      const hash = window.location.hash;
+      if (hash) {
+        // Look up submenu links matching hash
+        const matchingSubLink = Array.from(submenuLinks).find(subLink => {
+          return subLink.getAttribute('href') === hash;
+        });
+
+        if (matchingSubLink) {
+          matchingSubLink.click();
+        } else {
+          // Look up parent nav links matching hash
+          const matchingNavItem = Array.from(navItems).find(item => {
+            return item.querySelector('.nav-link').getAttribute('href') === hash;
+          });
+          if (matchingNavItem) {
+            matchingNavItem.click();
+          }
+        }
+      }
+    }
+    window.addEventListener('load', handleHashChange);
+    window.addEventListener('hashchange', handleHashChange);
+
+    // ── SCROLLSPY LOGIC ───────────────────────────────────────────────
+    // Highlight the active submenu item as the user scrolls through sections
+    const observerOptions = {
+      root: null,
+      rootMargin: '-10% 0px -75% 0px',
+      threshold: 0
+    };
+
+    const sectionObserver = new IntersectionObserver((entries) => {
+      // Find the intersecting entry that is currently active in the viewport
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const sectionId = entry.target.id;
+          
+          // Find the corresponding submenu link
+          const activeSubLink = Array.from(submenuLinks).find(link => link.getAttribute('href') === '#' + sectionId);
+          if (activeSubLink) {
+            // Remove active class from all submenu items within the current parent tab
+            const parentTab = activeSubLink.closest('.nav-item');
+            if (parentTab) {
+              parentTab.querySelectorAll('.submenu-item').forEach(el => el.classList.remove('active'));
+            }
+            // Add active class to the parent submenu-item
+            activeSubLink.parentElement.classList.add('active');
+          }
+        }
+      });
+    }, observerOptions);
+
+    // Observe all elements that are targeted by submenu links
+    submenuLinks.forEach(subLink => {
+      const targetId = subLink.getAttribute('href').substring(1);
+      const targetElement = document.getElementById(targetId);
+      if (targetElement) {
+        sectionObserver.observe(targetElement);
+      }
+    });
+
+    // ── DATA CATALOG FOR INTERACTIVE DATAFLOW NODES ───────────────────
+    const nodeCatalog = {
+      N1: {
+        type: 'INPUT',
+        title: 'Manual DNA Ingestion',
+        file: 'modules/mod_sidebar.R',
+        description: 'Enables users to copy/paste raw sequence strings. Includes client-side input validation and real-time character counting as the user types.',
+        flow: [
+          'TextArea text field captures raw sequence string.',
+          'Live validator monitors for non-alphabetic character triggers.',
+          'Clicking "Load Sequence" fires a sequence cleansing utility.',
+          'Cleansed sequence is updated in the central reactive values block.'
+        ],
+        vars: 'input$seq_input\ninput$seq_name_input\ninput$load_seq',
+        code: `# Inside modules/mod_sidebar.R\nval_clean <- toupper(gsub("[\\r\\n\\s]", "", trimws(input$seq_input)))\nif (nchar(val_clean) > 0) {\n  # Check validation and load\n  load_sequence_into_state(val_clean, name, NULL)\n}`
+      },
+      N2: {
+        type: 'INPUT',
+        title: 'File Upload Ingestion',
+        file: 'modules/mod_sidebar.R',
+        description: 'Accepts drag-and-drop or select file uploads. Autodetects format schemas (FASTA, GenBank, SnapGene) and routes them to their specific binary or text parsers.',
+        flow: [
+          'File drag/browse triggers shiny::fileInput event.',
+          'Extension scanner checks for .fasta, .gbk, or binary .dna formats.',
+          'Calls parse_fasta(), parse_genbank(), or parse_snapgene().',
+          'Yields structured data list: sequence, headers, features, primers.'
+        ],
+        vars: 'input$fasta_upload',
+        code: `# Sourced from utils/utils_sequence.R\nif (is_snapgene) {\n  parsed <- parse_snapgene(file_path)\n} else if (is_genbank) {\n  parsed <- parse_genbank(file_path)\n} else {\n  parsed <- parse_fasta(file_path)\n}`
+      },
+      N3: {
+        type: 'INPUT',
+        title: 'NCBI API Ingestion',
+        file: 'utils/utils_sequence.R',
+        description: 'Fetches sequence models programmatically from the NCBI GenBank/RefSeq databases using an online Entrez API query.',
+        flow: [
+          'User inputs Accession number (e.g., NM_000546) and clicks Fetch.',
+          'Constructs GET request URL targeting eutils.ncbi.nlm.nih.gov.',
+          'Downloads FASTA model via rentrez/httr.',
+          'Extracts sequence string, flushes whitespace, and triggers state reload.'
+        ],
+        vars: 'input$btn_fetch_ncbi\ninput$ncbi_acc',
+        code: `# Inside utils/utils_sequence.R\nurl <- paste0("https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?",\n              "db=nuccore&id=", acc_id, "&rettype=fasta&retmode=text")\nlines <- readLines(url)\nseq_lines <- lines[!grepl("^>", lines)]\nfull_sequence <- gsub("\\\s+", "", paste(seq_lines, collapse = ""))`
+      },
+      N12: {
+        type: 'INPUT',
+        title: 'Ensembl API Ingestion',
+        file: 'utils/utils_sequence.R',
+        description: 'Fetches cDNA transcript sequence records programmatically from the Ensembl database using the biomaRt API.',
+        flow: [
+          'User inputs Ensembl Gene or Transcript ID (e.g. ENSG00000141510) and clicks Fetch.',
+          'Determines host species and connects to Ensembl Mart.',
+          'Retrieves cDNA transcript sequence matching the target identifier.',
+          'Resolves gene symbols and fetches genomic feature coordinates from AnnotationHub.'
+        ],
+        vars: 'input$btn_fetch_ensembl\ninput$ensembl_id',
+        code: `# Sourced from utils/utils_sequence.R\nmart <- biomaRt::useMart("ensembl", dataset = dataset)\nseq_data <- biomaRt::getSequence(id = id, type = id_type, seqType = "cdna", mart = mart)\nseq_str <- seq_data$cdna[[1]]`
+      },
+      N4: {
+        type: 'STATE',
+        title: 'Central State Coordinator',
+        file: 'server.R',
+        description: 'Acts as the single source of truth for the entire application. Reacts instantly to any ingestion updates and broadcasts the new variables down to modules.',
+        flow: [
+          'Receives data payloads from sidebar manual, file, or API events.',
+          'Caches sequence string and loaded annotation lists.',
+          'Automatically invalidates all output calculations depending on state.',
+          'Ensures tab components receive dynamic environment bindings.'
+        ],
+        vars: 'shared_state$seq_string\nshared_state$seq_name\nshared_state$gbk_data\nshared_state$seq_source',
+        code: `# Central State in server.R\nshared_state <- reactiveValues(\n  seq_string = default_data$sequence,\n  seq_name   = default_data$header,\n  gbk_data   = default_data,\n  open_tool  = NULL\n)`
+      },
+      N5: {
+        type: 'METRIC',
+        title: 'Dashboard Metrics Engine',
+        file: 'modules/mod_tab_manager.R',
+        description: 'Computes basic nucleotide statistics for the dashboard landing page. Operates on raw strings without calling heavy BioSequence class wrappers.',
+        flow: [
+          'Calculates base composition percentages (A, T, C, G).',
+          'Computes estimated molecular weight using dsDNA formulas.',
+          'Calculates Chargaff\'s skew rules (GC and AT skew ratio).',
+          'Pipes counts to an interactive ECharts4r donut visualizer.'
+        ],
+        vars: 'nuc_stats() -> reactive\noutput$txt_length\noutput$txt_gc\noutput$nuc_donut',
+        code: `# Inside modules/mod_tab_manager.R\nnuc_stats <- reactive({\n  bioseq_sequence_stats(active_sequence())\n})\n# GC Skew formula\ngc_skew <- (s$G - s$C) / (s$G + s$C + 1e-9)`
+      },
+      N6: {
+        type: 'TOOL',
+        title: 'Sequence Viewer Tool',
+        file: 'tools/sequence_viewer/server.R',
+        description: 'Renders an interactive, zoomable, double-stranded view showing forward/reverse strands, ticks, line markers, annotations, and restriction cuts.',
+        flow: [
+          'Listens for changes in the active sequence and zoom wrap limit.',
+          'Extracts complementary bases (A-T, G-C matching).',
+          'Overlays color spans representing feature boundaries.',
+          'Locates restriction sites and draws marker carrots (▼).'
+        ],
+        vars: 'output$seq_track_ui\ninput$line_width\ninput$enzyme_search',
+        code: `# Inside tools/sequence_viewer/helpers.R\nrender_double_stranded_sequence <- function(seq_string, gbk_data, line_width, theme, search_query) {\n  # Loops through segments and compiles line-by-line HTML blocks\n  # Adds ▼ symbols, 5'->3' rulers, complement rows, and feature colors\n}`
+      },
+      N7: {
+        type: 'TOOL',
+        title: 'RNA Transcript',
+        file: 'tools/rna_transcript/server.R',
+        description: 'Implements core transcription operations: converts DNA strings to RNA by mapping T nucleotides to U.',
+        flow: [
+          'Listens to shared_state$seq_string changes.',
+          'Validates character set matches valid DNA letters.',
+          'Executes transcribe_dna() mapping: chartr("T", "U", seq).',
+          'Renders formatted RNA transcript based on visual styles (plain, coloured, boxed).'
+        ],
+        vars: 'output$rna_render\ninput$visual_style\ninput$wrap_width',
+        code: `# Inside tools/rna_transcript/helpers.R\ntranscribe_dna <- function(seq) {\n  chartr("T", "U", seq)\n}`
+      },
+      N13: {
+        type: 'TOOL',
+        title: 'Reverse Complement',
+        file: 'tools/reverse_complement/server.R',
+        description: 'Generates the reverse complementary strand of a DNA sequence to study opposing strands, primer bindings, and cloning sites.',
+        flow: [
+          'Listens to shared_state$seq_string changes.',
+          'Reverses the sequence string direction (3\' -> 5\').',
+          'Swaps nucleotides: A<->T, G<->C.',
+          'Renders formatted reverse complement strand based on style rules.'
+        ],
+        vars: 'output$rc_render\ninput$visual_style\ninput$wrap_width',
+        code: `# Inside tools/reverse_complement/helpers.R\nreverse_complement_dna <- function(seq) {\n  # Swap A/T and C/G, then reverse string\n  seq_comp <- chartr("ATCGatcg", "TAGCtagc", seq)\n  paste(rev(strsplit(seq_comp, "")[[1]]), collapse = "")\n}`
+      },
+      N14: {
+        type: 'TOOL',
+        title: 'Translate to Protein',
+        file: 'tools/translate_protein/server.R',
+        description: 'Translates a DNA sequence into an amino acid sequence using standard genetic code tables.',
+        flow: [
+          'Listens to shared_state$seq_string changes.',
+          'Groups nucleotides into codon triplets.',
+          'Translates triplets into amino acids.',
+          'Applies biochemical class coloring: Hydrophobic, Polar, Acidic, Basic, Stop.'
+        ],
+        vars: 'output$protein_render\ninput$visual_style\ninput$wrap_width',
+        code: `# Inside tools/translate_protein/helpers.R\ntranslate_codon <- function(codon) {\n  # Standard translation map lookup\n  GENETIC_CODE[[codon]] %||% "X"\n}`
+      },
+      N8: {
+        type: 'TOOL',
+        title: '6-Frame ORF Finder',
+        file: 'tools/orf_finder/server.R',
+        description: 'Scans both DNA strands across all 6 reading frames to identify potential gene coding regions (Open Reading Frames).',
+        flow: [
+          'Translates forward and reverse complement strands.',
+          'Scans frames +1, +2, +3 and -1, -2, -3.',
+          'Looks for ATG starts and downstream stop codons (TAA, TAG, TGA).',
+          'Filters matches by size and maps coordinates back to template.',
+          'Renders an interactive SVG visualizer showing genomic tracks.'
+        ],
+        vars: 'output$orf_table\noutput$orf_track_map\ninput$min_len_bp',
+        code: `# Sourced from tools/orf_finder/helpers.R\nfind_orfs_in_sequence <- function(seq, min_len_bp) {\n  # Sliding window scan with 3bp steps searching for starts/stops\n  # Re-maps reverse coordinates to template: GenomicStart = L - StrandEnd + 1\n}`
+      },
+      N9: {
+        type: 'TOOL',
+        title: 'Pairwise Mutation Alignment',
+        file: 'tools/find_mutations/server.R',
+        description: 'Compares a reference sequence with a query (mutated) sequence using a Needleman-Wunsch global alignment engine.',
+        flow: [
+          'Calculates alignment strings containing gap placeholders ("-") via pwalign.',
+          'Computes alignment score, match count, mismatch count, and identity.',
+          'Scans alignment strings to call SNPs, insertions, and deletions.',
+          'Renders highlighted comparative tracks and lists differences in a table.'
+        ],
+        vars: 'output$align_output\noutput$mutations_table\ninput$btn_run',
+        code: `# Inside tools/find_mutations/helpers.R\naln <- pwalign::pairwiseAlignment(subject = ref, pattern = query,\n                                 substitutionMatrix = subst_mat,\n                                 gapOpening = 2, gapExtension = 2)`
+      },
+      N10: {
+        type: 'TOOL',
+        title: 'Codon Bias Optimizer',
+        file: 'tools/codon_usage/server.R',
+        description: 'Analyzes host codon preferences and designs optimized expression sequences for E. coli, Yeast, or Humans.',
+        flow: [
+          'Calculates Codon Adaptation Index (CAI) profile along a sliding window.',
+          'Generates Plotly chart of rolling CAI values.',
+          'Back-translates proteins to host-adapted codons (CAI/Random/Harmonized).',
+          'Renders side-by-side tables comparing sequence vs host frequencies.'
+        ],
+        vars: 'output$codon_frequency_table\noutput$codon_cai_chart\ninput$optimization_strategy',
+        code: `# Inside tools/codon_usage/helpers.R\n# Codon Adaptation Index formula\nCAI <- (prod(w_adaptiveness)) ^ (1/N)`
+      },
+      N11: {
+        type: 'TOOL',
+        title: 'Motif Search & Discovery',
+        file: 'tools/motif_search/server.R',
+        description: 'Enables discovery of DNA sequence motifs and searches reference databases. Supports scanning exact matches, IUPAC codes, and Position Weight Matrices.',
+        flow: [
+          'Translates IUPAC codes to regex strings (e.g. Y -> [CT]).',
+          'Calculates Log-odds likelihood scoring for PWM matrix searches.',
+          'Triggers external binary execution (FIMO, MEME, TOMTOM) via system2().',
+          'Displays hit density plots, sequence logos, and database similarity lists.'
+        ],
+        vars: 'output$hits_table\noutput$motif_visualizations\ninput$search_pattern\ninput$threshold',
+        code: `# Inside tools/motif_search/engines/motif_scan_engine.R\n# PWM Score algorithm at each sliding position\nlog_odds_score <- sum(log2(PosFrequency[base, pos] / Background[base]))`
+      }
+    };
+
+    // ── USER INTERACTION AND SIDE PANEL UPDATES ───────────────────────
+    window.nodeClicked = function(nodeId) {
+      const data = nodeCatalog[nodeId];
+      if (!data) return;
+
+      // Update badge type
+      const badge = document.getElementById('df_lbl_node_type');
+      badge.textContent = data.type + ' ENGINE';
+      badge.className = 'node-type-badge ' + (
+        data.type === 'INPUT' ? 'badge-input' :
+        data.type === 'STATE' ? 'badge-state' :
+        data.type === 'METRIC' ? 'badge-metric' : 'badge-tool'
+      );
+
+      // Update basic fields
+      document.getElementById('df_lbl_node_title').textContent = data.title;
+      document.getElementById('df_lbl_node_file').textContent = '📄 ' + data.file;
+
+      // Build dataflow steps list
+      let stepsHtml = '';
+      data.flow.forEach(step => {
+        stepsHtml += `<li>${step}</li>`;
+      });
+
+      // Assemble body HTML
+      const body = document.getElementById('df_detail_body');
+      body.innerHTML = `
+        <div>
+          <h3 class="detail-section-title" style="margin-top:10px;">Component Description</h3>
+          <p class="detail-text" style="font-size:0.85rem;">${data.description}</p>
+        </div>
+        <div>
+          <h3 class="detail-section-title">Data Flow & Processing</h3>
+          <ul class="detail-list">${stepsHtml}</ul>
+        </div>
+        <div>
+          <h3 class="detail-section-title">R Variable Bindings</h3>
+          <div class="code-block-pane-inner" style="color: var(--accent-purple); font-weight: 500;">${data.vars.replace(/\n/g, '<br>')}</div>
+        </div>
+        <div>
+          <h3 class="detail-section-title">Core Code Snippet</h3>
+          <div class="code-block-pane-inner" style="white-space: pre-wrap; font-size: 0.72rem; max-height: 160px; overflow-y: auto;">${escapeHtml(data.code)}</div>
+        </div>
+      `;
+    };
+
+    function escapeHtml(text) {
+      return text
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+
+    // ── SEARCH COMPONENT FILTERING ──────────────────────────────────
+    document.getElementById('df_txt_search').addEventListener('input', function(e) {
+      const query = e.target.value.toLowerCase();
+      
+      // Clear previous highlights
+      document.querySelectorAll('.highlight-node').forEach(el => {
+        el.classList.remove('highlight-node');
+      });
+
+      if (!query) return;
+
+      // Find matching keys in the catalog
+      for (const [nodeId, nodeData] of Object.entries(nodeCatalog)) {
+        if (nodeData.title.toLowerCase().includes(query) || 
+            nodeData.description.toLowerCase().includes(query) ||
+            nodeData.file.toLowerCase().includes(query)) {
+          
+          // Find matching SVG elements in rendered Mermaid
+          const svgNodes = document.querySelectorAll(`[id^="flowchart-${nodeId}-"]`);
+          svgNodes.forEach(node => {
+            node.classList.add('highlight-node');
+          });
+        }
+      }
+    });
+
+    // ── ZOOM AND PAN INTERACTIVES ─────────────────────────────────────
+    const container = document.getElementById('df_panzoom_container');
+    let isDragging = false;
+    let startX, startY;
+    let translateX = 0;
+    let translateY = 0;
+    let scale = 1;
+
+    // Zoom mouse wheel event
+    document.getElementById('df_diagram_pane').addEventListener('wheel', function(e) {
+      e.preventDefault();
+      const zoomFactor = 0.08;
+      if (e.deltaY < 0) {
+        scale = Math.min(2.5, scale + zoomFactor); // Zoom In
+      } else {
+        scale = Math.max(0.4, scale - zoomFactor); // Zoom Out
+      }
+      updateTransform();
+    });
+
+    // Pan mousedown event
+    container.addEventListener('mousedown', function(e) {
+      if (e.target.closest('.node') || e.target.closest('button')) return;
+      isDragging = true;
+      startX = e.clientX - translateX;
+      startY = e.clientY - translateY;
+      container.style.cursor = 'grabbing';
+    });
+
+    window.addEventListener('mousemove', function(e) {
+      if (!isDragging) return;
+      translateX = e.clientX - startX;
+      translateY = e.clientY - startY;
+      updateTransform();
+    });
+
+    window.addEventListener('mouseup', function() {
+      isDragging = false;
+      container.style.cursor = 'grab';
+    });
+
+    // Control buttons
+    document.getElementById('df_zoom_in').addEventListener('click', () => { scale = Math.min(2.5, scale + 0.15); updateTransform(); });
+    document.getElementById('df_zoom_out').addEventListener('click', () => { scale = Math.max(0.4, scale - 0.15); updateTransform(); });
+    document.getElementById('df_zoom_reset').addEventListener('click', () => { scale = 1; translateX = 0; translateY = 0; updateTransform(); });
+
+    function updateTransform() {
+      container.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
+    }
+  </script>
+</body>
+</html>

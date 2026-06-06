@@ -1,0 +1,39 @@
+# ── R / renv ────────────────────────────────────────────────────────
+.Rhistory
+.RData
+.Rproj.user/
+renv/library/
+renv/local/
+renv/staging/
+renv/sandbox/
+
+# ── Keep renv infrastructure but not the library itself ─────────────
+!renv/activate.R
+!renv/settings.json
+
+# ── OS generated ────────────────────────────────────────────────────
+.DS_Store
+.DS_Store?
+._*
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# ── Sensitive / large data ──────────────────────────────────────────
+*.csv
+*.xlsx
+*.rds
+*.RData
+data/*.fasta
+data/*.fa
+
+# ── Shiny cache ─────────────────────────────────────────────────────
+rsconnect/
+*.log
+
+# ── IDE files ───────────────────────────────────────────────────────
+*.swp
+*.swo
+*~
+.vscode/settings.json
+.positai

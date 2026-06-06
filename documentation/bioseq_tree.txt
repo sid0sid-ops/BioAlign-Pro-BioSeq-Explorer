@@ -1,0 +1,2729 @@
+Folder PATH listing for volume Windows
+Volume serial number is 000002D1 B24D:15FC
+C:\USERS\SIDDHARTH TRIPATHI\ONEDRIVE\DESKTOP\BIOSEQ_EXPLORER
+|   .gitignore
+|   .Rhistory
+|   app.R
+|   BioSeq-Explorer.Rproj
+|   bootstrap.R
+|   docker-compose.yml
+|   Dockerfile
+|   global.R
+|   package-lock.json
+|   package.json
+|   README.md
+|   renv.lock
+|   requirements.R
+|   server.R
+|   ui.R
+|   
++---.vscode
+|       settings.json
+|       
++---documentation
+|       calculations_and_dataflow.md
+|       codebase_analysis.md
+|       docker_setup.md
+|       remediation_roadmap.md
+|       system_dataflow.html
+|       
++---examples
+|       GFP.fa
+|       Homo sapiens insulin (INS).fasta
+|       hras.fasta
+|       Kozak-EGFP.fasta
+|       
++---Images
++---logs
+|       package_install.log
+|       
++---modules
+|       mod_footer.R
+|       mod_sidebar.R
+|       mod_tab_manager.R
+|       
++---node_modules
+|   |   .package-lock.json
+|   |   
+|   +---.bin
+|   |       browsers
+|   |       browsers.cmd
+|   |       browsers.ps1
+|   |       
+|   +---@puppeteer
+|   |   \---browsers
+|   |       |   package.json
+|   |       |   README.md
+|   |       |   
+|   |       +---lib
+|   |       |   |   Cache.d.ts
+|   |       |   |   Cache.d.ts.map
+|   |       |   |   Cache.js
+|   |       |   |   Cache.js.map
+|   |       |   |   CLI.d.ts
+|   |       |   |   CLI.d.ts.map
+|   |       |   |   CLI.js
+|   |       |   |   CLI.js.map
+|   |       |   |   debug.d.ts
+|   |       |   |   debug.d.ts.map
+|   |       |   |   debug.js
+|   |       |   |   debug.js.map
+|   |       |   |   DefaultProvider.d.ts
+|   |       |   |   DefaultProvider.d.ts.map
+|   |       |   |   DefaultProvider.js
+|   |       |   |   DefaultProvider.js.map
+|   |       |   |   detectPlatform.d.ts
+|   |       |   |   detectPlatform.d.ts.map
+|   |       |   |   detectPlatform.js
+|   |       |   |   detectPlatform.js.map
+|   |       |   |   fileUtil.d.ts
+|   |       |   |   fileUtil.d.ts.map
+|   |       |   |   fileUtil.js
+|   |       |   |   fileUtil.js.map
+|   |       |   |   httpUtil.d.ts
+|   |       |   |   httpUtil.d.ts.map
+|   |       |   |   httpUtil.js
+|   |       |   |   httpUtil.js.map
+|   |       |   |   install.d.ts
+|   |       |   |   install.d.ts.map
+|   |       |   |   install.js
+|   |       |   |   install.js.map
+|   |       |   |   launch.d.ts
+|   |       |   |   launch.d.ts.map
+|   |       |   |   launch.js
+|   |       |   |   launch.js.map
+|   |       |   |   main-cli.d.ts
+|   |       |   |   main-cli.d.ts.map
+|   |       |   |   main-cli.js
+|   |       |   |   main-cli.js.map
+|   |       |   |   main.d.ts
+|   |       |   |   main.d.ts.map
+|   |       |   |   main.js
+|   |       |   |   main.js.map
+|   |       |   |   ProgressBar.d.ts
+|   |       |   |   ProgressBar.d.ts.map
+|   |       |   |   ProgressBar.js
+|   |       |   |   ProgressBar.js.map
+|   |       |   |   provider.d.ts
+|   |       |   |   provider.d.ts.map
+|   |       |   |   provider.js
+|   |       |   |   provider.js.map
+|   |       |   |   
+|   |       |   \---browser-data
+|   |       |           browser-data.d.ts
+|   |       |           browser-data.d.ts.map
+|   |       |           browser-data.js
+|   |       |           browser-data.js.map
+|   |       |           chrome-headless-shell.d.ts
+|   |       |           chrome-headless-shell.d.ts.map
+|   |       |           chrome-headless-shell.js
+|   |       |           chrome-headless-shell.js.map
+|   |       |           chrome.d.ts
+|   |       |           chrome.d.ts.map
+|   |       |           chrome.js
+|   |       |           chrome.js.map
+|   |       |           chromedriver.d.ts
+|   |       |           chromedriver.d.ts.map
+|   |       |           chromedriver.js
+|   |       |           chromedriver.js.map
+|   |       |           chromium.d.ts
+|   |       |           chromium.d.ts.map
+|   |       |           chromium.js
+|   |       |           chromium.js.map
+|   |       |           firefox.d.ts
+|   |       |           firefox.d.ts.map
+|   |       |           firefox.js
+|   |       |           firefox.js.map
+|   |       |           types.d.ts
+|   |       |           types.d.ts.map
+|   |       |           types.js
+|   |       |           types.js.map
+|   |       |           
+|   |       \---src
+|   |           |   Cache.ts
+|   |           |   CLI.ts
+|   |           |   debug.ts
+|   |           |   DefaultProvider.ts
+|   |           |   detectPlatform.ts
+|   |           |   fileUtil.ts
+|   |           |   httpUtil.ts
+|   |           |   install.ts
+|   |           |   launch.ts
+|   |           |   main-cli.ts
+|   |           |   main.ts
+|   |           |   ProgressBar.ts
+|   |           |   provider.ts
+|   |           |   
+|   |           \---browser-data
+|   |                   browser-data.ts
+|   |                   chrome-headless-shell.ts
+|   |                   chrome.ts
+|   |                   chromedriver.ts
+|   |                   chromium.ts
+|   |                   firefox.ts
+|   |                   types.ts
+|   |                   
+|   +---ansi-regex
+|   |       index.d.ts
+|   |       index.js
+|   |       license
+|   |       package.json
+|   |       readme.md
+|   |       
+|   +---ansi-styles
+|   |       index.d.ts
+|   |       index.js
+|   |       license
+|   |       package.json
+|   |       readme.md
+|   |       
+|   +---chromium-bidi
+|   |   |   .browser
+|   |   |   LICENSE
+|   |   |   package.json
+|   |   |   README.md
+|   |   |   
+|   |   \---lib
+|   |       |   index.d.ts
+|   |       |   index.js
+|   |       |   index.js.map
+|   |       |   THIRD_PARTY_NOTICES
+|   |       |   
+|   |       +---bidiMapper
+|   |       |   |   BidiMapper.d.ts
+|   |       |   |   BidiMapper.js
+|   |       |   |   BidiMapper.js.map
+|   |       |   |   BidiNoOpParser.d.ts
+|   |       |   |   BidiNoOpParser.js
+|   |       |   |   BidiNoOpParser.js.map
+|   |       |   |   BidiParser.d.ts
+|   |       |   |   BidiParser.js
+|   |       |   |   BidiParser.js.map
+|   |       |   |   BidiServer.d.ts
+|   |       |   |   BidiServer.js
+|   |       |   |   BidiServer.js.map
+|   |       |   |   BidiTransport.d.ts
+|   |       |   |   BidiTransport.js
+|   |       |   |   BidiTransport.js.map
+|   |       |   |   CommandProcessor.d.ts
+|   |       |   |   CommandProcessor.js
+|   |       |   |   CommandProcessor.js.map
+|   |       |   |   MapperOptions.d.ts
+|   |       |   |   MapperOptions.js
+|   |       |   |   MapperOptions.js.map
+|   |       |   |   OutgoingMessage.d.ts
+|   |       |   |   OutgoingMessage.js
+|   |       |   |   OutgoingMessage.js.map
+|   |       |   |   
+|   |       |   \---modules
+|   |       |       +---bluetooth
+|   |       |       |       BluetoothProcessor.d.ts
+|   |       |       |       BluetoothProcessor.js
+|   |       |       |       BluetoothProcessor.js.map
+|   |       |       |       
+|   |       |       +---browser
+|   |       |       |       BrowserProcessor.d.ts
+|   |       |       |       BrowserProcessor.js
+|   |       |       |       BrowserProcessor.js.map
+|   |       |       |       ContextConfig.d.ts
+|   |       |       |       ContextConfig.js
+|   |       |       |       ContextConfig.js.map
+|   |       |       |       ContextConfigStorage.d.ts
+|   |       |       |       ContextConfigStorage.js
+|   |       |       |       ContextConfigStorage.js.map
+|   |       |       |       UserContextStorage.d.ts
+|   |       |       |       UserContextStorage.js
+|   |       |       |       UserContextStorage.js.map
+|   |       |       |       
+|   |       |       +---cdp
+|   |       |       |       CdpProcessor.d.ts
+|   |       |       |       CdpProcessor.js
+|   |       |       |       CdpProcessor.js.map
+|   |       |       |       CdpTarget.d.ts
+|   |       |       |       CdpTarget.js
+|   |       |       |       CdpTarget.js.map
+|   |       |       |       CdpTargetManager.d.ts
+|   |       |       |       CdpTargetManager.js
+|   |       |       |       CdpTargetManager.js.map
+|   |       |       |       
+|   |       |       +---context
+|   |       |       |       BrowsingContextImpl.d.ts
+|   |       |       |       BrowsingContextImpl.js
+|   |       |       |       BrowsingContextImpl.js.map
+|   |       |       |       BrowsingContextProcessor.d.ts
+|   |       |       |       BrowsingContextProcessor.js
+|   |       |       |       BrowsingContextProcessor.js.map
+|   |       |       |       BrowsingContextStorage.d.ts
+|   |       |       |       BrowsingContextStorage.js
+|   |       |       |       BrowsingContextStorage.js.map
+|   |       |       |       NavigationTracker.d.ts
+|   |       |       |       NavigationTracker.js
+|   |       |       |       NavigationTracker.js.map
+|   |       |       |       
+|   |       |       +---emulation
+|   |       |       |       EmulationProcessor.d.ts
+|   |       |       |       EmulationProcessor.js
+|   |       |       |       EmulationProcessor.js.map
+|   |       |       |       
+|   |       |       +---input
+|   |       |       |       ActionDispatcher.d.ts
+|   |       |       |       ActionDispatcher.js
+|   |       |       |       ActionDispatcher.js.map
+|   |       |       |       ActionOption.d.ts
+|   |       |       |       ActionOption.js
+|   |       |       |       ActionOption.js.map
+|   |       |       |       InputProcessor.d.ts
+|   |       |       |       InputProcessor.js
+|   |       |       |       InputProcessor.js.map
+|   |       |       |       InputSource.d.ts
+|   |       |       |       InputSource.js
+|   |       |       |       InputSource.js.map
+|   |       |       |       InputState.d.ts
+|   |       |       |       InputState.js
+|   |       |       |       InputState.js.map
+|   |       |       |       InputStateManager.d.ts
+|   |       |       |       InputStateManager.js
+|   |       |       |       InputStateManager.js.map
+|   |       |       |       keyUtils.d.ts
+|   |       |       |       keyUtils.js
+|   |       |       |       keyUtils.js.map
+|   |       |       |       USKeyboardLayout.d.ts
+|   |       |       |       USKeyboardLayout.js
+|   |       |       |       USKeyboardLayout.js.map
+|   |       |       |       
+|   |       |       +---log
+|   |       |       |       logHelper.d.ts
+|   |       |       |       logHelper.js
+|   |       |       |       logHelper.js.map
+|   |       |       |       LogManager.d.ts
+|   |       |       |       LogManager.js
+|   |       |       |       LogManager.js.map
+|   |       |       |       
+|   |       |       +---network
+|   |       |       |       CollectorsStorage.d.ts
+|   |       |       |       CollectorsStorage.js
+|   |       |       |       CollectorsStorage.js.map
+|   |       |       |       NetworkProcessor.d.ts
+|   |       |       |       NetworkProcessor.js
+|   |       |       |       NetworkProcessor.js.map
+|   |       |       |       NetworkRequest.d.ts
+|   |       |       |       NetworkRequest.js
+|   |       |       |       NetworkRequest.js.map
+|   |       |       |       NetworkStorage.d.ts
+|   |       |       |       NetworkStorage.js
+|   |       |       |       NetworkStorage.js.map
+|   |       |       |       NetworkUtils.d.ts
+|   |       |       |       NetworkUtils.js
+|   |       |       |       NetworkUtils.js.map
+|   |       |       |       
+|   |       |       +---permissions
+|   |       |       |       PermissionsProcessor.d.ts
+|   |       |       |       PermissionsProcessor.js
+|   |       |       |       PermissionsProcessor.js.map
+|   |       |       |       
+|   |       |       +---script
+|   |       |       |       ChannelProxy.d.ts
+|   |       |       |       ChannelProxy.js
+|   |       |       |       ChannelProxy.js.map
+|   |       |       |       PreloadScript.d.ts
+|   |       |       |       PreloadScript.js
+|   |       |       |       PreloadScript.js.map
+|   |       |       |       PreloadScriptStorage.d.ts
+|   |       |       |       PreloadScriptStorage.js
+|   |       |       |       PreloadScriptStorage.js.map
+|   |       |       |       Realm.d.ts
+|   |       |       |       Realm.js
+|   |       |       |       Realm.js.map
+|   |       |       |       RealmStorage.d.ts
+|   |       |       |       RealmStorage.js
+|   |       |       |       RealmStorage.js.map
+|   |       |       |       ScriptProcessor.d.ts
+|   |       |       |       ScriptProcessor.js
+|   |       |       |       ScriptProcessor.js.map
+|   |       |       |       SharedId.d.ts
+|   |       |       |       SharedId.js
+|   |       |       |       SharedId.js.map
+|   |       |       |       WindowRealm.d.ts
+|   |       |       |       WindowRealm.js
+|   |       |       |       WindowRealm.js.map
+|   |       |       |       WorkerRealm.d.ts
+|   |       |       |       WorkerRealm.js
+|   |       |       |       WorkerRealm.js.map
+|   |       |       |       
+|   |       |       +---session
+|   |       |       |       EventManager.d.ts
+|   |       |       |       EventManager.js
+|   |       |       |       EventManager.js.map
+|   |       |       |       events.d.ts
+|   |       |       |       events.js
+|   |       |       |       events.js.map
+|   |       |       |       SessionProcessor.d.ts
+|   |       |       |       SessionProcessor.js
+|   |       |       |       SessionProcessor.js.map
+|   |       |       |       SubscriptionManager.d.ts
+|   |       |       |       SubscriptionManager.js
+|   |       |       |       SubscriptionManager.js.map
+|   |       |       |       
+|   |       |       +---speculation
+|   |       |       |       SpeculationProcessor.d.ts
+|   |       |       |       SpeculationProcessor.js
+|   |       |       |       SpeculationProcessor.js.map
+|   |       |       |       
+|   |       |       +---storage
+|   |       |       |       StorageProcessor.d.ts
+|   |       |       |       StorageProcessor.js
+|   |       |       |       StorageProcessor.js.map
+|   |       |       |       
+|   |       |       \---webExtension
+|   |       |               WebExtensionProcessor.d.ts
+|   |       |               WebExtensionProcessor.js
+|   |       |               WebExtensionProcessor.js.map
+|   |       |               
+|   |       +---bidiServer
+|   |       |       BrowserInstance.d.ts
+|   |       |       BrowserInstance.js
+|   |       |       BrowserInstance.js.map
+|   |       |       index.d.ts
+|   |       |       index.js
+|   |       |       index.js.map
+|   |       |       MapperCdpConnection.d.ts
+|   |       |       MapperCdpConnection.js
+|   |       |       MapperCdpConnection.js.map
+|   |       |       PipeTransport.d.ts
+|   |       |       PipeTransport.js
+|   |       |       PipeTransport.js.map
+|   |       |       reader.d.ts
+|   |       |       reader.js
+|   |       |       reader.js.map
+|   |       |       SimpleTransport.d.ts
+|   |       |       SimpleTransport.js
+|   |       |       SimpleTransport.js.map
+|   |       |       WebSocketServer.d.ts
+|   |       |       WebSocketServer.js
+|   |       |       WebSocketServer.js.map
+|   |       |       
+|   |       +---bidiTab
+|   |       |       BidiParser.d.ts
+|   |       |       BidiParser.js
+|   |       |       BidiParser.js.map
+|   |       |       bidiTab.d.ts
+|   |       |       bidiTab.js
+|   |       |       bidiTab.js.map
+|   |       |       mapperTabPage.d.ts
+|   |       |       mapperTabPage.js
+|   |       |       mapperTabPage.js.map
+|   |       |       Transport.d.ts
+|   |       |       Transport.js
+|   |       |       Transport.js.map
+|   |       |       
+|   |       +---cdp
+|   |       |       cdp.d.ts
+|   |       |       cdp.js
+|   |       |       cdp.js.map
+|   |       |       CdpClient.d.ts
+|   |       |       CdpClient.js
+|   |       |       CdpClient.js.map
+|   |       |       CdpConnection.d.ts
+|   |       |       CdpConnection.js
+|   |       |       CdpConnection.js.map
+|   |       |       cdpMessage.d.ts
+|   |       |       cdpMessage.js
+|   |       |       cdpMessage.js.map
+|   |       |       
+|   |       +---iife
+|   |       |       mapperTab.js
+|   |       |       mapperTab.js.map
+|   |       |       
+|   |       +---protocol
+|   |       |   |   cdp.d.ts
+|   |       |   |   cdp.js
+|   |       |   |   cdp.js.map
+|   |       |   |   chromium-bidi.d.ts
+|   |       |   |   chromium-bidi.js
+|   |       |   |   chromium-bidi.js.map
+|   |       |   |   ErrorResponse.d.ts
+|   |       |   |   ErrorResponse.js
+|   |       |   |   ErrorResponse.js.map
+|   |       |   |   protocol.d.ts
+|   |       |   |   protocol.js
+|   |       |   |   protocol.js.map
+|   |       |   |   
+|   |       |   \---generated
+|   |       |           webdriver-bidi-bluetooth.d.ts
+|   |       |           webdriver-bidi-bluetooth.js
+|   |       |           webdriver-bidi-bluetooth.js.map
+|   |       |           webdriver-bidi-nav-speculation.d.ts
+|   |       |           webdriver-bidi-nav-speculation.js
+|   |       |           webdriver-bidi-nav-speculation.js.map
+|   |       |           webdriver-bidi-permissions.d.ts
+|   |       |           webdriver-bidi-permissions.js
+|   |       |           webdriver-bidi-permissions.js.map
+|   |       |           webdriver-bidi-ua-client-hints.d.ts
+|   |       |           webdriver-bidi-ua-client-hints.js
+|   |       |           webdriver-bidi-ua-client-hints.js.map
+|   |       |           webdriver-bidi.d.ts
+|   |       |           webdriver-bidi.js
+|   |       |           webdriver-bidi.js.map
+|   |       |           
+|   |       +---protocol-parser
+|   |       |   |   protocol-parser.d.ts
+|   |       |   |   protocol-parser.js
+|   |       |   |   protocol-parser.js.map
+|   |       |   |   
+|   |       |   \---generated
+|   |       |           webdriver-bidi-bluetooth.d.ts
+|   |       |           webdriver-bidi-bluetooth.js
+|   |       |           webdriver-bidi-bluetooth.js.map
+|   |       |           webdriver-bidi-nav-speculation.d.ts
+|   |       |           webdriver-bidi-nav-speculation.js
+|   |       |           webdriver-bidi-nav-speculation.js.map
+|   |       |           webdriver-bidi-permissions.d.ts
+|   |       |           webdriver-bidi-permissions.js
+|   |       |           webdriver-bidi-permissions.js.map
+|   |       |           webdriver-bidi-ua-client-hints.d.ts
+|   |       |           webdriver-bidi-ua-client-hints.js
+|   |       |           webdriver-bidi-ua-client-hints.js.map
+|   |       |           webdriver-bidi.d.ts
+|   |       |           webdriver-bidi.js
+|   |       |           webdriver-bidi.js.map
+|   |       |           
+|   |       \---utils
+|   |               assert.d.ts
+|   |               assert.js
+|   |               assert.js.map
+|   |               base64.d.ts
+|   |               base64.js
+|   |               base64.js.map
+|   |               Buffer.d.ts
+|   |               Buffer.js
+|   |               Buffer.js.map
+|   |               cdpErrorConstants.d.ts
+|   |               cdpErrorConstants.js
+|   |               cdpErrorConstants.js.map
+|   |               DefaultMap.d.ts
+|   |               DefaultMap.js
+|   |               DefaultMap.js.map
+|   |               Deferred.d.ts
+|   |               Deferred.js
+|   |               Deferred.js.map
+|   |               EventEmitter.d.ts
+|   |               EventEmitter.js
+|   |               EventEmitter.js.map
+|   |               graphemeTools.d.ts
+|   |               graphemeTools.js
+|   |               graphemeTools.js.map
+|   |               IdWrapper.d.ts
+|   |               IdWrapper.js
+|   |               IdWrapper.js.map
+|   |               log.d.ts
+|   |               log.js
+|   |               log.js.map
+|   |               Mutex.d.ts
+|   |               Mutex.js
+|   |               Mutex.js.map
+|   |               ProcessingQueue.d.ts
+|   |               ProcessingQueue.js
+|   |               ProcessingQueue.js.map
+|   |               result.d.ts
+|   |               result.js
+|   |               result.js.map
+|   |               time.d.ts
+|   |               time.js
+|   |               time.js.map
+|   |               transport.d.ts
+|   |               transport.js
+|   |               transport.js.map
+|   |               unitConversions.d.ts
+|   |               unitConversions.js
+|   |               unitConversions.js.map
+|   |               urlHelpers.d.ts
+|   |               urlHelpers.js
+|   |               urlHelpers.js.map
+|   |               uuid.d.ts
+|   |               uuid.js
+|   |               uuid.js.map
+|   |               
+|   +---cliui
+|   |   |   CHANGELOG.md
+|   |   |   index.mjs
+|   |   |   LICENSE.txt
+|   |   |   package.json
+|   |   |   README.md
+|   |   |   
+|   |   \---build
+|   |       |   index.cjs
+|   |       |   index.d.cts
+|   |       |   
+|   |       \---lib
+|   |               index.js
+|   |               string-utils.js
+|   |               
+|   +---color-convert
+|   |       CHANGELOG.md
+|   |       conversions.js
+|   |       index.js
+|   |       LICENSE
+|   |       package.json
+|   |       README.md
+|   |       route.js
+|   |       
+|   +---color-name
+|   |       index.js
+|   |       LICENSE
+|   |       package.json
+|   |       README.md
+|   |       
+|   +---devtools-protocol
+|   |   |   LICENSE
+|   |   |   package.json
+|   |   |   README.md
+|   |   |   
+|   |   +---json
+|   |   |       browser_protocol.json
+|   |   |       js_protocol.json
+|   |   |       
+|   |   +---pdl
+|   |   |   |   browser_protocol.pdl
+|   |   |   |   js_protocol.pdl
+|   |   |   |   
+|   |   |   \---domains
+|   |   |           Accessibility.pdl
+|   |   |           Animation.pdl
+|   |   |           Audits.pdl
+|   |   |           Autofill.pdl
+|   |   |           BackgroundService.pdl
+|   |   |           BluetoothEmulation.pdl
+|   |   |           Browser.pdl
+|   |   |           CacheStorage.pdl
+|   |   |           Cast.pdl
+|   |   |           CrashReportContext.pdl
+|   |   |           CSS.pdl
+|   |   |           DeviceAccess.pdl
+|   |   |           DeviceOrientation.pdl
+|   |   |           DOM.pdl
+|   |   |           DOMDebugger.pdl
+|   |   |           DOMSnapshot.pdl
+|   |   |           DOMStorage.pdl
+|   |   |           Emulation.pdl
+|   |   |           EventBreakpoints.pdl
+|   |   |           Extensions.pdl
+|   |   |           FedCm.pdl
+|   |   |           Fetch.pdl
+|   |   |           FileSystem.pdl
+|   |   |           HeadlessExperimental.pdl
+|   |   |           IndexedDB.pdl
+|   |   |           Input.pdl
+|   |   |           Inspector.pdl
+|   |   |           IO.pdl
+|   |   |           LayerTree.pdl
+|   |   |           Log.pdl
+|   |   |           Media.pdl
+|   |   |           Memory.pdl
+|   |   |           Network.pdl
+|   |   |           Overlay.pdl
+|   |   |           Page.pdl
+|   |   |           Performance.pdl
+|   |   |           PerformanceTimeline.pdl
+|   |   |           Preload.pdl
+|   |   |           PWA.pdl
+|   |   |           Security.pdl
+|   |   |           ServiceWorker.pdl
+|   |   |           SmartCardEmulation.pdl
+|   |   |           Storage.pdl
+|   |   |           SystemInfo.pdl
+|   |   |           Target.pdl
+|   |   |           Tethering.pdl
+|   |   |           Tracing.pdl
+|   |   |           WebAudio.pdl
+|   |   |           WebAuthn.pdl
+|   |   |           WebMCP.pdl
+|   |   |           
+|   |   \---types
+|   |           protocol-mapping.d.ts
+|   |           protocol-proxy-api.d.ts
+|   |           protocol-tests-proxy-api.d.ts
+|   |           protocol.d.ts
+|   |           
+|   +---emoji-regex
+|   |   |   index.d.ts
+|   |   |   index.js
+|   |   |   LICENSE-MIT.txt
+|   |   |   package.json
+|   |   |   README.md
+|   |   |   text.js
+|   |   |   
+|   |   \---es2015
+|   |           index.js
+|   |           text.js
+|   |           
+|   +---escalade
+|   |   |   index.d.mts
+|   |   |   index.d.ts
+|   |   |   license
+|   |   |   package.json
+|   |   |   readme.md
+|   |   |   
+|   |   +---dist
+|   |   |       index.js
+|   |   |       index.mjs
+|   |   |       
+|   |   \---sync
+|   |           index.d.mts
+|   |           index.d.ts
+|   |           index.js
+|   |           index.mjs
+|   |           
+|   +---get-caller-file
+|   |       index.d.ts
+|   |       index.js
+|   |       index.js.map
+|   |       LICENSE.md
+|   |       package.json
+|   |       README.md
+|   |       
+|   +---is-fullwidth-code-point
+|   |       index.d.ts
+|   |       index.js
+|   |       license
+|   |       package.json
+|   |       readme.md
+|   |       
+|   +---mitt
+|   |   |   index.d.ts
+|   |   |   LICENSE
+|   |   |   package.json
+|   |   |   README.md
+|   |   |   
+|   |   \---dist
+|   |           mitt.js
+|   |           mitt.js.map
+|   |           mitt.mjs
+|   |           mitt.mjs.map
+|   |           mitt.umd.js
+|   |           mitt.umd.js.map
+|   |           
+|   +---modern-tar
+|   |   |   LICENSE
+|   |   |   package.json
+|   |   |   README.md
+|   |   |   
+|   |   \---dist
+|   |       |   types-D19dF2SE.d.ts
+|   |       |   unpacker-CPCEF5CT.js
+|   |       |   
+|   |       +---fs
+|   |       |       index.d.ts
+|   |       |       index.js
+|   |       |       
+|   |       \---web
+|   |               index.d.ts
+|   |               index.js
+|   |               
+|   +---puppeteer-core
+|   |   |   package.json
+|   |   |   README.md
+|   |   |   
+|   |   +---lib
+|   |   |   |   types.d.ts
+|   |   |   |   
+|   |   |   +---es5-iife
+|   |   |   |       puppeteer-core-browser.d.ts
+|   |   |   |       puppeteer-core-browser.js
+|   |   |   |       
+|   |   |   +---puppeteer
+|   |   |   |   |   environment.d.ts
+|   |   |   |   |   environment.d.ts.map
+|   |   |   |   |   environment.js
+|   |   |   |   |   environment.js.map
+|   |   |   |   |   index-browser.d.ts
+|   |   |   |   |   index-browser.d.ts.map
+|   |   |   |   |   index-browser.js
+|   |   |   |   |   index-browser.js.map
+|   |   |   |   |   index.d.ts
+|   |   |   |   |   index.d.ts.map
+|   |   |   |   |   index.js
+|   |   |   |   |   index.js.map
+|   |   |   |   |   puppeteer-core-browser.d.ts
+|   |   |   |   |   puppeteer-core-browser.d.ts.map
+|   |   |   |   |   puppeteer-core-browser.js
+|   |   |   |   |   puppeteer-core-browser.js.map
+|   |   |   |   |   puppeteer-core.d.ts
+|   |   |   |   |   puppeteer-core.d.ts.map
+|   |   |   |   |   puppeteer-core.js
+|   |   |   |   |   puppeteer-core.js.map
+|   |   |   |   |   revisions.d.ts
+|   |   |   |   |   revisions.d.ts.map
+|   |   |   |   |   revisions.js
+|   |   |   |   |   revisions.js.map
+|   |   |   |   |   
+|   |   |   |   +---api
+|   |   |   |   |   |   api.d.ts
+|   |   |   |   |   |   api.d.ts.map
+|   |   |   |   |   |   api.js
+|   |   |   |   |   |   api.js.map
+|   |   |   |   |   |   BluetoothEmulation.d.ts
+|   |   |   |   |   |   BluetoothEmulation.d.ts.map
+|   |   |   |   |   |   BluetoothEmulation.js
+|   |   |   |   |   |   BluetoothEmulation.js.map
+|   |   |   |   |   |   Browser.d.ts
+|   |   |   |   |   |   Browser.d.ts.map
+|   |   |   |   |   |   Browser.js
+|   |   |   |   |   |   Browser.js.map
+|   |   |   |   |   |   BrowserContext.d.ts
+|   |   |   |   |   |   BrowserContext.d.ts.map
+|   |   |   |   |   |   BrowserContext.js
+|   |   |   |   |   |   BrowserContext.js.map
+|   |   |   |   |   |   CDPSession.d.ts
+|   |   |   |   |   |   CDPSession.d.ts.map
+|   |   |   |   |   |   CDPSession.js
+|   |   |   |   |   |   CDPSession.js.map
+|   |   |   |   |   |   DeviceRequestPrompt.d.ts
+|   |   |   |   |   |   DeviceRequestPrompt.d.ts.map
+|   |   |   |   |   |   DeviceRequestPrompt.js
+|   |   |   |   |   |   DeviceRequestPrompt.js.map
+|   |   |   |   |   |   Dialog.d.ts
+|   |   |   |   |   |   Dialog.d.ts.map
+|   |   |   |   |   |   Dialog.js
+|   |   |   |   |   |   Dialog.js.map
+|   |   |   |   |   |   ElementHandle.d.ts
+|   |   |   |   |   |   ElementHandle.d.ts.map
+|   |   |   |   |   |   ElementHandle.js
+|   |   |   |   |   |   ElementHandle.js.map
+|   |   |   |   |   |   ElementHandleSymbol.d.ts
+|   |   |   |   |   |   ElementHandleSymbol.d.ts.map
+|   |   |   |   |   |   ElementHandleSymbol.js
+|   |   |   |   |   |   ElementHandleSymbol.js.map
+|   |   |   |   |   |   Environment.d.ts
+|   |   |   |   |   |   Environment.d.ts.map
+|   |   |   |   |   |   Environment.js
+|   |   |   |   |   |   Environment.js.map
+|   |   |   |   |   |   Extension.d.ts
+|   |   |   |   |   |   Extension.d.ts.map
+|   |   |   |   |   |   Extension.js
+|   |   |   |   |   |   Extension.js.map
+|   |   |   |   |   |   Frame.d.ts
+|   |   |   |   |   |   Frame.d.ts.map
+|   |   |   |   |   |   Frame.js
+|   |   |   |   |   |   Frame.js.map
+|   |   |   |   |   |   HTTPRequest.d.ts
+|   |   |   |   |   |   HTTPRequest.d.ts.map
+|   |   |   |   |   |   HTTPRequest.js
+|   |   |   |   |   |   HTTPRequest.js.map
+|   |   |   |   |   |   HTTPResponse.d.ts
+|   |   |   |   |   |   HTTPResponse.d.ts.map
+|   |   |   |   |   |   HTTPResponse.js
+|   |   |   |   |   |   HTTPResponse.js.map
+|   |   |   |   |   |   Input.d.ts
+|   |   |   |   |   |   Input.d.ts.map
+|   |   |   |   |   |   Input.js
+|   |   |   |   |   |   Input.js.map
+|   |   |   |   |   |   Issue.d.ts
+|   |   |   |   |   |   Issue.d.ts.map
+|   |   |   |   |   |   Issue.js
+|   |   |   |   |   |   Issue.js.map
+|   |   |   |   |   |   JSHandle.d.ts
+|   |   |   |   |   |   JSHandle.d.ts.map
+|   |   |   |   |   |   JSHandle.js
+|   |   |   |   |   |   JSHandle.js.map
+|   |   |   |   |   |   Page.d.ts
+|   |   |   |   |   |   Page.d.ts.map
+|   |   |   |   |   |   Page.js
+|   |   |   |   |   |   Page.js.map
+|   |   |   |   |   |   Realm.d.ts
+|   |   |   |   |   |   Realm.d.ts.map
+|   |   |   |   |   |   Realm.js
+|   |   |   |   |   |   Realm.js.map
+|   |   |   |   |   |   Target.d.ts
+|   |   |   |   |   |   Target.d.ts.map
+|   |   |   |   |   |   Target.js
+|   |   |   |   |   |   Target.js.map
+|   |   |   |   |   |   WebWorker.d.ts
+|   |   |   |   |   |   WebWorker.d.ts.map
+|   |   |   |   |   |   WebWorker.js
+|   |   |   |   |   |   WebWorker.js.map
+|   |   |   |   |   |   
+|   |   |   |   |   \---locators
+|   |   |   |   |           locators.d.ts
+|   |   |   |   |           locators.d.ts.map
+|   |   |   |   |           locators.js
+|   |   |   |   |           locators.js.map
+|   |   |   |   |           
+|   |   |   |   +---bidi
+|   |   |   |   |   |   bidi.d.ts
+|   |   |   |   |   |   bidi.d.ts.map
+|   |   |   |   |   |   bidi.js
+|   |   |   |   |   |   bidi.js.map
+|   |   |   |   |   |   BidiOverCdp.d.ts
+|   |   |   |   |   |   BidiOverCdp.d.ts.map
+|   |   |   |   |   |   BidiOverCdp.js
+|   |   |   |   |   |   BidiOverCdp.js.map
+|   |   |   |   |   |   BluetoothEmulation.d.ts
+|   |   |   |   |   |   BluetoothEmulation.d.ts.map
+|   |   |   |   |   |   BluetoothEmulation.js
+|   |   |   |   |   |   BluetoothEmulation.js.map
+|   |   |   |   |   |   Browser.d.ts
+|   |   |   |   |   |   Browser.d.ts.map
+|   |   |   |   |   |   Browser.js
+|   |   |   |   |   |   Browser.js.map
+|   |   |   |   |   |   BrowserConnector.d.ts
+|   |   |   |   |   |   BrowserConnector.d.ts.map
+|   |   |   |   |   |   BrowserConnector.js
+|   |   |   |   |   |   BrowserConnector.js.map
+|   |   |   |   |   |   BrowserContext.d.ts
+|   |   |   |   |   |   BrowserContext.d.ts.map
+|   |   |   |   |   |   BrowserContext.js
+|   |   |   |   |   |   BrowserContext.js.map
+|   |   |   |   |   |   CDPSession.d.ts
+|   |   |   |   |   |   CDPSession.d.ts.map
+|   |   |   |   |   |   CDPSession.js
+|   |   |   |   |   |   CDPSession.js.map
+|   |   |   |   |   |   Connection.d.ts
+|   |   |   |   |   |   Connection.d.ts.map
+|   |   |   |   |   |   Connection.js
+|   |   |   |   |   |   Connection.js.map
+|   |   |   |   |   |   Deserializer.d.ts
+|   |   |   |   |   |   Deserializer.d.ts.map
+|   |   |   |   |   |   Deserializer.js
+|   |   |   |   |   |   Deserializer.js.map
+|   |   |   |   |   |   DeviceRequestPrompt.d.ts
+|   |   |   |   |   |   DeviceRequestPrompt.d.ts.map
+|   |   |   |   |   |   DeviceRequestPrompt.js
+|   |   |   |   |   |   DeviceRequestPrompt.js.map
+|   |   |   |   |   |   Dialog.d.ts
+|   |   |   |   |   |   Dialog.d.ts.map
+|   |   |   |   |   |   Dialog.js
+|   |   |   |   |   |   Dialog.js.map
+|   |   |   |   |   |   ElementHandle.d.ts
+|   |   |   |   |   |   ElementHandle.d.ts.map
+|   |   |   |   |   |   ElementHandle.js
+|   |   |   |   |   |   ElementHandle.js.map
+|   |   |   |   |   |   ExposedFunction.d.ts
+|   |   |   |   |   |   ExposedFunction.d.ts.map
+|   |   |   |   |   |   ExposedFunction.js
+|   |   |   |   |   |   ExposedFunction.js.map
+|   |   |   |   |   |   Frame.d.ts
+|   |   |   |   |   |   Frame.d.ts.map
+|   |   |   |   |   |   Frame.js
+|   |   |   |   |   |   Frame.js.map
+|   |   |   |   |   |   HTTPRequest.d.ts
+|   |   |   |   |   |   HTTPRequest.d.ts.map
+|   |   |   |   |   |   HTTPRequest.js
+|   |   |   |   |   |   HTTPRequest.js.map
+|   |   |   |   |   |   HTTPResponse.d.ts
+|   |   |   |   |   |   HTTPResponse.d.ts.map
+|   |   |   |   |   |   HTTPResponse.js
+|   |   |   |   |   |   HTTPResponse.js.map
+|   |   |   |   |   |   Input.d.ts
+|   |   |   |   |   |   Input.d.ts.map
+|   |   |   |   |   |   Input.js
+|   |   |   |   |   |   Input.js.map
+|   |   |   |   |   |   JSHandle.d.ts
+|   |   |   |   |   |   JSHandle.d.ts.map
+|   |   |   |   |   |   JSHandle.js
+|   |   |   |   |   |   JSHandle.js.map
+|   |   |   |   |   |   Page.d.ts
+|   |   |   |   |   |   Page.d.ts.map
+|   |   |   |   |   |   Page.js
+|   |   |   |   |   |   Page.js.map
+|   |   |   |   |   |   Realm.d.ts
+|   |   |   |   |   |   Realm.d.ts.map
+|   |   |   |   |   |   Realm.js
+|   |   |   |   |   |   Realm.js.map
+|   |   |   |   |   |   Serializer.d.ts
+|   |   |   |   |   |   Serializer.d.ts.map
+|   |   |   |   |   |   Serializer.js
+|   |   |   |   |   |   Serializer.js.map
+|   |   |   |   |   |   Target.d.ts
+|   |   |   |   |   |   Target.d.ts.map
+|   |   |   |   |   |   Target.js
+|   |   |   |   |   |   Target.js.map
+|   |   |   |   |   |   util.d.ts
+|   |   |   |   |   |   util.d.ts.map
+|   |   |   |   |   |   util.js
+|   |   |   |   |   |   util.js.map
+|   |   |   |   |   |   WebWorker.d.ts
+|   |   |   |   |   |   WebWorker.d.ts.map
+|   |   |   |   |   |   WebWorker.js
+|   |   |   |   |   |   WebWorker.js.map
+|   |   |   |   |   |   
+|   |   |   |   |   \---core
+|   |   |   |   |           Browser.d.ts
+|   |   |   |   |           Browser.d.ts.map
+|   |   |   |   |           Browser.js
+|   |   |   |   |           Browser.js.map
+|   |   |   |   |           BrowsingContext.d.ts
+|   |   |   |   |           BrowsingContext.d.ts.map
+|   |   |   |   |           BrowsingContext.js
+|   |   |   |   |           BrowsingContext.js.map
+|   |   |   |   |           Connection.d.ts
+|   |   |   |   |           Connection.d.ts.map
+|   |   |   |   |           Connection.js
+|   |   |   |   |           Connection.js.map
+|   |   |   |   |           core.d.ts
+|   |   |   |   |           core.d.ts.map
+|   |   |   |   |           core.js
+|   |   |   |   |           core.js.map
+|   |   |   |   |           Navigation.d.ts
+|   |   |   |   |           Navigation.d.ts.map
+|   |   |   |   |           Navigation.js
+|   |   |   |   |           Navigation.js.map
+|   |   |   |   |           Realm.d.ts
+|   |   |   |   |           Realm.d.ts.map
+|   |   |   |   |           Realm.js
+|   |   |   |   |           Realm.js.map
+|   |   |   |   |           Request.d.ts
+|   |   |   |   |           Request.d.ts.map
+|   |   |   |   |           Request.js
+|   |   |   |   |           Request.js.map
+|   |   |   |   |           Session.d.ts
+|   |   |   |   |           Session.d.ts.map
+|   |   |   |   |           Session.js
+|   |   |   |   |           Session.js.map
+|   |   |   |   |           UserContext.d.ts
+|   |   |   |   |           UserContext.d.ts.map
+|   |   |   |   |           UserContext.js
+|   |   |   |   |           UserContext.js.map
+|   |   |   |   |           UserPrompt.d.ts
+|   |   |   |   |           UserPrompt.d.ts.map
+|   |   |   |   |           UserPrompt.js
+|   |   |   |   |           UserPrompt.js.map
+|   |   |   |   |           
+|   |   |   |   +---cdp
+|   |   |   |   |       Accessibility.d.ts
+|   |   |   |   |       Accessibility.d.ts.map
+|   |   |   |   |       Accessibility.js
+|   |   |   |   |       Accessibility.js.map
+|   |   |   |   |       Binding.d.ts
+|   |   |   |   |       Binding.d.ts.map
+|   |   |   |   |       Binding.js
+|   |   |   |   |       Binding.js.map
+|   |   |   |   |       BluetoothEmulation.d.ts
+|   |   |   |   |       BluetoothEmulation.d.ts.map
+|   |   |   |   |       BluetoothEmulation.js
+|   |   |   |   |       BluetoothEmulation.js.map
+|   |   |   |   |       Browser.d.ts
+|   |   |   |   |       Browser.d.ts.map
+|   |   |   |   |       Browser.js
+|   |   |   |   |       Browser.js.map
+|   |   |   |   |       BrowserConnector.d.ts
+|   |   |   |   |       BrowserConnector.d.ts.map
+|   |   |   |   |       BrowserConnector.js
+|   |   |   |   |       BrowserConnector.js.map
+|   |   |   |   |       BrowserContext.d.ts
+|   |   |   |   |       BrowserContext.d.ts.map
+|   |   |   |   |       BrowserContext.js
+|   |   |   |   |       BrowserContext.js.map
+|   |   |   |   |       cdp.d.ts
+|   |   |   |   |       cdp.d.ts.map
+|   |   |   |   |       cdp.js
+|   |   |   |   |       cdp.js.map
+|   |   |   |   |       CdpIssue.d.ts
+|   |   |   |   |       CdpIssue.d.ts.map
+|   |   |   |   |       CdpIssue.js
+|   |   |   |   |       CdpIssue.js.map
+|   |   |   |   |       CdpPreloadScript.d.ts
+|   |   |   |   |       CdpPreloadScript.d.ts.map
+|   |   |   |   |       CdpPreloadScript.js
+|   |   |   |   |       CdpPreloadScript.js.map
+|   |   |   |   |       CdpSession.d.ts
+|   |   |   |   |       CdpSession.d.ts.map
+|   |   |   |   |       CdpSession.js
+|   |   |   |   |       CdpSession.js.map
+|   |   |   |   |       Connection.d.ts
+|   |   |   |   |       Connection.d.ts.map
+|   |   |   |   |       Connection.js
+|   |   |   |   |       Connection.js.map
+|   |   |   |   |       Coverage.d.ts
+|   |   |   |   |       Coverage.d.ts.map
+|   |   |   |   |       Coverage.js
+|   |   |   |   |       Coverage.js.map
+|   |   |   |   |       DeviceRequestPrompt.d.ts
+|   |   |   |   |       DeviceRequestPrompt.d.ts.map
+|   |   |   |   |       DeviceRequestPrompt.js
+|   |   |   |   |       DeviceRequestPrompt.js.map
+|   |   |   |   |       Dialog.d.ts
+|   |   |   |   |       Dialog.d.ts.map
+|   |   |   |   |       Dialog.js
+|   |   |   |   |       Dialog.js.map
+|   |   |   |   |       ElementHandle.d.ts
+|   |   |   |   |       ElementHandle.d.ts.map
+|   |   |   |   |       ElementHandle.js
+|   |   |   |   |       ElementHandle.js.map
+|   |   |   |   |       EmulationManager.d.ts
+|   |   |   |   |       EmulationManager.d.ts.map
+|   |   |   |   |       EmulationManager.js
+|   |   |   |   |       EmulationManager.js.map
+|   |   |   |   |       ExecutionContext.d.ts
+|   |   |   |   |       ExecutionContext.d.ts.map
+|   |   |   |   |       ExecutionContext.js
+|   |   |   |   |       ExecutionContext.js.map
+|   |   |   |   |       Extension.d.ts
+|   |   |   |   |       Extension.d.ts.map
+|   |   |   |   |       Extension.js
+|   |   |   |   |       Extension.js.map
+|   |   |   |   |       ExtensionTransport.d.ts
+|   |   |   |   |       ExtensionTransport.d.ts.map
+|   |   |   |   |       ExtensionTransport.js
+|   |   |   |   |       ExtensionTransport.js.map
+|   |   |   |   |       Frame.d.ts
+|   |   |   |   |       Frame.d.ts.map
+|   |   |   |   |       Frame.js
+|   |   |   |   |       Frame.js.map
+|   |   |   |   |       FrameManager.d.ts
+|   |   |   |   |       FrameManager.d.ts.map
+|   |   |   |   |       FrameManager.js
+|   |   |   |   |       FrameManager.js.map
+|   |   |   |   |       FrameManagerEvents.d.ts
+|   |   |   |   |       FrameManagerEvents.d.ts.map
+|   |   |   |   |       FrameManagerEvents.js
+|   |   |   |   |       FrameManagerEvents.js.map
+|   |   |   |   |       FrameTree.d.ts
+|   |   |   |   |       FrameTree.d.ts.map
+|   |   |   |   |       FrameTree.js
+|   |   |   |   |       FrameTree.js.map
+|   |   |   |   |       HTTPRequest.d.ts
+|   |   |   |   |       HTTPRequest.d.ts.map
+|   |   |   |   |       HTTPRequest.js
+|   |   |   |   |       HTTPRequest.js.map
+|   |   |   |   |       HTTPResponse.d.ts
+|   |   |   |   |       HTTPResponse.d.ts.map
+|   |   |   |   |       HTTPResponse.js
+|   |   |   |   |       HTTPResponse.js.map
+|   |   |   |   |       Input.d.ts
+|   |   |   |   |       Input.d.ts.map
+|   |   |   |   |       Input.js
+|   |   |   |   |       Input.js.map
+|   |   |   |   |       IsolatedWorld.d.ts
+|   |   |   |   |       IsolatedWorld.d.ts.map
+|   |   |   |   |       IsolatedWorld.js
+|   |   |   |   |       IsolatedWorld.js.map
+|   |   |   |   |       IsolatedWorlds.d.ts
+|   |   |   |   |       IsolatedWorlds.d.ts.map
+|   |   |   |   |       IsolatedWorlds.js
+|   |   |   |   |       IsolatedWorlds.js.map
+|   |   |   |   |       JSHandle.d.ts
+|   |   |   |   |       JSHandle.d.ts.map
+|   |   |   |   |       JSHandle.js
+|   |   |   |   |       JSHandle.js.map
+|   |   |   |   |       LifecycleWatcher.d.ts
+|   |   |   |   |       LifecycleWatcher.d.ts.map
+|   |   |   |   |       LifecycleWatcher.js
+|   |   |   |   |       LifecycleWatcher.js.map
+|   |   |   |   |       NetworkEventManager.d.ts
+|   |   |   |   |       NetworkEventManager.d.ts.map
+|   |   |   |   |       NetworkEventManager.js
+|   |   |   |   |       NetworkEventManager.js.map
+|   |   |   |   |       NetworkManager.d.ts
+|   |   |   |   |       NetworkManager.d.ts.map
+|   |   |   |   |       NetworkManager.js
+|   |   |   |   |       NetworkManager.js.map
+|   |   |   |   |       Page.d.ts
+|   |   |   |   |       Page.d.ts.map
+|   |   |   |   |       Page.js
+|   |   |   |   |       Page.js.map
+|   |   |   |   |       PredefinedNetworkConditions.d.ts
+|   |   |   |   |       PredefinedNetworkConditions.d.ts.map
+|   |   |   |   |       PredefinedNetworkConditions.js
+|   |   |   |   |       PredefinedNetworkConditions.js.map
+|   |   |   |   |       Target.d.ts
+|   |   |   |   |       Target.d.ts.map
+|   |   |   |   |       Target.js
+|   |   |   |   |       Target.js.map
+|   |   |   |   |       TargetManageEvents.d.ts
+|   |   |   |   |       TargetManageEvents.d.ts.map
+|   |   |   |   |       TargetManageEvents.js
+|   |   |   |   |       TargetManageEvents.js.map
+|   |   |   |   |       TargetManager.d.ts
+|   |   |   |   |       TargetManager.d.ts.map
+|   |   |   |   |       TargetManager.js
+|   |   |   |   |       TargetManager.js.map
+|   |   |   |   |       Tracing.d.ts
+|   |   |   |   |       Tracing.d.ts.map
+|   |   |   |   |       Tracing.js
+|   |   |   |   |       Tracing.js.map
+|   |   |   |   |       utils.d.ts
+|   |   |   |   |       utils.d.ts.map
+|   |   |   |   |       utils.js
+|   |   |   |   |       utils.js.map
+|   |   |   |   |       WebMCP.d.ts
+|   |   |   |   |       WebMCP.d.ts.map
+|   |   |   |   |       WebMCP.js
+|   |   |   |   |       WebMCP.js.map
+|   |   |   |   |       WebWorker.d.ts
+|   |   |   |   |       WebWorker.d.ts.map
+|   |   |   |   |       WebWorker.js
+|   |   |   |   |       WebWorker.js.map
+|   |   |   |   |       
+|   |   |   |   +---common
+|   |   |   |   |       AriaQueryHandler.d.ts
+|   |   |   |   |       AriaQueryHandler.d.ts.map
+|   |   |   |   |       AriaQueryHandler.js
+|   |   |   |   |       AriaQueryHandler.js.map
+|   |   |   |   |       BrowserConnector.d.ts
+|   |   |   |   |       BrowserConnector.d.ts.map
+|   |   |   |   |       BrowserConnector.js
+|   |   |   |   |       BrowserConnector.js.map
+|   |   |   |   |       BrowserWebSocketTransport.d.ts
+|   |   |   |   |       BrowserWebSocketTransport.d.ts.map
+|   |   |   |   |       BrowserWebSocketTransport.js
+|   |   |   |   |       BrowserWebSocketTransport.js.map
+|   |   |   |   |       CallbackRegistry.d.ts
+|   |   |   |   |       CallbackRegistry.d.ts.map
+|   |   |   |   |       CallbackRegistry.js
+|   |   |   |   |       CallbackRegistry.js.map
+|   |   |   |   |       common.d.ts
+|   |   |   |   |       common.d.ts.map
+|   |   |   |   |       common.js
+|   |   |   |   |       common.js.map
+|   |   |   |   |       Configuration.d.ts
+|   |   |   |   |       Configuration.d.ts.map
+|   |   |   |   |       Configuration.js
+|   |   |   |   |       Configuration.js.map
+|   |   |   |   |       ConnectionTransport.d.ts
+|   |   |   |   |       ConnectionTransport.d.ts.map
+|   |   |   |   |       ConnectionTransport.js
+|   |   |   |   |       ConnectionTransport.js.map
+|   |   |   |   |       ConnectOptions.d.ts
+|   |   |   |   |       ConnectOptions.d.ts.map
+|   |   |   |   |       ConnectOptions.js
+|   |   |   |   |       ConnectOptions.js.map
+|   |   |   |   |       ConsoleMessage.d.ts
+|   |   |   |   |       ConsoleMessage.d.ts.map
+|   |   |   |   |       ConsoleMessage.js
+|   |   |   |   |       ConsoleMessage.js.map
+|   |   |   |   |       Cookie.d.ts
+|   |   |   |   |       Cookie.d.ts.map
+|   |   |   |   |       Cookie.js
+|   |   |   |   |       Cookie.js.map
+|   |   |   |   |       CSSQueryHandler.d.ts
+|   |   |   |   |       CSSQueryHandler.d.ts.map
+|   |   |   |   |       CSSQueryHandler.js
+|   |   |   |   |       CSSQueryHandler.js.map
+|   |   |   |   |       CustomQueryHandler.d.ts
+|   |   |   |   |       CustomQueryHandler.d.ts.map
+|   |   |   |   |       CustomQueryHandler.js
+|   |   |   |   |       CustomQueryHandler.js.map
+|   |   |   |   |       Debug.d.ts
+|   |   |   |   |       Debug.d.ts.map
+|   |   |   |   |       Debug.js
+|   |   |   |   |       Debug.js.map
+|   |   |   |   |       Device.d.ts
+|   |   |   |   |       Device.d.ts.map
+|   |   |   |   |       Device.js
+|   |   |   |   |       Device.js.map
+|   |   |   |   |       DownloadBehavior.d.ts
+|   |   |   |   |       DownloadBehavior.d.ts.map
+|   |   |   |   |       DownloadBehavior.js
+|   |   |   |   |       DownloadBehavior.js.map
+|   |   |   |   |       Errors.d.ts
+|   |   |   |   |       Errors.d.ts.map
+|   |   |   |   |       Errors.js
+|   |   |   |   |       Errors.js.map
+|   |   |   |   |       EventEmitter.d.ts
+|   |   |   |   |       EventEmitter.d.ts.map
+|   |   |   |   |       EventEmitter.js
+|   |   |   |   |       EventEmitter.js.map
+|   |   |   |   |       FileChooser.d.ts
+|   |   |   |   |       FileChooser.d.ts.map
+|   |   |   |   |       FileChooser.js
+|   |   |   |   |       FileChooser.js.map
+|   |   |   |   |       GetQueryHandler.d.ts
+|   |   |   |   |       GetQueryHandler.d.ts.map
+|   |   |   |   |       GetQueryHandler.js
+|   |   |   |   |       GetQueryHandler.js.map
+|   |   |   |   |       HandleIterator.d.ts
+|   |   |   |   |       HandleIterator.d.ts.map
+|   |   |   |   |       HandleIterator.js
+|   |   |   |   |       HandleIterator.js.map
+|   |   |   |   |       LazyArg.d.ts
+|   |   |   |   |       LazyArg.d.ts.map
+|   |   |   |   |       LazyArg.js
+|   |   |   |   |       LazyArg.js.map
+|   |   |   |   |       NetworkManagerEvents.d.ts
+|   |   |   |   |       NetworkManagerEvents.d.ts.map
+|   |   |   |   |       NetworkManagerEvents.js
+|   |   |   |   |       NetworkManagerEvents.js.map
+|   |   |   |   |       PDFOptions.d.ts
+|   |   |   |   |       PDFOptions.d.ts.map
+|   |   |   |   |       PDFOptions.js
+|   |   |   |   |       PDFOptions.js.map
+|   |   |   |   |       PierceQueryHandler.d.ts
+|   |   |   |   |       PierceQueryHandler.d.ts.map
+|   |   |   |   |       PierceQueryHandler.js
+|   |   |   |   |       PierceQueryHandler.js.map
+|   |   |   |   |       PQueryHandler.d.ts
+|   |   |   |   |       PQueryHandler.d.ts.map
+|   |   |   |   |       PQueryHandler.js
+|   |   |   |   |       PQueryHandler.js.map
+|   |   |   |   |       PSelectorParser.d.ts
+|   |   |   |   |       PSelectorParser.d.ts.map
+|   |   |   |   |       PSelectorParser.js
+|   |   |   |   |       PSelectorParser.js.map
+|   |   |   |   |       Puppeteer.d.ts
+|   |   |   |   |       Puppeteer.d.ts.map
+|   |   |   |   |       Puppeteer.js
+|   |   |   |   |       Puppeteer.js.map
+|   |   |   |   |       QueryHandler.d.ts
+|   |   |   |   |       QueryHandler.d.ts.map
+|   |   |   |   |       QueryHandler.js
+|   |   |   |   |       QueryHandler.js.map
+|   |   |   |   |       ScriptInjector.d.ts
+|   |   |   |   |       ScriptInjector.d.ts.map
+|   |   |   |   |       ScriptInjector.js
+|   |   |   |   |       ScriptInjector.js.map
+|   |   |   |   |       SecurityDetails.d.ts
+|   |   |   |   |       SecurityDetails.d.ts.map
+|   |   |   |   |       SecurityDetails.js
+|   |   |   |   |       SecurityDetails.js.map
+|   |   |   |   |       SupportedBrowser.d.ts
+|   |   |   |   |       SupportedBrowser.d.ts.map
+|   |   |   |   |       SupportedBrowser.js
+|   |   |   |   |       SupportedBrowser.js.map
+|   |   |   |   |       TaskQueue.d.ts
+|   |   |   |   |       TaskQueue.d.ts.map
+|   |   |   |   |       TaskQueue.js
+|   |   |   |   |       TaskQueue.js.map
+|   |   |   |   |       TextQueryHandler.d.ts
+|   |   |   |   |       TextQueryHandler.d.ts.map
+|   |   |   |   |       TextQueryHandler.js
+|   |   |   |   |       TextQueryHandler.js.map
+|   |   |   |   |       TimeoutSettings.d.ts
+|   |   |   |   |       TimeoutSettings.d.ts.map
+|   |   |   |   |       TimeoutSettings.js
+|   |   |   |   |       TimeoutSettings.js.map
+|   |   |   |   |       types.d.ts
+|   |   |   |   |       types.d.ts.map
+|   |   |   |   |       types.js
+|   |   |   |   |       types.js.map
+|   |   |   |   |       USKeyboardLayout.d.ts
+|   |   |   |   |       USKeyboardLayout.d.ts.map
+|   |   |   |   |       USKeyboardLayout.js
+|   |   |   |   |       USKeyboardLayout.js.map
+|   |   |   |   |       util.d.ts
+|   |   |   |   |       util.d.ts.map
+|   |   |   |   |       util.js
+|   |   |   |   |       util.js.map
+|   |   |   |   |       Viewport.d.ts
+|   |   |   |   |       Viewport.d.ts.map
+|   |   |   |   |       Viewport.js
+|   |   |   |   |       Viewport.js.map
+|   |   |   |   |       WaitTask.d.ts
+|   |   |   |   |       WaitTask.d.ts.map
+|   |   |   |   |       WaitTask.js
+|   |   |   |   |       WaitTask.js.map
+|   |   |   |   |       XPathQueryHandler.d.ts
+|   |   |   |   |       XPathQueryHandler.d.ts.map
+|   |   |   |   |       XPathQueryHandler.js
+|   |   |   |   |       XPathQueryHandler.js.map
+|   |   |   |   |       
+|   |   |   |   +---generated
+|   |   |   |   |       injected.d.ts
+|   |   |   |   |       injected.d.ts.map
+|   |   |   |   |       injected.js
+|   |   |   |   |       injected.js.map
+|   |   |   |   |       
+|   |   |   |   +---injected
+|   |   |   |   |       ARIAQuerySelector.d.ts
+|   |   |   |   |       ARIAQuerySelector.d.ts.map
+|   |   |   |   |       ARIAQuerySelector.js
+|   |   |   |   |       ARIAQuerySelector.js.map
+|   |   |   |   |       CSSSelector.d.ts
+|   |   |   |   |       CSSSelector.d.ts.map
+|   |   |   |   |       CSSSelector.js
+|   |   |   |   |       CSSSelector.js.map
+|   |   |   |   |       CustomQuerySelector.d.ts
+|   |   |   |   |       CustomQuerySelector.d.ts.map
+|   |   |   |   |       CustomQuerySelector.js
+|   |   |   |   |       CustomQuerySelector.js.map
+|   |   |   |   |       injected.d.ts
+|   |   |   |   |       injected.d.ts.map
+|   |   |   |   |       injected.js
+|   |   |   |   |       injected.js.map
+|   |   |   |   |       PierceQuerySelector.d.ts
+|   |   |   |   |       PierceQuerySelector.d.ts.map
+|   |   |   |   |       PierceQuerySelector.js
+|   |   |   |   |       PierceQuerySelector.js.map
+|   |   |   |   |       Poller.d.ts
+|   |   |   |   |       Poller.d.ts.map
+|   |   |   |   |       Poller.js
+|   |   |   |   |       Poller.js.map
+|   |   |   |   |       PQuerySelector.d.ts
+|   |   |   |   |       PQuerySelector.d.ts.map
+|   |   |   |   |       PQuerySelector.js
+|   |   |   |   |       PQuerySelector.js.map
+|   |   |   |   |       TextContent.d.ts
+|   |   |   |   |       TextContent.d.ts.map
+|   |   |   |   |       TextContent.js
+|   |   |   |   |       TextContent.js.map
+|   |   |   |   |       TextQuerySelector.d.ts
+|   |   |   |   |       TextQuerySelector.d.ts.map
+|   |   |   |   |       TextQuerySelector.js
+|   |   |   |   |       TextQuerySelector.js.map
+|   |   |   |   |       util.d.ts
+|   |   |   |   |       util.d.ts.map
+|   |   |   |   |       util.js
+|   |   |   |   |       util.js.map
+|   |   |   |   |       XPathQuerySelector.d.ts
+|   |   |   |   |       XPathQuerySelector.d.ts.map
+|   |   |   |   |       XPathQuerySelector.js
+|   |   |   |   |       XPathQuerySelector.js.map
+|   |   |   |   |       
+|   |   |   |   +---node
+|   |   |   |   |   |   BrowserLauncher.d.ts
+|   |   |   |   |   |   BrowserLauncher.d.ts.map
+|   |   |   |   |   |   BrowserLauncher.js
+|   |   |   |   |   |   BrowserLauncher.js.map
+|   |   |   |   |   |   ChromeLauncher.d.ts
+|   |   |   |   |   |   ChromeLauncher.d.ts.map
+|   |   |   |   |   |   ChromeLauncher.js
+|   |   |   |   |   |   ChromeLauncher.js.map
+|   |   |   |   |   |   FirefoxLauncher.d.ts
+|   |   |   |   |   |   FirefoxLauncher.d.ts.map
+|   |   |   |   |   |   FirefoxLauncher.js
+|   |   |   |   |   |   FirefoxLauncher.js.map
+|   |   |   |   |   |   LaunchOptions.d.ts
+|   |   |   |   |   |   LaunchOptions.d.ts.map
+|   |   |   |   |   |   LaunchOptions.js
+|   |   |   |   |   |   LaunchOptions.js.map
+|   |   |   |   |   |   node.d.ts
+|   |   |   |   |   |   node.d.ts.map
+|   |   |   |   |   |   node.js
+|   |   |   |   |   |   node.js.map
+|   |   |   |   |   |   NodeWebSocketTransport.d.ts
+|   |   |   |   |   |   NodeWebSocketTransport.d.ts.map
+|   |   |   |   |   |   NodeWebSocketTransport.js
+|   |   |   |   |   |   NodeWebSocketTransport.js.map
+|   |   |   |   |   |   PipeTransport.d.ts
+|   |   |   |   |   |   PipeTransport.d.ts.map
+|   |   |   |   |   |   PipeTransport.js
+|   |   |   |   |   |   PipeTransport.js.map
+|   |   |   |   |   |   PuppeteerNode.d.ts
+|   |   |   |   |   |   PuppeteerNode.d.ts.map
+|   |   |   |   |   |   PuppeteerNode.js
+|   |   |   |   |   |   PuppeteerNode.js.map
+|   |   |   |   |   |   ScreenRecorder.d.ts
+|   |   |   |   |   |   ScreenRecorder.d.ts.map
+|   |   |   |   |   |   ScreenRecorder.js
+|   |   |   |   |   |   ScreenRecorder.js.map
+|   |   |   |   |   |   
+|   |   |   |   |   \---util
+|   |   |   |   |           fs.d.ts
+|   |   |   |   |           fs.d.ts.map
+|   |   |   |   |           fs.js
+|   |   |   |   |           fs.js.map
+|   |   |   |   |           
+|   |   |   |   \---util
+|   |   |   |           assert.d.ts
+|   |   |   |           assert.d.ts.map
+|   |   |   |           assert.js
+|   |   |   |           assert.js.map
+|   |   |   |           AsyncIterableUtil.d.ts
+|   |   |   |           AsyncIterableUtil.d.ts.map
+|   |   |   |           AsyncIterableUtil.js
+|   |   |   |           AsyncIterableUtil.js.map
+|   |   |   |           decorators.d.ts
+|   |   |   |           decorators.d.ts.map
+|   |   |   |           decorators.js
+|   |   |   |           decorators.js.map
+|   |   |   |           Deferred.d.ts
+|   |   |   |           Deferred.d.ts.map
+|   |   |   |           Deferred.js
+|   |   |   |           Deferred.js.map
+|   |   |   |           disposable.d.ts
+|   |   |   |           disposable.d.ts.map
+|   |   |   |           disposable.js
+|   |   |   |           disposable.js.map
+|   |   |   |           encoding.d.ts
+|   |   |   |           encoding.d.ts.map
+|   |   |   |           encoding.js
+|   |   |   |           encoding.js.map
+|   |   |   |           ErrorLike.d.ts
+|   |   |   |           ErrorLike.d.ts.map
+|   |   |   |           ErrorLike.js
+|   |   |   |           ErrorLike.js.map
+|   |   |   |           Function.d.ts
+|   |   |   |           Function.d.ts.map
+|   |   |   |           Function.js
+|   |   |   |           Function.js.map
+|   |   |   |           httpUtils.d.ts
+|   |   |   |           httpUtils.d.ts.map
+|   |   |   |           httpUtils.js
+|   |   |   |           httpUtils.js.map
+|   |   |   |           incremental-id-generator.d.ts
+|   |   |   |           incremental-id-generator.d.ts.map
+|   |   |   |           incremental-id-generator.js
+|   |   |   |           incremental-id-generator.js.map
+|   |   |   |           Mutex.d.ts
+|   |   |   |           Mutex.d.ts.map
+|   |   |   |           Mutex.js
+|   |   |   |           Mutex.js.map
+|   |   |   |           util.d.ts
+|   |   |   |           util.d.ts.map
+|   |   |   |           util.js
+|   |   |   |           util.js.map
+|   |   |   |           version.d.ts
+|   |   |   |           version.d.ts.map
+|   |   |   |           version.js
+|   |   |   |           version.js.map
+|   |   |   |           
+|   |   |   \---third_party
+|   |   |       +---mitt
+|   |   |       |       mitt.d.ts
+|   |   |       |       mitt.js
+|   |   |       |       
+|   |   |       +---parsel-js
+|   |   |       |       parsel-js.d.ts
+|   |   |       |       parsel-js.js
+|   |   |       |       
+|   |   |       +---rxjs
+|   |   |       |       rxjs.d.ts
+|   |   |       |       rxjs.js
+|   |   |       |       
+|   |   |       \---urlpattern-polyfill
+|   |   |               urlpattern-polyfill.d.ts
+|   |   |               urlpattern-polyfill.js
+|   |   |               
+|   |   \---src
+|   |       |   environment.ts
+|   |       |   index-browser.ts
+|   |       |   index.ts
+|   |       |   puppeteer-core-browser.ts
+|   |       |   puppeteer-core.ts
+|   |       |   revisions.ts
+|   |       |   
+|   |       +---api
+|   |       |   |   api.ts
+|   |       |   |   BluetoothEmulation.ts
+|   |       |   |   Browser.ts
+|   |       |   |   BrowserContext.ts
+|   |       |   |   CDPSession.ts
+|   |       |   |   DeviceRequestPrompt.ts
+|   |       |   |   Dialog.ts
+|   |       |   |   ElementHandle.ts
+|   |       |   |   ElementHandleSymbol.ts
+|   |       |   |   Environment.ts
+|   |       |   |   Extension.ts
+|   |       |   |   Frame.ts
+|   |       |   |   HTTPRequest.ts
+|   |       |   |   HTTPResponse.ts
+|   |       |   |   Input.ts
+|   |       |   |   Issue.ts
+|   |       |   |   JSHandle.ts
+|   |       |   |   Page.ts
+|   |       |   |   Realm.ts
+|   |       |   |   Target.ts
+|   |       |   |   WebWorker.ts
+|   |       |   |   
+|   |       |   \---locators
+|   |       |           locators.ts
+|   |       |           
+|   |       +---bidi
+|   |       |   |   bidi.ts
+|   |       |   |   BidiOverCdp.ts
+|   |       |   |   BluetoothEmulation.ts
+|   |       |   |   Browser.ts
+|   |       |   |   BrowserConnector.ts
+|   |       |   |   BrowserContext.ts
+|   |       |   |   CDPSession.ts
+|   |       |   |   Connection.ts
+|   |       |   |   Deserializer.ts
+|   |       |   |   DeviceRequestPrompt.ts
+|   |       |   |   Dialog.ts
+|   |       |   |   ElementHandle.ts
+|   |       |   |   ExposedFunction.ts
+|   |       |   |   Frame.ts
+|   |       |   |   HTTPRequest.ts
+|   |       |   |   HTTPResponse.ts
+|   |       |   |   Input.ts
+|   |       |   |   JSHandle.ts
+|   |       |   |   Page.ts
+|   |       |   |   Realm.ts
+|   |       |   |   Serializer.ts
+|   |       |   |   Target.ts
+|   |       |   |   util.ts
+|   |       |   |   WebWorker.ts
+|   |       |   |   
+|   |       |   \---core
+|   |       |           Browser.ts
+|   |       |           BrowsingContext.ts
+|   |       |           Connection.ts
+|   |       |           core.ts
+|   |       |           Navigation.ts
+|   |       |           README.md
+|   |       |           Realm.ts
+|   |       |           Request.ts
+|   |       |           Session.ts
+|   |       |           UserContext.ts
+|   |       |           UserPrompt.ts
+|   |       |           
+|   |       +---cdp
+|   |       |       Accessibility.ts
+|   |       |       Binding.ts
+|   |       |       BluetoothEmulation.ts
+|   |       |       Browser.ts
+|   |       |       BrowserConnector.ts
+|   |       |       BrowserContext.ts
+|   |       |       cdp.ts
+|   |       |       CdpIssue.ts
+|   |       |       CdpPreloadScript.ts
+|   |       |       CdpSession.ts
+|   |       |       Connection.ts
+|   |       |       Coverage.ts
+|   |       |       DeviceRequestPrompt.ts
+|   |       |       Dialog.ts
+|   |       |       ElementHandle.ts
+|   |       |       EmulationManager.ts
+|   |       |       ExecutionContext.ts
+|   |       |       Extension.ts
+|   |       |       ExtensionTransport.ts
+|   |       |       Frame.ts
+|   |       |       FrameManager.ts
+|   |       |       FrameManagerEvents.ts
+|   |       |       FrameTree.ts
+|   |       |       HTTPRequest.ts
+|   |       |       HTTPResponse.ts
+|   |       |       Input.ts
+|   |       |       IsolatedWorld.ts
+|   |       |       IsolatedWorlds.ts
+|   |       |       JSHandle.ts
+|   |       |       LifecycleWatcher.ts
+|   |       |       NetworkEventManager.ts
+|   |       |       NetworkManager.ts
+|   |       |       Page.ts
+|   |       |       PredefinedNetworkConditions.ts
+|   |       |       Target.ts
+|   |       |       TargetManageEvents.ts
+|   |       |       TargetManager.ts
+|   |       |       Tracing.ts
+|   |       |       utils.ts
+|   |       |       WebMCP.ts
+|   |       |       WebWorker.ts
+|   |       |       
+|   |       +---common
+|   |       |       AriaQueryHandler.ts
+|   |       |       BrowserConnector.ts
+|   |       |       BrowserWebSocketTransport.ts
+|   |       |       CallbackRegistry.ts
+|   |       |       common.ts
+|   |       |       Configuration.ts
+|   |       |       ConnectionTransport.ts
+|   |       |       ConnectOptions.ts
+|   |       |       ConsoleMessage.ts
+|   |       |       Cookie.ts
+|   |       |       CSSQueryHandler.ts
+|   |       |       CustomQueryHandler.ts
+|   |       |       Debug.ts
+|   |       |       Device.ts
+|   |       |       DownloadBehavior.ts
+|   |       |       Errors.ts
+|   |       |       EventEmitter.ts
+|   |       |       FileChooser.ts
+|   |       |       GetQueryHandler.ts
+|   |       |       HandleIterator.ts
+|   |       |       LazyArg.ts
+|   |       |       NetworkManagerEvents.ts
+|   |       |       PDFOptions.ts
+|   |       |       PierceQueryHandler.ts
+|   |       |       PQueryHandler.ts
+|   |       |       PSelectorParser.ts
+|   |       |       Puppeteer.ts
+|   |       |       QueryHandler.ts
+|   |       |       ScriptInjector.ts
+|   |       |       SecurityDetails.ts
+|   |       |       SupportedBrowser.ts
+|   |       |       TaskQueue.ts
+|   |       |       TextQueryHandler.ts
+|   |       |       TimeoutSettings.ts
+|   |       |       types.ts
+|   |       |       USKeyboardLayout.ts
+|   |       |       util.ts
+|   |       |       Viewport.ts
+|   |       |       WaitTask.ts
+|   |       |       XPathQueryHandler.ts
+|   |       |       
+|   |       +---generated
+|   |       |       injected.ts
+|   |       |       
+|   |       +---injected
+|   |       |       ARIAQuerySelector.ts
+|   |       |       CSSSelector.ts
+|   |       |       CustomQuerySelector.ts
+|   |       |       injected.ts
+|   |       |       PierceQuerySelector.ts
+|   |       |       Poller.ts
+|   |       |       PQuerySelector.ts
+|   |       |       README.md
+|   |       |       TextContent.ts
+|   |       |       TextQuerySelector.ts
+|   |       |       util.ts
+|   |       |       XPathQuerySelector.ts
+|   |       |       
+|   |       +---node
+|   |       |   |   BrowserLauncher.ts
+|   |       |   |   ChromeLauncher.ts
+|   |       |   |   FirefoxLauncher.ts
+|   |       |   |   LaunchOptions.ts
+|   |       |   |   node.ts
+|   |       |   |   NodeWebSocketTransport.ts
+|   |       |   |   PipeTransport.ts
+|   |       |   |   PuppeteerNode.ts
+|   |       |   |   ScreenRecorder.ts
+|   |       |   |   
+|   |       |   \---util
+|   |       |           fs.ts
+|   |       |           
+|   |       +---templates
+|   |       |       injected.ts.tmpl
+|   |       |       README.md
+|   |       |       
+|   |       \---util
+|   |               assert.ts
+|   |               AsyncIterableUtil.ts
+|   |               decorators.ts
+|   |               Deferred.ts
+|   |               disposable.ts
+|   |               encoding.ts
+|   |               ErrorLike.ts
+|   |               Function.ts
+|   |               httpUtils.ts
+|   |               incremental-id-generator.ts
+|   |               Mutex.ts
+|   |               util.ts
+|   |               version.ts
+|   |               
+|   +---require-directory
+|   |       .jshintrc
+|   |       .npmignore
+|   |       .travis.yml
+|   |       index.js
+|   |       LICENSE
+|   |       package.json
+|   |       README.markdown
+|   |       
+|   +---string-width
+|   |       index.d.ts
+|   |       index.js
+|   |       license
+|   |       package.json
+|   |       readme.md
+|   |       
+|   +---strip-ansi
+|   |       index.d.ts
+|   |       index.js
+|   |       license
+|   |       package.json
+|   |       readme.md
+|   |       
+|   +---typed-query-selector
+|   |       LICENSE
+|   |       package.json
+|   |       parser.d.ts
+|   |       README.md
+|   |       shim.d.ts
+|   |       strict.d.ts
+|   |       
+|   +---webdriver-bidi-protocol
+|   |   |   CHANGELOG.md
+|   |   |   LICENSE
+|   |   |   package.json
+|   |   |   README.md
+|   |   |   
+|   |   +---out
+|   |   |   |   index.d.ts
+|   |   |   |   index.js
+|   |   |   |   
+|   |   |   \---gen
+|   |   |           main.d.ts
+|   |   |           main.js
+|   |   |           mapping.d.ts
+|   |   |           mapping.js
+|   |   |           permissions.d.ts
+|   |   |           permissions.js
+|   |   |           ua-client-hints.d.ts
+|   |   |           ua-client-hints.js
+|   |   |           web-bluetooth.d.ts
+|   |   |           web-bluetooth.js
+|   |   |           
+|   |   \---src
+|   |       |   index.ts
+|   |       |   
+|   |       \---gen
+|   |               main.ts
+|   |               mapping.ts
+|   |               permissions.ts
+|   |               ua-client-hints.ts
+|   |               web-bluetooth.ts
+|   |               
+|   +---wrap-ansi
+|   |       index.js
+|   |       license
+|   |       package.json
+|   |       readme.md
+|   |       
+|   +---ws
+|   |   |   browser.js
+|   |   |   index.js
+|   |   |   LICENSE
+|   |   |   package.json
+|   |   |   README.md
+|   |   |   wrapper.mjs
+|   |   |   
+|   |   \---lib
+|   |           buffer-util.js
+|   |           constants.js
+|   |           event-target.js
+|   |           extension.js
+|   |           limiter.js
+|   |           permessage-deflate.js
+|   |           receiver.js
+|   |           sender.js
+|   |           stream.js
+|   |           subprotocol.js
+|   |           validation.js
+|   |           websocket-server.js
+|   |           websocket.js
+|   |           
+|   +---y18n
+|   |   |   CHANGELOG.md
+|   |   |   index.mjs
+|   |   |   LICENSE
+|   |   |   package.json
+|   |   |   README.md
+|   |   |   
+|   |   \---build
+|   |       |   index.cjs
+|   |       |   
+|   |       \---lib
+|   |           |   cjs.js
+|   |           |   index.js
+|   |           |   
+|   |           \---platform-shims
+|   |                   node.js
+|   |                   
+|   +---yargs
+|   |   |   browser.d.ts
+|   |   |   browser.mjs
+|   |   |   index.cjs
+|   |   |   index.mjs
+|   |   |   LICENSE
+|   |   |   package.json
+|   |   |   README.md
+|   |   |   yargs
+|   |   |   yargs.mjs
+|   |   |   
+|   |   +---build
+|   |   |   |   index.cjs
+|   |   |   |   
+|   |   |   \---lib
+|   |   |       |   argsert.js
+|   |   |       |   command.js
+|   |   |       |   completion-templates.js
+|   |   |       |   completion.js
+|   |   |       |   middleware.js
+|   |   |       |   parse-command.js
+|   |   |       |   usage.js
+|   |   |       |   validation.js
+|   |   |       |   yargs-factory.js
+|   |   |       |   yerror.js
+|   |   |       |   
+|   |   |       +---typings
+|   |   |       |       common-types.js
+|   |   |       |       yargs-parser-types.js
+|   |   |       |       
+|   |   |       \---utils
+|   |   |               apply-extends.js
+|   |   |               is-promise.js
+|   |   |               levenshtein.js
+|   |   |               maybe-async-result.js
+|   |   |               obj-filter.js
+|   |   |               process-argv.js
+|   |   |               set-blocking.js
+|   |   |               which-module.js
+|   |   |               
+|   |   +---helpers
+|   |   |       helpers.mjs
+|   |   |       index.js
+|   |   |       package.json
+|   |   |       
+|   |   +---lib
+|   |   |   \---platform-shims
+|   |   |           browser.mjs
+|   |   |           esm.mjs
+|   |   |           
+|   |   \---locales
+|   |           be.json
+|   |           cs.json
+|   |           de.json
+|   |           en.json
+|   |           es.json
+|   |           fi.json
+|   |           fr.json
+|   |           hi.json
+|   |           hu.json
+|   |           id.json
+|   |           it.json
+|   |           ja.json
+|   |           ko.json
+|   |           nb.json
+|   |           nl.json
+|   |           nn.json
+|   |           pirate.json
+|   |           pl.json
+|   |           pt.json
+|   |           pt_BR.json
+|   |           ru.json
+|   |           th.json
+|   |           tr.json
+|   |           uk_UA.json
+|   |           uz.json
+|   |           zh_CN.json
+|   |           zh_TW.json
+|   |           
+|   +---yargs-parser
+|   |   |   browser.js
+|   |   |   CHANGELOG.md
+|   |   |   LICENSE.txt
+|   |   |   package.json
+|   |   |   README.md
+|   |   |   
+|   |   \---build
+|   |       |   index.cjs
+|   |       |   
+|   |       \---lib
+|   |               index.js
+|   |               string-utils.js
+|   |               tokenize-arg-string.js
+|   |               yargs-parser-types.js
+|   |               yargs-parser.js
+|   |               
+|   \---zod
+|       |   index.cjs
+|       |   index.d.cts
+|       |   index.d.ts
+|       |   index.js
+|       |   LICENSE
+|       |   package.json
+|       |   README.md
+|       |   
+|       +---src
+|       |   |   index.ts
+|       |   |   
+|       |   +---v3
+|       |   |   |   errors.ts
+|       |   |   |   external.ts
+|       |   |   |   index.ts
+|       |   |   |   standard-schema.ts
+|       |   |   |   types.ts
+|       |   |   |   ZodError.ts
+|       |   |   |   
+|       |   |   +---benchmarks
+|       |   |   |       datetime.ts
+|       |   |   |       discriminatedUnion.ts
+|       |   |   |       index.ts
+|       |   |   |       ipv4.ts
+|       |   |   |       object.ts
+|       |   |   |       primitives.ts
+|       |   |   |       realworld.ts
+|       |   |   |       string.ts
+|       |   |   |       union.ts
+|       |   |   |       
+|       |   |   +---helpers
+|       |   |   |       enumUtil.ts
+|       |   |   |       errorUtil.ts
+|       |   |   |       parseUtil.ts
+|       |   |   |       partialUtil.ts
+|       |   |   |       typeAliases.ts
+|       |   |   |       util.ts
+|       |   |   |       
+|       |   |   +---locales
+|       |   |   |       en.ts
+|       |   |   |       
+|       |   |   \---tests
+|       |   |           all-errors.test.ts
+|       |   |           anyunknown.test.ts
+|       |   |           array.test.ts
+|       |   |           async-parsing.test.ts
+|       |   |           async-refinements.test.ts
+|       |   |           base.test.ts
+|       |   |           bigint.test.ts
+|       |   |           branded.test.ts
+|       |   |           catch.test.ts
+|       |   |           coerce.test.ts
+|       |   |           complex.test.ts
+|       |   |           custom.test.ts
+|       |   |           date.test.ts
+|       |   |           deepmasking.test.ts
+|       |   |           default.test.ts
+|       |   |           description.test.ts
+|       |   |           discriminated-unions.test.ts
+|       |   |           enum.test.ts
+|       |   |           error.test.ts
+|       |   |           firstparty.test.ts
+|       |   |           firstpartyschematypes.test.ts
+|       |   |           function.test.ts
+|       |   |           generics.test.ts
+|       |   |           instanceof.test.ts
+|       |   |           intersection.test.ts
+|       |   |           language-server.source.ts
+|       |   |           language-server.test.ts
+|       |   |           literal.test.ts
+|       |   |           map.test.ts
+|       |   |           masking.test.ts
+|       |   |           mocker.test.ts
+|       |   |           Mocker.ts
+|       |   |           nan.test.ts
+|       |   |           nativeEnum.test.ts
+|       |   |           nullable.test.ts
+|       |   |           number.test.ts
+|       |   |           object-augmentation.test.ts
+|       |   |           object-in-es5-env.test.ts
+|       |   |           object.test.ts
+|       |   |           optional.test.ts
+|       |   |           parser.test.ts
+|       |   |           parseUtil.test.ts
+|       |   |           partials.test.ts
+|       |   |           pickomit.test.ts
+|       |   |           pipeline.test.ts
+|       |   |           preprocess.test.ts
+|       |   |           primitive.test.ts
+|       |   |           promise.test.ts
+|       |   |           readonly.test.ts
+|       |   |           record.test.ts
+|       |   |           recursive.test.ts
+|       |   |           refine.test.ts
+|       |   |           safeparse.test.ts
+|       |   |           set.test.ts
+|       |   |           standard-schema.test.ts
+|       |   |           string.test.ts
+|       |   |           transformer.test.ts
+|       |   |           tuple.test.ts
+|       |   |           unions.test.ts
+|       |   |           validations.test.ts
+|       |   |           void.test.ts
+|       |   |           
+|       |   +---v4
+|       |   |   |   index.ts
+|       |   |   |   
+|       |   |   +---classic
+|       |   |   |   |   checks.ts
+|       |   |   |   |   coerce.ts
+|       |   |   |   |   compat.ts
+|       |   |   |   |   errors.ts
+|       |   |   |   |   external.ts
+|       |   |   |   |   index.ts
+|       |   |   |   |   iso.ts
+|       |   |   |   |   parse.ts
+|       |   |   |   |   schemas.ts
+|       |   |   |   |   
+|       |   |   |   \---tests
+|       |   |   |           anyunknown.test.ts
+|       |   |   |           array.test.ts
+|       |   |   |           assignability.test.ts
+|       |   |   |           async-parsing.test.ts
+|       |   |   |           async-refinements.test.ts
+|       |   |   |           base.test.ts
+|       |   |   |           bigint.test.ts
+|       |   |   |           brand.test.ts
+|       |   |   |           catch.test.ts
+|       |   |   |           coalesce.test.ts
+|       |   |   |           coerce.test.ts
+|       |   |   |           continuability.test.ts
+|       |   |   |           custom.test.ts
+|       |   |   |           date.test.ts
+|       |   |   |           datetime.test.ts
+|       |   |   |           default.test.ts
+|       |   |   |           description.test.ts
+|       |   |   |           discriminated-unions.test.ts
+|       |   |   |           enum.test.ts
+|       |   |   |           error-utils.test.ts
+|       |   |   |           error.test.ts
+|       |   |   |           file.test.ts
+|       |   |   |           firstparty.test.ts
+|       |   |   |           function.test.ts
+|       |   |   |           generics.test.ts
+|       |   |   |           index.test.ts
+|       |   |   |           instanceof.test.ts
+|       |   |   |           intersection.test.ts
+|       |   |   |           json.test.ts
+|       |   |   |           lazy.test.ts
+|       |   |   |           literal.test.ts
+|       |   |   |           map.test.ts
+|       |   |   |           nan.test.ts
+|       |   |   |           nested-refine.test.ts
+|       |   |   |           nonoptional.test.ts
+|       |   |   |           nullable.test.ts
+|       |   |   |           number.test.ts
+|       |   |   |           object.test.ts
+|       |   |   |           optional.test.ts
+|       |   |   |           partial.test.ts
+|       |   |   |           pickomit.test.ts
+|       |   |   |           pipe.test.ts
+|       |   |   |           prefault.test.ts
+|       |   |   |           preprocess.test.ts
+|       |   |   |           primitive.test.ts
+|       |   |   |           promise.test.ts
+|       |   |   |           prototypes.test.ts
+|       |   |   |           readonly.test.ts
+|       |   |   |           record.test.ts
+|       |   |   |           recursive-types.test.ts
+|       |   |   |           refine.test.ts
+|       |   |   |           registries.test.ts
+|       |   |   |           set.test.ts
+|       |   |   |           standard-schema.test.ts
+|       |   |   |           string-formats.test.ts
+|       |   |   |           string.test.ts
+|       |   |   |           stringbool.test.ts
+|       |   |   |           template-literal.test.ts
+|       |   |   |           to-json-schema.test.ts
+|       |   |   |           transform.test.ts
+|       |   |   |           tuple.test.ts
+|       |   |   |           union.test.ts
+|       |   |   |           validations.test.ts
+|       |   |   |           void.test.ts
+|       |   |   |           
+|       |   |   +---core
+|       |   |   |   |   api.ts
+|       |   |   |   |   checks.ts
+|       |   |   |   |   config.ts
+|       |   |   |   |   core.ts
+|       |   |   |   |   doc.ts
+|       |   |   |   |   errors.ts
+|       |   |   |   |   function.ts
+|       |   |   |   |   index.ts
+|       |   |   |   |   json-schema.ts
+|       |   |   |   |   parse.ts
+|       |   |   |   |   regexes.ts
+|       |   |   |   |   registries.ts
+|       |   |   |   |   schemas.ts
+|       |   |   |   |   standard-schema.ts
+|       |   |   |   |   to-json-schema.ts
+|       |   |   |   |   util.ts
+|       |   |   |   |   versions.ts
+|       |   |   |   |   zsf.ts
+|       |   |   |   |   
+|       |   |   |   \---tests
+|       |   |   |       |   index.test.ts
+|       |   |   |       |   
+|       |   |   |       \---locales
+|       |   |   |               be.test.ts
+|       |   |   |               en.test.ts
+|       |   |   |               ru.test.ts
+|       |   |   |               tr.test.ts
+|       |   |   |               
+|       |   |   +---locales
+|       |   |   |       ar.ts
+|       |   |   |       az.ts
+|       |   |   |       be.ts
+|       |   |   |       ca.ts
+|       |   |   |       cs.ts
+|       |   |   |       de.ts
+|       |   |   |       en.ts
+|       |   |   |       eo.ts
+|       |   |   |       es.ts
+|       |   |   |       fa.ts
+|       |   |   |       fi.ts
+|       |   |   |       fr-CA.ts
+|       |   |   |       fr.ts
+|       |   |   |       he.ts
+|       |   |   |       hu.ts
+|       |   |   |       id.ts
+|       |   |   |       index.ts
+|       |   |   |       it.ts
+|       |   |   |       ja.ts
+|       |   |   |       kh.ts
+|       |   |   |       ko.ts
+|       |   |   |       mk.ts
+|       |   |   |       ms.ts
+|       |   |   |       nl.ts
+|       |   |   |       no.ts
+|       |   |   |       ota.ts
+|       |   |   |       pl.ts
+|       |   |   |       ps.ts
+|       |   |   |       pt.ts
+|       |   |   |       ru.ts
+|       |   |   |       sl.ts
+|       |   |   |       sv.ts
+|       |   |   |       ta.ts
+|       |   |   |       th.ts
+|       |   |   |       tr.ts
+|       |   |   |       ua.ts
+|       |   |   |       ur.ts
+|       |   |   |       vi.ts
+|       |   |   |       zh-CN.ts
+|       |   |   |       zh-TW.ts
+|       |   |   |       
+|       |   |   \---mini
+|       |   |       |   checks.ts
+|       |   |       |   coerce.ts
+|       |   |       |   external.ts
+|       |   |       |   index.ts
+|       |   |       |   iso.ts
+|       |   |       |   parse.ts
+|       |   |       |   schemas.ts
+|       |   |       |   
+|       |   |       \---tests
+|       |   |               assignability.test.ts
+|       |   |               brand.test.ts
+|       |   |               checks.test.ts
+|       |   |               computed.test.ts
+|       |   |               error.test.ts
+|       |   |               functions.test.ts
+|       |   |               index.test.ts
+|       |   |               number.test.ts
+|       |   |               object.test.ts
+|       |   |               prototypes.test.ts
+|       |   |               recursive-types.test.ts
+|       |   |               string.test.ts
+|       |   |               
+|       |   \---v4-mini
+|       |           index.ts
+|       |           
+|       +---v3
+|       |   |   errors.cjs
+|       |   |   errors.d.cts
+|       |   |   errors.d.ts
+|       |   |   errors.js
+|       |   |   external.cjs
+|       |   |   external.d.cts
+|       |   |   external.d.ts
+|       |   |   external.js
+|       |   |   index.cjs
+|       |   |   index.d.cts
+|       |   |   index.d.ts
+|       |   |   index.js
+|       |   |   standard-schema.cjs
+|       |   |   standard-schema.d.cts
+|       |   |   standard-schema.d.ts
+|       |   |   standard-schema.js
+|       |   |   types.cjs
+|       |   |   types.d.cts
+|       |   |   types.d.ts
+|       |   |   types.js
+|       |   |   ZodError.cjs
+|       |   |   ZodError.d.cts
+|       |   |   ZodError.d.ts
+|       |   |   ZodError.js
+|       |   |   
+|       |   +---helpers
+|       |   |       enumUtil.cjs
+|       |   |       enumUtil.d.cts
+|       |   |       enumUtil.d.ts
+|       |   |       enumUtil.js
+|       |   |       errorUtil.cjs
+|       |   |       errorUtil.d.cts
+|       |   |       errorUtil.d.ts
+|       |   |       errorUtil.js
+|       |   |       parseUtil.cjs
+|       |   |       parseUtil.d.cts
+|       |   |       parseUtil.d.ts
+|       |   |       parseUtil.js
+|       |   |       partialUtil.cjs
+|       |   |       partialUtil.d.cts
+|       |   |       partialUtil.d.ts
+|       |   |       partialUtil.js
+|       |   |       typeAliases.cjs
+|       |   |       typeAliases.d.cts
+|       |   |       typeAliases.d.ts
+|       |   |       typeAliases.js
+|       |   |       util.cjs
+|       |   |       util.d.cts
+|       |   |       util.d.ts
+|       |   |       util.js
+|       |   |       
+|       |   \---locales
+|       |           en.cjs
+|       |           en.d.cts
+|       |           en.d.ts
+|       |           en.js
+|       |           
+|       +---v4
+|       |   |   index.cjs
+|       |   |   index.d.cts
+|       |   |   index.d.ts
+|       |   |   index.js
+|       |   |   
+|       |   +---classic
+|       |   |       checks.cjs
+|       |   |       checks.d.cts
+|       |   |       checks.d.ts
+|       |   |       checks.js
+|       |   |       coerce.cjs
+|       |   |       coerce.d.cts
+|       |   |       coerce.d.ts
+|       |   |       coerce.js
+|       |   |       compat.cjs
+|       |   |       compat.d.cts
+|       |   |       compat.d.ts
+|       |   |       compat.js
+|       |   |       errors.cjs
+|       |   |       errors.d.cts
+|       |   |       errors.d.ts
+|       |   |       errors.js
+|       |   |       external.cjs
+|       |   |       external.d.cts
+|       |   |       external.d.ts
+|       |   |       external.js
+|       |   |       index.cjs
+|       |   |       index.d.cts
+|       |   |       index.d.ts
+|       |   |       index.js
+|       |   |       iso.cjs
+|       |   |       iso.d.cts
+|       |   |       iso.d.ts
+|       |   |       iso.js
+|       |   |       parse.cjs
+|       |   |       parse.d.cts
+|       |   |       parse.d.ts
+|       |   |       parse.js
+|       |   |       schemas.cjs
+|       |   |       schemas.d.cts
+|       |   |       schemas.d.ts
+|       |   |       schemas.js
+|       |   |       
+|       |   +---core
+|       |   |       api.cjs
+|       |   |       api.d.cts
+|       |   |       api.d.ts
+|       |   |       api.js
+|       |   |       checks.cjs
+|       |   |       checks.d.cts
+|       |   |       checks.d.ts
+|       |   |       checks.js
+|       |   |       core.cjs
+|       |   |       core.d.cts
+|       |   |       core.d.ts
+|       |   |       core.js
+|       |   |       doc.cjs
+|       |   |       doc.d.cts
+|       |   |       doc.d.ts
+|       |   |       doc.js
+|       |   |       errors.cjs
+|       |   |       errors.d.cts
+|       |   |       errors.d.ts
+|       |   |       errors.js
+|       |   |       function.cjs
+|       |   |       function.d.cts
+|       |   |       function.d.ts
+|       |   |       function.js
+|       |   |       index.cjs
+|       |   |       index.d.cts
+|       |   |       index.d.ts
+|       |   |       index.js
+|       |   |       json-schema.cjs
+|       |   |       json-schema.d.cts
+|       |   |       json-schema.d.ts
+|       |   |       json-schema.js
+|       |   |       parse.cjs
+|       |   |       parse.d.cts
+|       |   |       parse.d.ts
+|       |   |       parse.js
+|       |   |       regexes.cjs
+|       |   |       regexes.d.cts
+|       |   |       regexes.d.ts
+|       |   |       regexes.js
+|       |   |       registries.cjs
+|       |   |       registries.d.cts
+|       |   |       registries.d.ts
+|       |   |       registries.js
+|       |   |       schemas.cjs
+|       |   |       schemas.d.cts
+|       |   |       schemas.d.ts
+|       |   |       schemas.js
+|       |   |       standard-schema.cjs
+|       |   |       standard-schema.d.cts
+|       |   |       standard-schema.d.ts
+|       |   |       standard-schema.js
+|       |   |       to-json-schema.cjs
+|       |   |       to-json-schema.d.cts
+|       |   |       to-json-schema.d.ts
+|       |   |       to-json-schema.js
+|       |   |       util.cjs
+|       |   |       util.d.cts
+|       |   |       util.d.ts
+|       |   |       util.js
+|       |   |       versions.cjs
+|       |   |       versions.d.cts
+|       |   |       versions.d.ts
+|       |   |       versions.js
+|       |   |       
+|       |   +---locales
+|       |   |       ar.cjs
+|       |   |       ar.d.cts
+|       |   |       ar.d.ts
+|       |   |       ar.js
+|       |   |       az.cjs
+|       |   |       az.d.cts
+|       |   |       az.d.ts
+|       |   |       az.js
+|       |   |       be.cjs
+|       |   |       be.d.cts
+|       |   |       be.d.ts
+|       |   |       be.js
+|       |   |       ca.cjs
+|       |   |       ca.d.cts
+|       |   |       ca.d.ts
+|       |   |       ca.js
+|       |   |       cs.cjs
+|       |   |       cs.d.cts
+|       |   |       cs.d.ts
+|       |   |       cs.js
+|       |   |       de.cjs
+|       |   |       de.d.cts
+|       |   |       de.d.ts
+|       |   |       de.js
+|       |   |       en.cjs
+|       |   |       en.d.cts
+|       |   |       en.d.ts
+|       |   |       en.js
+|       |   |       eo.cjs
+|       |   |       eo.d.cts
+|       |   |       eo.d.ts
+|       |   |       eo.js
+|       |   |       es.cjs
+|       |   |       es.d.cts
+|       |   |       es.d.ts
+|       |   |       es.js
+|       |   |       fa.cjs
+|       |   |       fa.d.cts
+|       |   |       fa.d.ts
+|       |   |       fa.js
+|       |   |       fi.cjs
+|       |   |       fi.d.cts
+|       |   |       fi.d.ts
+|       |   |       fi.js
+|       |   |       fr-CA.cjs
+|       |   |       fr-CA.d.cts
+|       |   |       fr-CA.d.ts
+|       |   |       fr-CA.js
+|       |   |       fr.cjs
+|       |   |       fr.d.cts
+|       |   |       fr.d.ts
+|       |   |       fr.js
+|       |   |       he.cjs
+|       |   |       he.d.cts
+|       |   |       he.d.ts
+|       |   |       he.js
+|       |   |       hu.cjs
+|       |   |       hu.d.cts
+|       |   |       hu.d.ts
+|       |   |       hu.js
+|       |   |       id.cjs
+|       |   |       id.d.cts
+|       |   |       id.d.ts
+|       |   |       id.js
+|       |   |       index.cjs
+|       |   |       index.d.cts
+|       |   |       index.d.ts
+|       |   |       index.js
+|       |   |       it.cjs
+|       |   |       it.d.cts
+|       |   |       it.d.ts
+|       |   |       it.js
+|       |   |       ja.cjs
+|       |   |       ja.d.cts
+|       |   |       ja.d.ts
+|       |   |       ja.js
+|       |   |       kh.cjs
+|       |   |       kh.d.cts
+|       |   |       kh.d.ts
+|       |   |       kh.js
+|       |   |       ko.cjs
+|       |   |       ko.d.cts
+|       |   |       ko.d.ts
+|       |   |       ko.js
+|       |   |       mk.cjs
+|       |   |       mk.d.cts
+|       |   |       mk.d.ts
+|       |   |       mk.js
+|       |   |       ms.cjs
+|       |   |       ms.d.cts
+|       |   |       ms.d.ts
+|       |   |       ms.js
+|       |   |       nl.cjs
+|       |   |       nl.d.cts
+|       |   |       nl.d.ts
+|       |   |       nl.js
+|       |   |       no.cjs
+|       |   |       no.d.cts
+|       |   |       no.d.ts
+|       |   |       no.js
+|       |   |       ota.cjs
+|       |   |       ota.d.cts
+|       |   |       ota.d.ts
+|       |   |       ota.js
+|       |   |       pl.cjs
+|       |   |       pl.d.cts
+|       |   |       pl.d.ts
+|       |   |       pl.js
+|       |   |       ps.cjs
+|       |   |       ps.d.cts
+|       |   |       ps.d.ts
+|       |   |       ps.js
+|       |   |       pt.cjs
+|       |   |       pt.d.cts
+|       |   |       pt.d.ts
+|       |   |       pt.js
+|       |   |       ru.cjs
+|       |   |       ru.d.cts
+|       |   |       ru.d.ts
+|       |   |       ru.js
+|       |   |       sl.cjs
+|       |   |       sl.d.cts
+|       |   |       sl.d.ts
+|       |   |       sl.js
+|       |   |       sv.cjs
+|       |   |       sv.d.cts
+|       |   |       sv.d.ts
+|       |   |       sv.js
+|       |   |       ta.cjs
+|       |   |       ta.d.cts
+|       |   |       ta.d.ts
+|       |   |       ta.js
+|       |   |       th.cjs
+|       |   |       th.d.cts
+|       |   |       th.d.ts
+|       |   |       th.js
+|       |   |       tr.cjs
+|       |   |       tr.d.cts
+|       |   |       tr.d.ts
+|       |   |       tr.js
+|       |   |       ua.cjs
+|       |   |       ua.d.cts
+|       |   |       ua.d.ts
+|       |   |       ua.js
+|       |   |       ur.cjs
+|       |   |       ur.d.cts
+|       |   |       ur.d.ts
+|       |   |       ur.js
+|       |   |       vi.cjs
+|       |   |       vi.d.cts
+|       |   |       vi.d.ts
+|       |   |       vi.js
+|       |   |       zh-CN.cjs
+|       |   |       zh-CN.d.cts
+|       |   |       zh-CN.d.ts
+|       |   |       zh-CN.js
+|       |   |       zh-TW.cjs
+|       |   |       zh-TW.d.cts
+|       |   |       zh-TW.d.ts
+|       |   |       zh-TW.js
+|       |   |       
+|       |   \---mini
+|       |           checks.cjs
+|       |           checks.d.cts
+|       |           checks.d.ts
+|       |           checks.js
+|       |           coerce.cjs
+|       |           coerce.d.cts
+|       |           coerce.d.ts
+|       |           coerce.js
+|       |           external.cjs
+|       |           external.d.cts
+|       |           external.d.ts
+|       |           external.js
+|       |           index.cjs
+|       |           index.d.cts
+|       |           index.d.ts
+|       |           index.js
+|       |           iso.cjs
+|       |           iso.d.cts
+|       |           iso.d.ts
+|       |           iso.js
+|       |           parse.cjs
+|       |           parse.d.cts
+|       |           parse.d.ts
+|       |           parse.js
+|       |           schemas.cjs
+|       |           schemas.d.cts
+|       |           schemas.d.ts
+|       |           schemas.js
+|       |           
+|       \---v4-mini
+|               index.cjs
+|               index.d.cts
+|               index.d.ts
+|               index.js
+|               
++---outputs
+|   \---codon_usage
+|           ca_clustered.svg
+|           correlation_features_dimensions.csv
+|           enc_plot.svg
+|           gc_plot.svg
+|           gene_features_mean.csv
+|           neutrality_plot.svg
+|           oe_dinuc_freq_plot.svg
+|           optimization_changes.csv
+|           optimized_sequence.fasta
+|           rscu_with_ref.csv
+|           significant_features_correlations.csv
+|           top10_dim1.svg
+|           top10_dim2.svg
+|           total_matrix.csv
+|           variance_explained.svg
+|           
++---renv
+|       .gitignore
+|       activate.R
+|       settings.json
+|       
++---scratch
+|       test_responsive_highlights.R
+|       test_shiny_app.py
+|       test_shiny_server.R
+|       trigger_shiny_ws.py
+|       verify_tests.R
+|       
++---tools
+|   |   registry.R
+|   |   
+|   +---codon_usage
+|   |   |   helpers.R
+|   |   |   server.R
+|   |   |   ui.R
+|   |   |   
+|   |   +---adapters
+|   |   |       adapter_biostrings.R
+|   |   |       adapter_cubar.R
+|   |   |       adapter_seqinr.R
+|   |   |       codonlib_adapter.R
+|   |   |       cubar_adapter.R
+|   |   |       seqinr_adapter.R
+|   |   |       
+|   |   +---components
+|   |   |       comp_codon_frequency_plot.R
+|   |   |       comp_codon_table.R
+|   |   |       comp_enc_plot.R
+|   |   |       comp_export_panel.R
+|   |   |       comp_gc_plot.R
+|   |   |       comp_host_selector.R
+|   |   |       comp_metric_cards.R
+|   |   |       comp_neutrality_plot.R
+|   |   |       comp_radar_chart.R
+|   |   |       comp_rscu_heatmap.R
+|   |   |       comp_sequence_optimizer.R
+|   |   |       comp_sliding_window_plot.R
+|   |   |       
+|   |   +---data
+|   |   |   \---host_reference
+|   |   |           ecoli_reference.rds
+|   |   |           human_reference.rds
+|   |   |           yeast_reference.rds
+|   |   |           
+|   |   +---engines
+|   |   |       engine_cai.R
+|   |   |       engine_codon_metrics.R
+|   |   |       engine_codon_optimization.R
+|   |   |       engine_differential_usage.R
+|   |   |       engine_enc.R
+|   |   |       engine_gc_metrics.R
+|   |   |       engine_rscu.R
+|   |   |       engine_sliding_window.R
+|   |   |       engine_tai.R
+|   |   |       engine_visualization_data.R
+|   |   |       
+|   |   \---services
+|   |           codon_analysis_service.R
+|   |           codon_optimization_service.R
+|   |           service_codon_cache.R
+|   |           service_export.R
+|   |           service_host_reference.R
+|   |           service_quality_control.R
+|   |           
+|   +---find_mutations
+|   |       helpers.R
+|   |       server.R
+|   |       ui.R
+|   |       
+|   +---motif_search
+|   |   |   helpers.R
+|   |   |   server.R
+|   |   |   settings.R
+|   |   |   ui.R
+|   |   |   
+|   |   +---adaptive
+|   |   |       adaptive_motif_dashboard.R
+|   |   |       adaptive_pwm_profiles.R
+|   |   |       adaptive_search_modes.R
+|   |   |       
+|   |   +---charts
+|   |   |       conserved_region_plot.R
+|   |   |       enrichment_chart.R
+|   |   |       enrichment_volcano.R
+|   |   |       motif_density_plot.R
+|   |   |       motif_distribution_chart.R
+|   |   |       motif_visualizations.R
+|   |   |       positional_enrichment_heatmap.R
+|   |   |       top_motif_frequency.R
+|   |   |       
+|   |   +---components
+|   |   |       comp_motif_workspace.R
+|   |   |       dataset_summary_panel.R
+|   |   |       enrichment_plot.R
+|   |   |       motif_alignment_panel.R
+|   |   |       motif_heatmap.R
+|   |   |       motif_logo.R
+|   |   |       motif_logo_gallery.R
+|   |   |       motif_table.R
+|   |   |       pwm_visualizer.R
+|   |   |       structure_summary_panel.R
+|   |   |       
+|   |   +---engines
+|   |   |       conserved_region_engine.R
+|   |   |       enrichment_engine.R
+|   |   |       logo_engine.R
+|   |   |       motif_enrichment_engine.R
+|   |   |       motif_scan_engine.R
+|   |   |       motif_structure_analysis.R
+|   |   |       motif_variant_engine.R
+|   |   |       pwm_engine.R
+|   |   |       structure_prediction_engine.R
+|   |   |       
+|   |   \---services
+|   |           meme_suite_service.R
+|   |           motif_cache_service.R
+|   |           motif_enrichment_service.R
+|   |           motif_safety_service.R
+|   |           motif_search_service.R
+|   |           
+|   +---orf_finder
+|   |       helpers.R
+|   |       server.R
+|   |       ui.R
+|   |       
+|   +---reverse_complement
+|   |       helpers.R
+|   |       server.R
+|   |       ui.R
+|   |       
+|   +---rna_transcript
+|   |       helpers.R
+|   |       server.R
+|   |       ui.R
+|   |       
+|   +---sequence_viewer
+|   |       helpers.R
+|   |       server.R
+|   |       ui.R
+|   |       
+|   \---translate_protein
+|           helpers.R
+|           server.R
+|           ui.R
+|           
++---utils
+|       install_required_packages.R
+|       safe_runtime.R
+|       utils_sequence.R
+|       
+\---www
+    |   custom.css
+    |   custom.js
+    |   
+    +---css
+    |       codon-analytics.css
+    |       motif-search.css
+    |       
+    \---js
+            echarts-resize.js
+            

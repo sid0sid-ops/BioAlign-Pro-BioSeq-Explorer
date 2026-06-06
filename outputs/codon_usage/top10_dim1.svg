@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="860" height="420" viewBox="0 0 860 420">
+<rect width="100%" height="100%" fill="#ffffff"/>
+<text x="24" y="24" font-family="Arial" font-size="16" font-weight="700" fill="#111827">Top Dim1 codon correlations</text>
+<line x1="54" y1="36" x2="54" y2="366" stroke="#cbd5e1"/>
+<line x1="54" y1="366" x2="840" y2="366" stroke="#cbd5e1"/>
+<rect x="64.95" y="36.00" width="56.30" height="330.00" fill="#7f1d1d"><title>TTG: 0.1312</title></rect>
+<rect x="143.15" y="36.00" width="56.30" height="330.00" fill="#7f1d1d"><title>TCC: 0.1312</title></rect>
+<rect x="221.35" y="36.00" width="56.30" height="330.00" fill="#7f1d1d"><title>TCG: 0.1312</title></rect>
+<rect x="299.55" y="36.00" width="56.30" height="330.00" fill="#7f1d1d"><title>CGG: 0.1312</title></rect>
+<rect x="377.75" y="36.00" width="56.30" height="330.00" fill="#7f1d1d"><title>CTC: 0.1312</title></rect>
+<rect x="455.95" y="36.00" width="56.30" height="330.00" fill="#7f1d1d"><title>CGC: 0.1312</title></rect>
+<rect x="534.15" y="36.00" width="56.30" height="330.00" fill="#7f1d1d"><title>AGG: 0.1312</title></rect>
+<rect x="612.35" y="36.19" width="56.30" height="329.81" fill="#7f1d1d"><title>ACG: 0.1312</title></rect>
+<rect x="690.55" y="36.22" width="56.30" height="329.78" fill="#7f1d1d"><title>CCC: 0.1312</title></rect>
+<rect x="768.75" y="36.22" width="56.30" height="329.78" fill="#7f1d1d"><title>GCC: 0.1312</title></rect>
+<text x="93.10" y="382" transform="rotate(60 93.10 382)" font-size="10" fill="#475569">TTG</text>
+<text x="171.30" y="382" transform="rotate(60 171.30 382)" font-size="10" fill="#475569">TCC</text>
+<text x="249.50" y="382" transform="rotate(60 249.50 382)" font-size="10" fill="#475569">TCG</text>
+<text x="327.70" y="382" transform="rotate(60 327.70 382)" font-size="10" fill="#475569">CGG</text>
+<text x="405.90" y="382" transform="rotate(60 405.90 382)" font-size="10" fill="#475569">CTC</text>
+<text x="484.10" y="382" transform="rotate(60 484.10 382)" font-size="10" fill="#475569">CGC</text>
+<text x="562.30" y="382" transform="rotate(60 562.30 382)" font-size="10" fill="#475569">AGG</text>
+<text x="640.50" y="382" transform="rotate(60 640.50 382)" font-size="10" fill="#475569">ACG</text>
+<text x="718.70" y="382" transform="rotate(60 718.70 382)" font-size="10" fill="#475569">CCC</text>
+<text x="796.90" y="382" transform="rotate(60 796.90 382)" font-size="10" fill="#475569">GCC</text>
+</svg>
